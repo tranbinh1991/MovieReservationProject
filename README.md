@@ -1,0 +1,3 @@
+# NezunkMintAMoziban
+
+Mozis foglalórendszer, amelyben eltároljuk a felhasználókat (jelszóval), és megnézhetjük a vetített filmeket, foglalhatunk székeket a mozitermekben. Jegyfoglalásnál kiválaszthatjuk a jegyek számát, az időpontot, a székeket...
