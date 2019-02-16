@@ -28,13 +28,13 @@ public class Chair implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     
     
-    private char row;
+    private char rowOfChair;
     
-    private int column;
+    private int columnOfChair;
     
     //@Column(nullable = false)
     @JoinColumn(name = "room_id", referencedColumnName = "ID")

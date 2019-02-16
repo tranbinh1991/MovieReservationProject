@@ -30,7 +30,7 @@ public class Ticket implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     
     private BigDecimal price;
@@ -41,7 +41,7 @@ public class Ticket implements Serializable {
     
     @JoinColumn(name = "user_id", referencedColumnName = "ID")
     @ManyToOne (cascade = CascadeType.PERSIST)
-    private Userz user;
+    private Customer user;
     
     @OneToOne (cascade = {CascadeType.ALL})
     private Chair chair;

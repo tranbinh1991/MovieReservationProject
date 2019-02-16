@@ -9,7 +9,8 @@
     <class>com.bh08.movieproject.models.Room</class>
     <class>com.bh08.movieproject.models.Chair</class>
     <class>com.bh08.movieproject.models.Ticket</class>
-    <class>com.bh08.movieproject.models.Userz</class>
+    <class>com.bh08.movieproject.models.Customer</class>
+    <class>com.bh08.movieproject.models.MovieCategory</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@localhost:1521:XE"/>
       <property name="javax.persistence.jdbc.user" value="MOVIE"/>

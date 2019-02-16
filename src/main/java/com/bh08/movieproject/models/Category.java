@@ -10,5 +10,25 @@ package com.bh08.movieproject.models;
  * @author Zoli
  */
 enum Category {
-    
+    ACTION,
+    ADVENTURE,
+    ANIMATION,
+    BIOGRAPHY,
+    COMEDY,
+    CRIME,
+    DRAMA,
+    FAMILY,
+    FANTASY,
+    FILMNOIR,
+    HISTORY,
+    HORROR,
+    MUSIC,
+    MUSICAL,
+    MYSTERY,
+    ROMANCE,
+    SCIFI,
+    SPORT,
+    THRILLER,
+    WAR,
+    WESTERN
 }

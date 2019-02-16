@@ -11,6 +11,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -32,7 +34,7 @@ public class Screening implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     
     //@Column(nullable = false)
@@ -40,7 +42,8 @@ public class Screening implements Serializable {
     @ManyToOne (cascade = CascadeType.PERSIST)
     private Movie movie;
     
-    @Column(nullable = false)
+    @JoinColumn(name = "room_id", referencedColumnName = "ID")
+    @ManyToOne (cascade = CascadeType.PERSIST)
     private Room room;
     
     @Column(nullable = false)
@@ -49,10 +52,11 @@ public class Screening implements Serializable {
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "screening", fetch = FetchType.EAGER)
     private List<Ticket> ticketList;
     
-    private boolean occupied;    
+    private boolean occupied;
     
-    private int[][] chairs;
-
+    @Enumerated(EnumType.STRING)
+    private Language language;
+    
     public Long getId() {
         return id;
     }

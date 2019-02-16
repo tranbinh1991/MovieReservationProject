@@ -17,6 +17,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -34,14 +35,14 @@ public class Movie implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     
     @Column(nullable = false)
     private String title;
     
     @Column(nullable = false)
-    private int length;
+    private int movieLength;
     
     //@Column(nullable = false)
     @JoinColumn(name = "director_id", referencedColumnName = "ID")
@@ -51,8 +52,8 @@ public class Movie implements Serializable {
     @ManyToMany(mappedBy = "movieList")
     private List<Actor> actorList;
     
-    @Enumerated(EnumType.STRING)
-    private Category category;
+    @ManyToMany(mappedBy = "movieList")
+    private List<MovieCategory> movieCategoryList;
     
     @Column(unique = true, nullable = false)
     private String description;

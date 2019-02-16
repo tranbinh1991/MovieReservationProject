@@ -5,7 +5,7 @@
  */
 package com.bh08.movieproject;
 
-import com.bh08.movieproject.models.Userz;
+import com.bh08.movieproject.models.Customer;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -19,11 +19,11 @@ public class Main {
     public static void main(String[] args) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("MoviePU");
         EntityManager em = emf.createEntityManager();
-        Userz user = new Userz();
-        user.setEmail("a@gmail.com");
-        user.setPassword("password");
+        Customer customer = new Customer();
+        customer.setEmail("a@gmail.com");
+        customer.setPassword("password");
         em.getTransaction().begin();
-        em.persist(user);
+        em.persist(customer);
         em.getTransaction().commit();
         em.close();
         emf.close();
