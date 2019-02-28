@@ -10,6 +10,7 @@ import com.bh08.movieproject.models.User;
 import com.bh08.movieproject.services.RoomService;
 import com.bh08.movieproject.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,8 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
  *
  * @author Zoli
  */
-@RestController
-@RequestMapping(value = "movie")
+@Controller
 public class RoomController {
 
 //    @Autowired
@@ -33,13 +33,5 @@ public class RoomController {
 //        return roomService.saveRoom(room);
 //    }
 //
-    @Autowired
-    private UserService userService;
-
-    @RequestMapping(value = "createUser", method = RequestMethod.POST)
-    public @ResponseBody
-    User createUser(@RequestBody User user) {
-        return userService.saveUser(user);
-
-    }
+    
 }

@@ -12,7 +12,7 @@ public class MovieSpringProjectApplication {
 
     public static void main(String[] args) {
         ConfigurableApplicationContext context = SpringApplication.run(new Class<?>[]{MovieSpringProjectApplication.class, MovieSpringProjectConfiguration.class}, args);
-        //RoomService roomService = context.getBean(RoomService.class);
+        System.out.println("Kész");
     }
 
 }

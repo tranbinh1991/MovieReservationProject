@@ -7,6 +7,8 @@ package com.bh08.movieproject.services;
 
 import com.bh08.movieproject.daos.UserRepository;
 import com.bh08.movieproject.models.User;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,8 @@ import org.springframework.stereotype.Service;
  * @author Zoli
  */
 @Service
+@Getter
+@Setter
 public class UserService {
 
     @Autowired
@@ -23,4 +27,6 @@ public class UserService {
     public User saveUser(User user) {
         return repository.saveAndFlush(user);
     }
+    
+    
 }
