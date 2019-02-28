@@ -9,18 +9,44 @@ and open the template in the editor.
         <title>TODO supply a title</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script>
+            $(document).ready(function () { //akkor fut le a fv, amikor betöltődött az oldal
+                $('#register').click(function () {
+                    var email = $('#email').val();
+                    var password = $('#password').val();
+                    var passwordAgain = $('#passwordAgain').val();
+                    $.ajax({
+                        url: 'http://localhost:8099/registerUser',
+                        method: 'POST',
+                        data: JSON.stringify({
+                            email: email, //ha nem kérné be a nevet: firstName : 'Kandisz', lastName: 'Nóra';
+                            password: password,
+                            passwordAgain: passwordAgain
+                        }),
+                        headers: {
+                            'Content-Type': 'application/json', //ilyen típusú adatot küldünk
+                            'Accept': 'application/json' //ilyen formátumot várok
+                        },
+                        success: function (data) { //olyan fv, ami a szerverről visszajövő helyes válasz esetén fut le. Lehetne error is, ami hiba esetén futna le.
+                            console.log(data);
+                            alert('Sikeres regisztráció!');
+                        }
+                    });
+                });
+            });
+        </script>
     </head>
     <body>
-        <div>TODO write content</div>
-        
         <form action="#" th:action="@{/register}" th:object="${registrationFormData}" method="POST">
             <p th:errors="*{email}"></p>
-            Email: <input type="email" th:field="*{email}" /><br/>
+            Email: <input type="email" th:field="*{email}" id="email" /><br/>
             <p th:errors="*{password}"></p>
-            Jelszó: <input type="password" th:field="*{password}" /><br/>
+            Jelszó: <input type="password" th:field="*{password}" id="password" /><br/>
             <p th:errors="*{passwordAgain}"></p>
-            Jelszó újra: <input type="password" th:field="*{passwordAgain}" /><br/>
-            <input type="submit" value="Belépés" />
+            Jelszó újra: <input type="password" th:field="*{passwordAgain}" id="passwordAgain" /><br/>
+            <input type="submit" value="Regisztráció" id="register"/>
         </form>
     </body>
 </html>

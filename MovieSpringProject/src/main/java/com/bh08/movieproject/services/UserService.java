@@ -7,6 +7,7 @@ package com.bh08.movieproject.services;
 
 import com.bh08.movieproject.daos.UserRepository;
 import com.bh08.movieproject.models.User;
+import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,10 @@ public class UserService {
 
     public User saveUser(User user) {
         return repository.saveAndFlush(user);
+    }
+    
+    public List<User> findByEmail(String email) {
+        return repository.findByEmail(email);
     }
     
     

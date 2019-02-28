@@ -52,8 +52,7 @@ public class RegistrationController {
     public String submitRegistration(@ModelAttribute("registrationFormData") @Valid RegistrationFormData registrationFormData,
             BindingResult bindingResult, Model model) {
         if (!bindingResult.hasErrors()) {
-            UserRepository userRepository = userService.getRepository();
-            if (userRepository.findByEmail(registrationFormData.getEmail()).isEmpty()
+            if (userService.findByEmail(registrationFormData.getEmail()).isEmpty()
                     && registrationFormData.getPassword().equals(registrationFormData.getPasswordAgain())) {
                 return "main_page.html";
             }

@@ -20,7 +20,8 @@ import lombok.ToString;
 @ToString
 public class RegistrationFormData {
     
-    @NotEmpty    
+    @NotEmpty
+    @Email    
     private String email;
     
     @NotEmpty
