@@ -6,34 +6,41 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>TODO supply a title</title>
+        <title>Regisztráció - Nézünk, mint a moziban</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
         <script>
             $(document).ready(function () { //akkor fut le a fv, amikor betöltődött az oldal
-                $('#register').click(function () {
+                $('#register').click(function (event) {
+                    event.preventDefault();
                     var email = $('#email').val();
                     var password = $('#password').val();
                     var passwordAgain = $('#passwordAgain').val();
-                    $.ajax({
-                        url: 'http://localhost:8099/registerUser',
-                        method: 'POST',
-                        data: JSON.stringify({
-                            email: email, //ha nem kérné be a nevet: firstName : 'Kandisz', lastName: 'Nóra';
-                            password: password,
-                            passwordAgain: passwordAgain
-                        }),
-                        headers: {
-                            'Content-Type': 'application/json', //ilyen típusú adatot küldünk
-                            'Accept': 'application/json' //ilyen formátumot várok
-                        },
-                        success: function (data) { //olyan fv, ami a szerverről visszajövő helyes válasz esetén fut le. Lehetne error is, ami hiba esetén futna le.
-                            console.log(data);
-                            alert('Sikeres regisztráció!');
-                        }
-                    });
+                    if (password !== passwordAgain) {
+                        alert('Nem egyezik a két jelszó!');
+                    } else {
+                        $.ajax({
+                            url: 'http://localhost:8099/registerUser',
+                            method: 'POST',
+                            data: JSON.stringify({
+                                email: email,
+                                password: password,
+                                //passwordAgain: passwordAgain
+                            }),
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Accept': 'application/json'
+                            },
+                            success: function (data) { //olyan fv, ami a szerverről visszajövő helyes válasz esetén fut le. Lehetne error is, ami hiba esetén futna le.
+                                console.log(data);
+                                alert('Sikeres regisztráció!');
+                            }
+                        });
+                    }
+
                 });
             });
         </script>
@@ -41,11 +48,34 @@ and open the template in the editor.
     <body>
         <form action="#" th:action="@{/register}" th:object="${registrationFormData}" method="POST">
             <p th:errors="*{email}"></p>
-            Email: <input type="email" th:field="*{email}" id="email" /><br/>
-            <p th:errors="*{password}"></p>
-            Jelszó: <input type="password" th:field="*{password}" id="password" /><br/>
-            <p th:errors="*{passwordAgain}"></p>
-            Jelszó újra: <input type="password" th:field="*{passwordAgain}" id="passwordAgain" /><br/>
+            <table>
+                <tr>
+                    <td>
+                        Email: 
+                    </td>
+                    <td>
+                        <input type="email" th:field="*{email}" id="email" /><br/>
+                    </td>
+                </tr>
+                <p th:errors="*{password}"></p>
+                <tr>
+                    <td>
+                        Jelszó:  
+                    </td>
+                    <td>
+                        <input type="password" th:field="*{password}" id="password" /><br/>
+                    </td>
+                </tr>
+                <p th:errors="*{passwordAgain}"></p>
+                <tr>
+                    <td>
+                        Jelszó újra:   
+                    </td>
+                    <td>
+                        <input type="password" th:field="*{passwordAgain}" id="passwordAgain" /><br/>
+                    </td>
+                </tr>
+            </table>
             <input type="submit" value="Regisztráció" id="register"/>
         </form>
     </body>
