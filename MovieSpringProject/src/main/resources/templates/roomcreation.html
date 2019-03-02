@@ -6,53 +6,52 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>Regisztráció - Nézünk, mint a moziban</title>
+        <title>Új terem hozzáadása</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <script
-        src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
     </head>
     <body>
-        <form action="#" th:action="@{/register}" th:object="${registrationFormData}" method="POST">
+        <h1>Új terem hozzáadása</h1>
+        <form th:action="@{/createRoom}" th:object="${roomCreationFormData}" method="POST">
             <table>
                 <tr>
                     <td>
-                        Email: 
+                        A terem sorszáma:  
                     </td>
                     <td>
-                        <input type="email" th:field="*{email}" id="email" /><br/>
+                        <input type="number" th:field="*{roomNumber}" id="roomNumber" min="1" max="25" /><br/>
                     </td>
                     <td>
-                        <p th:errors="*{email}"></p>
+                        <p th:errors="*{roomNumber}"></p>
                     </td>
                 </tr>
 
                 <tr>
                     <td>                        
-                        Jelszó:  
+                        A sorok száma:   
                     </td>
                     <td>
-                        <input type="password" th:field="*{password}" id="password" /><br/>
+                        <input type="number" th:field="*{rowCount}" id="rowCount" min="6" max="20" /><br/>
                     </td>
                     <td>
-                        <p th:errors="*{password}"></p>
+                        <p th:errors="*{rowCount}"></p>
                     </td>
                 </tr>
 
                 <tr>
                     <td>
-                        Jelszó újra:   
+                        Az oszlopok száma:   
                     </td>
                     <td>
-                        <input type="password" th:field="*{passwordAgain}" id="passwordAgain" /><br/>
+                        <input type="number" th:field="*{columnCount}" id="columnCount" min="6" max="20" /><br/>
                     </td>
                     <td>
-                        <p th:errors="*{passwordAgain}"></p>
+                        <p th:errors="*{columnCount}"></p>
                     </td>
                 </tr>
             </table>
-            <input type="submit" value="Regisztráció" id="register"/>
+            <input type="submit" value="Elküld" id="sendRoomCreationForm"/>
         </form>
+        <a href="adminpage.html">Vissza</a> 
     </body>
 </html>

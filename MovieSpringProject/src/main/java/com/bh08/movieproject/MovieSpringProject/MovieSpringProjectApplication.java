@@ -13,7 +13,7 @@ public class MovieSpringProjectApplication {
         ConfigurableApplicationContext context = SpringApplication.run(new Class<?>[]{MovieSpringProjectApplication.class, MovieSpringProjectConfiguration.class}, args);
         System.out.println("Kész");
 //        char a = 'A';
-//        System.out.println(a-16);
+//        System.out.println(a-64);
     }
 
 }
