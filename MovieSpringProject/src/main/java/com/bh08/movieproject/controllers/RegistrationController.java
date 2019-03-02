@@ -5,7 +5,6 @@
  */
 package com.bh08.movieproject.controllers;
 
-import com.bh08.movieproject.daos.UserRepository;
 import com.bh08.movieproject.models.User;
 import com.bh08.movieproject.services.UserService;
 import com.bh08.movieproject.viewmodels.RegistrationFormData;
