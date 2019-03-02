@@ -29,12 +29,12 @@ public class RegistrationController {
     @Autowired
     private UserService userService;
 
-    /*@RequestMapping(value = "register", method = RequestMethod.POST)
-    public @ResponseBody
-    User createUser(@RequestBody User user) {
-        return userService.saveUser(user);
-
-    }*/
+//    @RequestMapping(value = "register", method = RequestMethod.POST)
+//    public @ResponseBody
+//    User createUser(@RequestBody User user) {
+//        return userService.saveUser(user);
+//
+//    }
     @RequestMapping(value = "registerUser", method = RequestMethod.POST)
     public @ResponseBody
     User createUser(@RequestBody User user) {
@@ -49,11 +49,12 @@ public class RegistrationController {
 
     @RequestMapping(value = "register", method = RequestMethod.POST)
     public String submitRegistration(@ModelAttribute("registrationFormData") @Valid RegistrationFormData registrationFormData,
-            BindingResult bindingResult, Model model) {
+            BindingResult bindingResult, Model model, @RequestBody User user) {
         if (!bindingResult.hasErrors()) {
             if (userService.findByEmail(registrationFormData.getEmail()).isEmpty()
                     && registrationFormData.getPassword().equals(registrationFormData.getPasswordAgain())) {
-                return "main_page.html";
+                userService.saveUser(user);
+                return "successful_registration.html";
             }
         }
         return "register.html";
