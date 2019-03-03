@@ -12,15 +12,12 @@ import com.bh08.movieproject.models.User;
 
 @Service
 public class MovieService {
-	
-	@Autowired
-	private MovieRepository repository;
-	
 
-	
-	public Movie saveMovie(Movie movie) {
-		return  repository.saveAndFlush(movie);
-		
-	}
+    @Autowired
+    private MovieRepository repository;
+
+    public Movie saveMovie(Movie movie) {
+        return repository.saveAndFlush(movie);
+    }
 
 }

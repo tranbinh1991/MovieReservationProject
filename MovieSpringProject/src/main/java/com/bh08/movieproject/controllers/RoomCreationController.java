@@ -7,6 +7,7 @@ package com.bh08.movieproject.controllers;
 
 import com.bh08.movieproject.models.Room;
 import com.bh08.movieproject.models.User;
+import com.bh08.movieproject.services.ChairService;
 import com.bh08.movieproject.services.RoomService;
 import com.bh08.movieproject.services.UserService;
 import com.bh08.movieproject.viewmodels.RoomCreationFormData;
@@ -32,6 +33,9 @@ public class RoomCreationController {
     @Autowired
     private RoomService roomService;
     
+    @Autowired
+    private ChairService chairService;
+    
     @RequestMapping(value = "roomcreation", method = RequestMethod.GET)
     public String createRoom(Model model) {
         model.addAttribute("roomCreationFormData", new RoomCreationFormData());
@@ -44,10 +48,12 @@ public class RoomCreationController {
         if (!bindingResult.hasErrors()) {
             if (roomService.findByRoomNumber(Integer.parseInt(roomCreationFormData.getRoomNumber())).isEmpty()) {
                 Room room = new Room();
+                //TODO: automatikus teremszámgeneráló
                 room.setRoomNumber(Integer.parseInt(roomCreationFormData.getRoomNumber()));
                 room.setColumnCount(Integer.parseInt(roomCreationFormData.getColumnCount()));
                 room.setRowCount(Integer.parseInt(roomCreationFormData.getRowCount()));
                 roomService.saveRoom(room);
+                chairService.saveChairsToRoom(room);
                 return "adminpage.html";
             } else {
                 bindingResult.rejectValue("roomNumber", "", "Már létezik terem ezzel a számmal!");

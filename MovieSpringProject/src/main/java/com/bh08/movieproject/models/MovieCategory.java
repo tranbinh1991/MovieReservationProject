@@ -39,17 +39,18 @@ import lombok.ToString;
 public class MovieCategory implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Id    
+    @Id
     @GeneratedValue(generator = "mySequenceGenerator")
     @SequenceGenerator(name = "mySequenceGenerator", sequenceName="seq01", initialValue = 1)
+//    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
-    
+
     @Enumerated(EnumType.STRING)
     private Category category;
-    
+
     @JoinTable(name = "movieCategory_movie",
-        joinColumns = @JoinColumn(name = "movieCategory_id"),
-        inverseJoinColumns = @JoinColumn(name = "movie_id")
+            joinColumns = @JoinColumn(name = "movieCategory_id"),
+            inverseJoinColumns = @JoinColumn(name = "movie_id")
     )
     @ManyToMany(cascade = {
         CascadeType.PERSIST,
@@ -57,5 +58,4 @@ public class MovieCategory implements Serializable {
     })
     private List<Movie> movieList;
 
-    
 }
