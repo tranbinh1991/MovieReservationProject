@@ -9,6 +9,12 @@
         },
         "th:field": {
             "context": "input"
+        },
+        "th:each": {
+            "context": "tr"
+        },
+        "th:href": {
+            "context": "a"
         }
     }
 }
