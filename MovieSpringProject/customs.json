@@ -15,6 +15,9 @@
         },
         "th:href": {
             "context": "a"
+        },
+        "th:value": {
+            "context": "option"
         }
     }
 }
