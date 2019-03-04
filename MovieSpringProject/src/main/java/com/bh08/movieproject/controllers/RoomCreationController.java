@@ -42,7 +42,7 @@ public class RoomCreationController {
         return "roomcreation.html";
     }
     
-    @RequestMapping(value = "createRoom", method = RequestMethod.POST)
+    @RequestMapping(value = "roomcreation", method = RequestMethod.POST)
     public String addNewRoom(@ModelAttribute("roomCreationFormData") @Valid RoomCreationFormData roomCreationFormData,
             BindingResult bindingResult, Model model) {
         if (!bindingResult.hasErrors()) {

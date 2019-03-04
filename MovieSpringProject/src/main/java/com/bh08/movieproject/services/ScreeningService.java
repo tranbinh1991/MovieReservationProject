@@ -20,7 +20,11 @@ public class ScreeningService {
     @Autowired
     private ScreeningRepository screeningRepository;
     
-    private Screening saveScreening(Screening screening) {
+    public Screening saveScreening(Screening screening) {
         return screeningRepository.saveAndFlush(screening);
+    }
+    
+    public boolean isScreeningOccupied(Screening screening) {
+        return (screening.getTicketList().size() == (screening.getRoom().getColumnCount()*screening.getRoom().getRowCount()));
     }
 }

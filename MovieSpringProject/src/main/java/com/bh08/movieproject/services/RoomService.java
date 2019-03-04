@@ -19,13 +19,17 @@ import org.springframework.stereotype.Service;
 public class RoomService {
     
     @Autowired
-    private RoomRepository repository;
+    private RoomRepository roomRepository;
 
     public Room saveRoom(Room room) {
-        return repository.saveAndFlush(room);
+        return roomRepository.saveAndFlush(room);
     }
     
     public List<Room> findByRoomNumber(int roomNumber) {
-        return repository.findByRoomNumber(roomNumber);
+        return roomRepository.findByRoomNumber(roomNumber);
+    }
+    
+    public List<Room> findAll() {
+        return roomRepository.findAll();
     }
 }

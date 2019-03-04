@@ -14,10 +14,14 @@ import com.bh08.movieproject.models.User;
 public class MovieService {
 
     @Autowired
-    private MovieRepository repository;
+    private MovieRepository movieRepository;
 
     public Movie saveMovie(Movie movie) {
-        return repository.saveAndFlush(movie);
+        return movieRepository.saveAndFlush(movie);
+    }
+    
+    public List<Movie> findAll() {
+        return movieRepository.findAll();
     }
 
 }
