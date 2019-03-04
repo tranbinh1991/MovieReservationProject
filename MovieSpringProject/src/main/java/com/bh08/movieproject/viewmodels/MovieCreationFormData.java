@@ -21,6 +21,7 @@ public class MovieCreationFormData {
     
     @NotEmpty
     private String title;
+    @NotEmpty
     private String movieLength;
     
     private String director;
@@ -34,7 +35,7 @@ public class MovieCreationFormData {
     private String movieCategory1;
     private String movieCategory2;
     private String movieCategory3;
-    
+    @NotEmpty
     private String description;
     private String rating;
     

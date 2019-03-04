@@ -12,7 +12,8 @@ and open the template in the editor.
     </head>
     <body>
         <h1>Új film felvétele</h1>
-        <form th:action="@{/createMovie}" th:object="${movieCreationFormData}" method="POST">
+        <div th:object="${successMessage}"></div>
+        <form th:action="@{/movieadder}" th:object="${movieCreationFormData}" method="POST">
             <table>
                 <tr>
                     <td>
@@ -183,5 +184,6 @@ and open the template in the editor.
             </table>
             <input type="submit" value="Elküld" id="sendMovieCreationForm"/>
         </form>
+        <a href="/adminpage">Vissza</a>
     </body>
 </html>
