@@ -6,23 +6,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bh08.movieproject.daos.ActorRepository;
-import com.bh08.movieproject.daos.ChairRepository;
-import com.bh08.movieproject.daos.UserRepository;
 import com.bh08.movieproject.models.Actor;
-import com.bh08.movieproject.models.Chair;
-import com.bh08.movieproject.models.User;
 
 @Service
 public class ActorService {
-	
-	@Autowired
-	private ActorRepository repository;
-	
 
-	
-	public Actor saveActor(Actor actor) {
-		return  repository.saveAndFlush(actor);
-		
-	}
+    @Autowired
+    private ActorRepository actorRepository;
+
+    public Actor saveActor(Actor actor) {
+        return actorRepository.saveAndFlush(actor);
+    }
+
+    public List<Actor> findByName(String name) {
+        return actorRepository.findByName(name);
+    }
+    
+    public boolean isActorPresentInDatabase(String name) {        
+        return !findByName(name).isEmpty();
+    }
 
 }

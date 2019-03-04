@@ -16,10 +16,14 @@ import com.bh08.movieproject.models.User;
 public class DirectorService {
 
     @Autowired
-    private DirectorRepository repository;
+    private DirectorRepository directorRepository;
 
     public Director saveDirector(Director director) {
-        return repository.saveAndFlush(director);
+        return directorRepository.saveAndFlush(director);
+    }
+    
+    public List<Director> findByName(String name) {
+        return directorRepository.findByName(name);
     }
 
 }

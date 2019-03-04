@@ -122,7 +122,7 @@ and open the template in the editor.
                     </td>
                     <td>
                         <select th:field="*{movieCategory1}" id="movieCategory1">
-                            <option th:each="movieCategory: ${movieCategories}" th:label="${movieCategory.category}" />
+                            <option th:each="movieCategory: ${movieCategories}" th:label="${movieCategory.category}" th:value="${movieCategory.category}" />
                         </select>
                     </td>
                     <td>
@@ -136,7 +136,7 @@ and open the template in the editor.
                     <td>
                         <select th:field="*{movieCategory2}" id="movieCategory2">
                             <option th:value="''" th:text="' '"></option>
-                            <option th:each="movieCategory: ${movieCategories}" th:label="${movieCategory.category}" />
+                            <option th:each="movieCategory: ${movieCategories}" th:label="${movieCategory.category}" th:value="${movieCategory.category}" />
                         </select>
                     </td>
                     <td>
@@ -150,7 +150,7 @@ and open the template in the editor.
                     <td>
                         <select th:field="*{movieCategory3}" id="movieCategory3">
                             <option th:value="''" th:text="' '"></option>
-                            <option th:each="movieCategory: ${movieCategories}" th:label="${movieCategory.category}" />
+                            <option th:each="movieCategory: ${movieCategories}" th:label="${movieCategory.category}" th:value="${movieCategory.category}" />
                         </select>
                     </td>
                     <td>
@@ -162,7 +162,8 @@ and open the template in the editor.
                         Leírás:      
                     </td>
                     <td>
-                        <input type="text" th:field="*{description}" id="description" maxlength="250"/><br/>
+                        <textarea rows="5" cols="50" th:field="*{description}" id="description" maxlength="250"/><br/>
+<!--                        <input type="text" rows="5" th:field="*{description}" id="description" maxlength="250"/><br/>-->
                     </td>
                     <td>
                         <p th:errors="*{description}"></p>

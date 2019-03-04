@@ -26,10 +26,14 @@ public class MovieCategoryService {
     public MovieCategory saveMovieCategory(MovieCategory movieCategory) {
         return movieCategoryRepository.saveAndFlush(movieCategory);
     }
+    
+    public List<MovieCategory> findAll() {
+        return movieCategoryRepository.findAll();
+    }
 
-//    public List<MovieCategory> findAllOrderByCategory() {        
-//        return movieCategoryRepository.findAllOrderByCategory();
-//    }
+    public List<MovieCategory> findByCategory(Category category) {        
+        return movieCategoryRepository.findByCategory(category);
+    }
 
     public void saveAllCategories() {
         for (int i = 0; i <= Category.WESTERN.ordinal(); i++) {
