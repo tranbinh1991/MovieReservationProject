@@ -19,7 +19,7 @@ import lombok.ToString;
 @ToString
 public class MovieCreationFormData {
     
-    @NotEmpty
+    @NotEmpty(message = "Ez egy kötelező mező!")
     private String title;
     @NotEmpty
     private String movieLength;

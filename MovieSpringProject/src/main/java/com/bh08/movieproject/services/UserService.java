@@ -36,4 +36,8 @@ public class UserService {
     public List<User> findByCinemaAdmin(boolean cinemaAdmin) {
         return repository.findByCinemaAdmin(cinemaAdmin);
     }
+    
+    public User findById(Long id) {
+        return repository.findById(id).get();
+    }
 }

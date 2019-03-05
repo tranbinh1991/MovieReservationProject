@@ -23,8 +23,8 @@ and open the template in the editor.
             <tbody>
                 <tr th:each="user: ${admins}">                        
                     <td th:text="${user.email}" />     
-                    <td><a th:href="@{/adminadder/user.email}">Adminjog megvonása</a></td>
-                </tr>                
+                    <td><a th:href="@{'/adminadder/' + ${user.id}}">Adminjog megvonása</a></td>
+                </tr>
             </tbody>
         </table>
         <h3>Felhasználók:</h3>
@@ -38,7 +38,7 @@ and open the template in the editor.
             <tbody>                
                 <tr th:each="user: ${customers}">                        
                     <td th:text="${user.email}" />     
-                    <td><a th:href="@{/adminadder/user.email}">Adminjog adása</a></td>
+                    <td><a th:href="@{'/adminadder/' + ${user.id}}">Adminjog adása</a></td>
                 </tr>
             </tbody>
         </table>

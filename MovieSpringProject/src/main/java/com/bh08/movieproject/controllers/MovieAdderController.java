@@ -53,46 +53,56 @@ public class MovieAdderController {
 
     @RequestMapping(value = "movieadder", method = RequestMethod.POST)
     public String createMovie(Model model,
-            @Valid @ModelAttribute("movieCreationFormData") MovieCreationFormData movieCreationFormData) {
-        //if (!bindingResult.hasErrors()) {
-        Movie movie = new Movie();
-        Director director;
-        if (directorService.findByName(movieCreationFormData.getDirector()).isEmpty()) {
-            director = new Director();
-            director.setName(movieCreationFormData.getDirector());
+            @Valid @ModelAttribute("movieCreationFormData") MovieCreationFormData movieCreationFormData, BindingResult bindingResult) {
+        if (!bindingResult.hasErrors()) {
+            Movie movie = new Movie();
+            Director director;
+            if (directorService.findByName(movieCreationFormData.getDirector()).isEmpty()) {
+                director = new Director();
+                director.setName(movieCreationFormData.getDirector());
+            } else {
+                director = directorService.findByName(movieCreationFormData.getDirector()).get(0);
+            }
+
+            String title = movieCreationFormData.getTitle();
+            movie.setTitle(title);
+
+            int movieLength = Integer.parseInt(movieCreationFormData.getMovieLength());
+            movie.setMovieLength(movieLength);
+
+            String description = movieCreationFormData.getDescription();
+            movie.setDescription(description);
+
+            double rating = Double.parseDouble(movieCreationFormData.getRating());
+            movie.setRating(rating);
+
+            List<MovieCategory> categories = processCategories(movieCreationFormData, movie);
+
+            List<Actor> actorList = processActors(movieCreationFormData, movie);
+            
+            movie.setActorList(actorList);
+            movie.setDirector(director);
+            movie.setMovieCategoryList(categories);
+            movieService.saveMovie(movie);
+            model.addAttribute("successMessage", "Sikeres mentés!");
         } else {
-            director = directorService.findByName(movieCreationFormData.getDirector()).get(0);
+//            if ("".equals(movieCreationFormData.getTitle())) {
+//                bindingResult.rejectValue("title", "", "Ez egy kötelező mező!");
+//            }} else {
+//            if ("".equals(movieCreationFormData.getTitle())) {
+//                
+//            if ("".equals(movieCreationFormData.getRating())) {
+//                bindingResult.rejectValue("rating", "", "Ez egy kötelező mező!");
+//            }
+//            if ("".equals(movieCreationFormData.getDescription())) {
+//                bindingResult.rejectValue("description", "", "Ez egy kötelező mező!");
+//            }
         }
-        String title = movieCreationFormData.getTitle();
-        movie.setTitle(title);
-        int movieLength = Integer.parseInt(movieCreationFormData.getMovieLength());
-        movie.setMovieLength(movieLength);
-        String description = movieCreationFormData.getDescription();
-        movie.setDescription(description);
-        double rating = Double.parseDouble(movieCreationFormData.getRating());
-        List<MovieCategory> categories = new ArrayList<>();
-        MovieCategory movieCategory1 = movieCategoryService.
-                findByCategory(Category.valueOf(movieCreationFormData.getMovieCategory1())).get(0);
-        List<Movie> movieListOfTheFirstCategory = movieCategory1.getMovieList();
-        categories.add(movieCategory1);
-        movieListOfTheFirstCategory.add(movie);
-        if (!("".equals(movieCreationFormData.getMovieCategory2()))) {
-            MovieCategory movieCategory2 = movieCategoryService.
-                findByCategory(Category.valueOf(movieCreationFormData.getMovieCategory2())).get(0);
-            List<Movie> movieList = movieCategory2.getMovieList();
-            movieList.add(movie);
-            movieCategory2.setMovieList(movieList);
-            categories.add(movieCategory2);
-        }
-        if (!("".equals(movieCreationFormData.getMovieCategory3()))) {
-            MovieCategory movieCategory3 = movieCategoryService.
-                findByCategory(Category.valueOf(movieCreationFormData.getMovieCategory2())).get(0);
-            List<Movie> movieList = movieCategory3.getMovieList();
-            movieList.add(movie);
-            movieCategory3.setMovieList(movieList);
-            categories.add(movieCategory3);
-        }
-        
+
+        return showMovieAdderPage(model); //milyen model kell ide?
+    }
+
+    private List<Actor> processActors(MovieCreationFormData movieCreationFormData, Movie movie) {
         List<Actor> actorList = new ArrayList<>();
         String[] actorData = {movieCreationFormData.getActor1(), movieCreationFormData.getActor2(),
             movieCreationFormData.getActor3(), movieCreationFormData.getActor4(),
@@ -116,14 +126,36 @@ public class MovieAdderController {
                 }
             }
         }
-        movie.setActorList(actorList);
-        movie.setDirector(director);
-        movie.setMovieCategoryList(categories);
-        movie.setRating(rating);
-        movieService.saveMovie(movie);
-        //}
-        model.addAttribute("successMessage", "Sikeres mentés!");
+        return actorList;
+    }
 
-        return showMovieAdderPage(model); //milyen model kell ide?
+    private List<MovieCategory> processCategories(MovieCreationFormData movieCreationFormData, Movie movie) {
+        
+        List<MovieCategory> categories = new ArrayList<>();
+        MovieCategory movieCategory1 = movieCategoryService.
+                findByCategory(Category.valueOf(movieCreationFormData.getMovieCategory1())).get(0);
+        List<Movie> movieListOfTheFirstCategory = movieCategory1.getMovieList();
+        categories.add(movieCategory1);
+        movieListOfTheFirstCategory.add(movie);
+        
+        if (!("".equals(movieCreationFormData.getMovieCategory2()))) {
+            MovieCategory movieCategory2 = movieCategoryService.
+                    findByCategory(Category.valueOf(movieCreationFormData.getMovieCategory2())).get(0);
+            List<Movie> movieList = movieCategory2.getMovieList();
+            movieList.add(movie);
+            movieCategory2.setMovieList(movieList);
+            categories.add(movieCategory2);
+        }
+        
+        if (!("".equals(movieCreationFormData.getMovieCategory3()))) {
+            MovieCategory movieCategory3 = movieCategoryService.
+                    findByCategory(Category.valueOf(movieCreationFormData.getMovieCategory2())).get(0);
+            List<Movie> movieList = movieCategory3.getMovieList();
+            movieList.add(movie);
+            movieCategory3.setMovieList(movieList);
+            categories.add(movieCategory3);
+        }
+        
+        return categories;
     }
 }

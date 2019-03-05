@@ -6,10 +6,8 @@
 package com.bh08.movieproject.controllers;
 
 import com.bh08.movieproject.models.Room;
-import com.bh08.movieproject.models.User;
 import com.bh08.movieproject.services.ChairService;
 import com.bh08.movieproject.services.RoomService;
-import com.bh08.movieproject.services.UserService;
 import com.bh08.movieproject.viewmodels.RoomCreationFormData;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

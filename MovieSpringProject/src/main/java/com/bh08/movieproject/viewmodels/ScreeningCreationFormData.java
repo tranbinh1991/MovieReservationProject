@@ -18,6 +18,8 @@ public class ScreeningCreationFormData {
     
     private String movie;
     private String room;
+    private String year;
+    //private String 
     private String startHour;
     private String startMinute;
     private String language;

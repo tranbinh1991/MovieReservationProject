@@ -34,10 +34,11 @@ public class AdminAdderController {
         return "adminadder.html";
     }
     
-    @RequestMapping(value = "adminadder/{user.email}")
-    public String changeStatus(Model model, @PathVariable("user.email") String email) {
-        User user = userService.findByEmail(email).get(0);
+    @RequestMapping(value = "adminadder/{user.id}")
+    public String changeStatus(Model model, @PathVariable("user.id") Long id) {
+        User user = userService.findById(id);
         user.setCinemaAdmin(!user.isCinemaAdmin());
+        userService.saveUser(user);
         return showAdminAdderPage(model);
     }
 }

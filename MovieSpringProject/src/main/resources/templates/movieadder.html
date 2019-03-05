@@ -12,7 +12,7 @@ and open the template in the editor.
     </head>
     <body>
         <h1>Új film felvétele</h1>
-        <div th:object="${successMessage}"></div>
+        <div th:text="${successMessage}"></div>
         <form th:action="@{/movieadder}" th:object="${movieCreationFormData}" method="POST">
             <table>
                 <tr>
@@ -123,7 +123,7 @@ and open the template in the editor.
                     </td>
                     <td>
                         <select th:field="*{movieCategory1}" id="movieCategory1">
-                            <option th:each="movieCategory: ${movieCategories}" th:label="${movieCategory.category}" th:value="${movieCategory.category}" />
+                            <option th:each="movieCategory: ${movieCategories}" th:label="${movieCategory.category.hungarianName}" th:value="${movieCategory.category}" />
                         </select>
                     </td>
                     <td>
@@ -175,7 +175,7 @@ and open the template in the editor.
                         Értékelés:       
                     </td>
                     <td>
-                        <input type="text" th:field="*{rating}" id="rating" maxlength="3"/><br/>
+                        <input type="number" th:field="*{rating}" id="rating" min="0" max="10" step="0.1"/><br/>
                     </td>
                     <td>
                         <p th:errors="*{rating}"></p>
