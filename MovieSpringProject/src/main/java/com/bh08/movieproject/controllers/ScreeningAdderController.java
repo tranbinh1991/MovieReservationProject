@@ -13,6 +13,7 @@ import com.bh08.movieproject.services.MovieService;
 import com.bh08.movieproject.services.RoomService;
 import com.bh08.movieproject.services.ScreeningService;
 import com.bh08.movieproject.viewmodels.ScreeningCreationFormData;
+import java.time.LocalDateTime;
 import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,13 +52,30 @@ public class ScreeningAdderController {
         return "screeningadder.html";
     }
 
+    @RequestMapping(value = "screeningadder", method = RequestMethod.POST)
     public String createScreening(@ModelAttribute("screeningCreationFormData") @Valid ScreeningCreationFormData screeningCreationFormData,
             BindingResult bindingResult, Model model) {
         if (!bindingResult.hasErrors()) {
             Screening screening = new Screening();
-
+            Movie movie = movieService.findByTitle(screeningCreationFormData.getMovie()).get(0);
+            screening.setMovie(movie);
+            
+            Room room = roomService.findByRoomNumber(Integer.parseInt(screeningCreationFormData.getRoom())).get(0);
+            screening.setRoom(room);
+            
+            Language language = Language.valueOf(screeningCreationFormData.getLanguage());
+            screening.setLanguage(language);
+            
+            LocalDateTime time = LocalDateTime.of(Integer.parseInt(screeningCreationFormData.getYear()), 
+                    Integer.parseInt(screeningCreationFormData.getMonth()), 
+                    Integer.parseInt(screeningCreationFormData.getDay()),
+                    Integer.parseInt(screeningCreationFormData.getHour()), 
+                    Integer.parseInt(screeningCreationFormData.getMinute()));
+            screening.setTime(time);
+            model.addAttribute("successMessage", "Sikeres mentés!");
+            screeningService.saveScreening(screening);
         }
         //TODO: remove this:
-        return null;
+        return showScreeningAdder(model);
     }
 }

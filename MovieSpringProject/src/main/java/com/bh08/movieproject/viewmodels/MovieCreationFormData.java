@@ -21,7 +21,7 @@ public class MovieCreationFormData {
     
     @NotEmpty(message = "Ez egy kötelező mező!")
     private String title;
-    @NotEmpty
+    @NotEmpty(message = "Ez egy kötelező mező!")
     private String movieLength;
     
     private String director;
@@ -35,7 +35,7 @@ public class MovieCreationFormData {
     private String movieCategory1;
     private String movieCategory2;
     private String movieCategory3;
-    @NotEmpty
+    @NotEmpty(message = "Ez egy kötelező mező!")
     private String description;
     private String rating;
     

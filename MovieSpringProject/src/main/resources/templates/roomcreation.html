@@ -12,6 +12,7 @@ and open the template in the editor.
     </head>
     <body>
         <h1>Új terem hozzáadása</h1>
+        <div th:text="${successMessage}"></div>
         <form th:action="@{/roomcreation}" th:object="${roomCreationFormData}" method="POST">
             <table>
                 <tr>

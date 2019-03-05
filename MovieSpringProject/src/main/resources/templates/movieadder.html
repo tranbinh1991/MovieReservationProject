@@ -137,7 +137,7 @@ and open the template in the editor.
                     <td>
                         <select th:field="*{movieCategory2}" id="movieCategory2">
                             <option th:value="''" th:text="' '"></option>
-                            <option th:each="movieCategory: ${movieCategories}" th:label="${movieCategory.category}" th:value="${movieCategory.category}" />
+                            <option th:each="movieCategory: ${movieCategories}" th:label="${movieCategory.category.hungarianName}" th:value="${movieCategory.category}" />
                         </select>
                     </td>
                     <td>
@@ -151,7 +151,7 @@ and open the template in the editor.
                     <td>
                         <select th:field="*{movieCategory3}" id="movieCategory3">
                             <option th:value="''" th:text="' '"></option>
-                            <option th:each="movieCategory: ${movieCategories}" th:label="${movieCategory.category}" th:value="${movieCategory.category}" />
+                            <option th:each="movieCategory: ${movieCategories}" th:label="${movieCategory.category.hungarianName}" th:value="${movieCategory.category}" />
                         </select>
                     </td>
                     <td>

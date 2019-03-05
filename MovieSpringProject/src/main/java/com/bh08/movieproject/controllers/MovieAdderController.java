@@ -85,21 +85,8 @@ public class MovieAdderController {
             movie.setMovieCategoryList(categories);
             movieService.saveMovie(movie);
             model.addAttribute("successMessage", "Sikeres mentés!");
-        } else {
-//            if ("".equals(movieCreationFormData.getTitle())) {
-//                bindingResult.rejectValue("title", "", "Ez egy kötelező mező!");
-//            }} else {
-//            if ("".equals(movieCreationFormData.getTitle())) {
-//                
-//            if ("".equals(movieCreationFormData.getRating())) {
-//                bindingResult.rejectValue("rating", "", "Ez egy kötelező mező!");
-//            }
-//            if ("".equals(movieCreationFormData.getDescription())) {
-//                bindingResult.rejectValue("description", "", "Ez egy kötelező mező!");
-//            }
         }
-
-        return showMovieAdderPage(model); //milyen model kell ide?
+        return showMovieAdderPage(model);
     }
 
     private List<Actor> processActors(MovieCreationFormData movieCreationFormData, Movie movie) {

@@ -1,6 +1,9 @@
 {
     "elements": {},
     "attributes": {
+        "th:text": {
+            "context": "div"
+        },
         "th:action": {
             "context": "form"
         },

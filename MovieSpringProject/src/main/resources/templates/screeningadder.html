@@ -12,6 +12,7 @@ and open the template in the editor.
     </head>
     <body>
         <h1>Új vetítés felvétele</h1>
+        <div th:text="${successMessage}"></div>
         <form th:action="@{/screeningadder}" th:object="${screeningCreationFormData}" method="POST">
             <table>
 
@@ -43,15 +44,30 @@ and open the template in the editor.
                 </tr>
                 <tr>
                     <td>                        
+                        A vetítés dátuma (éééé-hh-nn): 
+                    </td>
+                    <td>
+                        <input type="number" th:field="*{year}" id="year" min="2019" max="2023" />-
+                        <input type="number" th:field="*{month}" id="month" min="1" max="12" />-
+                        <input type="number" th:field="*{day}" id="day" min="1" max="31" />
+                    </td>
+                    <td>
+                        <p th:errors="*{year}"></p>
+                        <p th:errors="*{month}"></p>
+                        <p th:errors="*{day}"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>                        
                         A film kezdési időpontja: 
                     </td>
                     <td>
-                        <input type="number" th:field="*{startHour}" id="startHour" min="10" max="23" />:
-                        <input type="number" th:field="*{startMinute}" id="startMinute" min="0" max="45" step="15" />
+                        <input type="number" th:field="*{hour}" id="hour" min="10" max="23" />:
+                        <input type="number" th:field="*{minute}" id="minute" min="0" max="45" step="15" />
                     </td>
                     <td>
-                        <p th:errors="*{startHour}"></p>
-                        <p th:errors="*{startMinute}"></p>
+                        <p th:errors="*{hour}"></p>
+                        <p th:errors="*{minute}"></p>
                     </td>
                 </tr>
                 <tr>
@@ -60,7 +76,7 @@ and open the template in the editor.
                     </td>
                     <td>
                         <select th:field="*{language}" id="language">
-                            <option th:each="language: ${languages}" th:label="${language}" th:value="${language}" />
+                            <option th:each="language: ${languages}" th:label="${language.hungarianName}" th:value="${language}" />
                         </select>
                     </td>
                     <td>

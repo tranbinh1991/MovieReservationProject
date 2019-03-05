@@ -52,7 +52,8 @@ public class RoomCreationController {
                 room.setRowCount(Integer.parseInt(roomCreationFormData.getRowCount()));
                 roomService.saveRoom(room);
                 chairService.saveChairsToRoom(room);
-                return "adminpage.html";
+                model.addAttribute("successMessage", "Sikeres mentés!");
+                return createRoom(model);
             } else {
                 bindingResult.rejectValue("roomNumber", "", "Már létezik terem ezzel a számmal!");
             }
