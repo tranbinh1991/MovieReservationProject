@@ -5,6 +5,7 @@
  */
 package com.bh08.movieproject.controllers;
 
+import com.bh08.movieproject.models.Movie;
 import com.bh08.movieproject.services.UserService;
 import com.bh08.movieproject.viewmodels.RegistrationFormData;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +29,21 @@ public class MoviePageController {
     
     @RequestMapping(value = "moviepage", method = RequestMethod.GET)
 	public String moviepage(Model model) {
+               
 		model.addAttribute("moviePageFormData", new MoviePageFormData());
-		return "moviepage.html";
+                
+               Movie movie = movieService.findByTitle("Marvel");
+               Movie movie2 = movieService.findById(2);
+                
+                model.addAttribute("movie", movie);
+                model.addAttribute("movie2", movie2);
+		return "moviepage.html";         
 	}
     
+       /* @RequestMapping(value = "moviepage", method = RequestMethod.POST)
+	public String addTitle(Model model) {
+              
+                model.addAttribute(movieService.findByTitle("Marvel"));
+		return "moviepage.html";
+}*/
 }

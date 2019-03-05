@@ -6,9 +6,7 @@ and open the template in the editor.
 -->
 <html>
     <head>
-
-        <link rel="stylesheet" type="text/css" href="../asset/css/base.css">   
-        <link rel="stylesheet" type="text/css" href="../asset/css/index.css">     
+    
         <title>Movie page</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -26,8 +24,9 @@ and open the template in the editor.
         </style>
 
     </head>
-    <body>
-        <h1 align = "center">Marvel Kapitány</h1>
+    <body th:object="${movie2}">
+        <h1 align = "center">Mozi cime</h1>
+        <h1 th:text="*{title}"></h1>
         <table width = "60%" align = "center">
 
             
