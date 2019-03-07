@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Új film felvétele - Nézünk, mint a moziban</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <h1>Új film felvétele</h1>
+        <div th:text="${successMessage}"></div>
+        <form th:action="@{/movieadder}" th:object="${movieCreationFormData}" method="POST">
+            <table>
+                <tr>
+                    <td>
+                        A film címe:   
+                    </td>
+                    <td>
+                        <input type="text" th:field="*{title}" id="title" /><br/>
+                    </td>
+                    <td>
+                        <p th:errors="*{title}"></p>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>                        
+                        A film hossza (perc): 
+                    </td>
+                    <td>
+                        <input type="number" th:field="*{movieLength}" id="movieLength" min="0" max="300" /><br/>
+                    </td>
+                    <td>
+                        <p th:errors="*{movieLength}"></p>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        Rendező:    
+                    </td>
+                    <td>
+                        <input type="text" th:field="*{director}" id="director"/><br/>
+                    </td>
+                    <td>
+                        <p th:errors="*{director}"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Szereplő:     
+                    </td>
+                    <td>
+                        <input type="text" th:field="*{actor1}" id="actor1"/><br/>
+                    </td>
+                    <td>
+                        <p th:errors="*{actor1}"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Szereplő:     
+                    </td>
+                    <td>
+                        <input type="text" th:field="*{actor2}" id="actor2"/><br/>
+                    </td>
+                    <td>
+                        <p th:errors="*{actor2}"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Szereplő:     
+                    </td>
+                    <td>
+                        <input type="text" th:field="*{actor3}" id="actor3"/><br/>
+                    </td>
+                    <td>
+                        <p th:errors="*{actor3}"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Szereplő:     
+                    </td>
+                    <td>
+                        <input type="text" th:field="*{actor4}" id="actor4"/><br/>
+                    </td>
+                    <td>
+                        <p th:errors="*{actor4}"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Szereplő:     
+                    </td>
+                    <td>
+                        <input type="text" th:field="*{actor5}" id="actor5"/><br/>
+                    </td>
+                    <td>
+                        <p th:errors="*{actor5}"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Szereplő:     
+                    </td>
+                    <td>
+                        <input type="text" th:field="*{actor6}" id="actor6"/><br/>
+                    </td>
+                    <td>
+                        <p th:errors="*{actor6}"></p>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td>
+                        Kategória:      
+                    </td>
+                    <td>
+                        <select th:field="*{movieCategory1}" id="movieCategory1">
+                            <option th:each="movieCategory: ${movieCategories}" th:label="${movieCategory.category.hungarianName}" th:value="${movieCategory.category}" />
+                        </select>
+                    </td>
+                    <td>
+                        <p th:errors="*{movieCategory1}"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Kategória:      
+                    </td>
+                    <td>
+                        <select th:field="*{movieCategory2}" id="movieCategory2">
+                            <option th:value="''" th:text="' '"></option>
+                            <option th:each="movieCategory: ${movieCategories}" th:label="${movieCategory.category.hungarianName}" th:value="${movieCategory.category}" />
+                        </select>
+                    </td>
+                    <td>
+                        <p th:errors="*{movieCategory2}"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Kategória:      
+                    </td>
+                    <td>
+                        <select th:field="*{movieCategory3}" id="movieCategory3">
+                            <option th:value="''" th:text="' '"></option>
+                            <option th:each="movieCategory: ${movieCategories}" th:label="${movieCategory.category.hungarianName}" th:value="${movieCategory.category}" />
+                        </select>
+                    </td>
+                    <td>
+                        <p th:errors="*{movieCategory3}"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Leírás:      
+                    </td>
+                    <td>
+                        <textarea rows="5" cols="50" th:field="*{description}" id="description" maxlength="250"/><br/>
+<!--                        <input type="text" rows="5" th:field="*{description}" id="description" maxlength="250"/><br/>-->
+                    </td>
+                    <td>
+                        <p th:errors="*{description}"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Értékelés:       
+                    </td>
+                    <td>
+                        <input type="number" th:field="*{rating}" id="rating" min="0" max="10" step="0.1"/><br/>
+                    </td>
+                    <td>
+                        <p th:errors="*{rating}"></p>
+                    </td>
+                </tr>
+            </table>
+            <input type="submit" value="Elküld" id="sendMovieCreationForm"/>
+        </form>
+        <a href="/adminpage">Vissza</a>
+    </body>
+</html>

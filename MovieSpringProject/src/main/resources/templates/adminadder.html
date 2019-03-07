@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Admin jog hozzáadása/megvonása - Nézünk, mint a moziban</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <h1>Admin jog hozzáadása/megvonása</h1>
+        <h3>Adminok:</h3>        
+        <table>
+            <thead>
+                <tr>
+                    <th>Email-cím</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="user: ${admins}">                        
+                    <td th:text="${user.email}" />     
+                    <td><a th:href="@{'/adminadder/' + ${user.id}}">Adminjog megvonása</a></td>
+                </tr>
+            </tbody>
+        </table>
+        <h3>Felhasználók:</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Email-cím</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>                
+                <tr th:each="user: ${customers}">                        
+                    <td th:text="${user.email}" />     
+                    <td><a th:href="@{'/adminadder/' + ${user.id}}">Adminjog adása</a></td>
+                </tr>
+            </tbody>
+        </table>
+        <a href="/adminpage">Vissza</a>
+    </body>
+</html>

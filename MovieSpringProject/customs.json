@@ -1,6 +1,9 @@
 {
     "elements": {},
     "attributes": {
+        "th:text": {
+            "context": "div"
+        },
         "th:action": {
             "context": "form"
         },
@@ -9,6 +12,15 @@
         },
         "th:field": {
             "context": "input"
+        },
+        "th:each": {
+            "context": "tr"
+        },
+        "th:href": {
+            "context": "a"
+        },
+        "th:value": {
+            "context": "option"
         }
     }
 }

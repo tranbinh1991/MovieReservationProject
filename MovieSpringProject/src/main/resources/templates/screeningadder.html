@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Új vetítés felvétele - Nézünk, mint a moziban</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <h1>Új vetítés felvétele</h1>
+        <div th:text="${successMessage}"></div>
+        <form th:action="@{/screeningadder}" th:object="${screeningCreationFormData}" method="POST">
+            <table>
+
+                <tr>
+                    <td>
+                        Film:       
+                    </td>
+                    <td>
+                        <select th:field="*{movie}" id="movie">
+                            <option th:each="movie: ${movies}" th:label="${movie.title}" th:value="${movie.title}" />
+                        </select>
+                    </td>
+                    <td>
+                        <p th:errors="*{movie}"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Terem:       
+                    </td>
+                    <td>
+                        <select th:field="*{room}" id="room">
+                            <option th:each="room: ${rooms}" th:label="${room.roomNumber}" th:value="${room.roomNumber}" />
+                        </select>
+                    </td>
+                    <td>
+                        <p th:errors="*{room}"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>                        
+                        A vetítés dátuma (éééé-hh-nn): 
+                    </td>
+                    <td>
+                        <input type="number" th:field="*{year}" id="year" min="2019" max="2023" />-
+                        <input type="number" th:field="*{month}" id="month" min="1" max="12" />-
+                        <input type="number" th:field="*{day}" id="day" min="1" max="31" />
+                    </td>
+                    <td>
+                        <p th:errors="*{year}"></p>
+                        <p th:errors="*{month}"></p>
+                        <p th:errors="*{day}"></p>
+                        <div th:text="${wrongDateMessage}"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>                        
+                        A film kezdési időpontja: 
+                    </td>
+                    <td>
+                        <input type="number" th:field="*{hour}" id="hour" min="10" max="23" />:
+                        <input type="number" th:field="*{minute}" id="minute" min="0" max="45" step="15" />
+                    </td>
+                    <td>
+                        <p th:errors="*{hour}"></p>
+                        <p th:errors="*{minute}"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Nyelv:       
+                    </td>
+                    <td>
+                        <select th:field="*{language}" id="language">
+                            <option th:each="language: ${languages}" th:label="${language.hungarianName}" th:value="${language}" />
+                        </select>
+                    </td>
+                    <td>
+                        <p th:errors="*{language}"></p>
+                    </td>
+                </tr>
+            </table>
+            <input type="submit" value="Elküld" id="sendScreeningCreationForm"/>
+        </form>
+        <a href="/adminpage">Vissza</a>
+    </body>
+</html>

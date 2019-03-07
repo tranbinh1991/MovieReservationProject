@@ -33,5 +33,11 @@ public class UserService {
         return repository.findByEmail(email);
     }
     
+    public List<User> findByCinemaAdmin(boolean cinemaAdmin) {
+        return repository.findByCinemaAdmin(cinemaAdmin);
+    }
     
+    public User findById(Long id) {
+        return repository.findById(id).get();
+    }
 }

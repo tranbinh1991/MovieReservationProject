@@ -8,6 +8,7 @@ package com.bh08.movieproject.controllers;
 import com.bh08.movieproject.models.User;
 import com.bh08.movieproject.services.UserService;
 import com.bh08.movieproject.viewmodels.RegistrationFormData;
+import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,26 +36,35 @@ public class RegistrationController {
 //        return userService.saveUser(user);
 //
 //    }
-    @RequestMapping(value = "registerUser", method = RequestMethod.POST)
-    public @ResponseBody
-    User createUser(@RequestBody User user) {
-        return userService.saveUser(user);
-    }
-    
+//    @RequestMapping(value = "registerUser", method = RequestMethod.POST)
+//    public @ResponseBody
+//    User createUser(@RequestBody User user) {
+//        return userService.saveUser(user);
+//    }
     @RequestMapping(value = "register", method = RequestMethod.GET)
-	public String register(Model model) {
-		model.addAttribute("registrationFormData", new RegistrationFormData());
-		return "register.html";
-	}
+    public String register(Model model) {
+        model.addAttribute("registrationFormData", new RegistrationFormData());
+        return "register.html";
+    }
 
     @RequestMapping(value = "register", method = RequestMethod.POST)
     public String submitRegistration(@ModelAttribute("registrationFormData") @Valid RegistrationFormData registrationFormData,
-            BindingResult bindingResult, Model model, @RequestBody User user) {
+            BindingResult bindingResult, Model model) {
         if (!bindingResult.hasErrors()) {
-            if (userService.findByEmail(registrationFormData.getEmail()).isEmpty()
-                    && registrationFormData.getPassword().equals(registrationFormData.getPasswordAgain())) {
-                userService.saveUser(user);
-                return "successful_registration.html";
+            List<User> usersWithThisEmail = userService.findByEmail(registrationFormData.getEmail());
+
+            if (usersWithThisEmail.isEmpty()) {
+                if (registrationFormData.getPassword().equals(registrationFormData.getPasswordAgain())) {
+                    User user = new User();
+                    user.setEmail(registrationFormData.getEmail());
+                    user.setPassword(registrationFormData.getPassword());
+                    userService.saveUser(user);
+                    return "successful_registration.html";
+                } else {
+                    bindingResult.rejectValue("passwordAgain", "", "A két jelszónak meg kell egyeznie!");
+                }                
+            } else {
+                bindingResult.rejectValue("email", "", "Ezzel az email-címmel már regisztráltak!");
             }
         }
         return "register.html";

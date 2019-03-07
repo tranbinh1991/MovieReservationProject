@@ -10,7 +10,17 @@ package com.bh08.movieproject.models;
  * @author Zoli
  */
 public enum Language {
-    HUNGARIAN,
-    ENGLISH,
-    FRENCH
+    HUNGARIAN("magyar"),
+    ENGLISH("angol"),
+    FRENCH("francia");
+    
+    private String hungarianName;
+    
+    Language (String hungarianName) {
+        this.hungarianName = hungarianName;
+    }
+
+    public String getHungarianName() {
+        return hungarianName;
+    }
 }

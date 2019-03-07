@@ -7,6 +7,7 @@ package com.bh08.movieproject.services;
 
 import com.bh08.movieproject.daos.RoomRepository;
 import com.bh08.movieproject.models.Room;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,9 +19,17 @@ import org.springframework.stereotype.Service;
 public class RoomService {
     
     @Autowired
-    private RoomRepository repository;
+    private RoomRepository roomRepository;
 
     public Room saveRoom(Room room) {
-        return repository.saveAndFlush(room);
+        return roomRepository.saveAndFlush(room);
+    }
+    
+    public List<Room> findByRoomNumber(int roomNumber) {
+        return roomRepository.findByRoomNumber(roomNumber);
+    }
+    
+    public List<Room> findAll() {
+        return roomRepository.findAll();
     }
 }

@@ -12,15 +12,20 @@ import com.bh08.movieproject.models.User;
 
 @Service
 public class MovieService {
-	
-	@Autowired
-	private MovieRepository repository;
-	
 
-	
-	public Movie saveMovie(Movie movie) {
-		return  repository.saveAndFlush(movie);
-		
-	}
+    @Autowired
+    private MovieRepository movieRepository;
+
+    public Movie saveMovie(Movie movie) {
+        return movieRepository.saveAndFlush(movie);
+    }
+    
+    public List<Movie> findAll() {
+        return movieRepository.findAll();
+    }
+    
+    public List<Movie> findByTitle(String title) {
+        return movieRepository.findByTitle(title);
+    }
 
 }

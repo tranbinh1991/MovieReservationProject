@@ -6,6 +6,7 @@
 package com.bh08.movieproject.daos;
 
 import com.bh08.movieproject.models.Room;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -16,4 +17,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface RoomRepository extends JpaRepository<Room, Long>  {
     
+    List<Room> findByRoomNumber(int roomNumber);
 }
