@@ -17,6 +17,7 @@ import com.bh08.movieproject.models.User;
 
 @Repository
 public interface MovieRepository extends JpaRepository<Movie, Long> {
-
+    
+    public Movie findFirstById(Long movieId);
 	
 }

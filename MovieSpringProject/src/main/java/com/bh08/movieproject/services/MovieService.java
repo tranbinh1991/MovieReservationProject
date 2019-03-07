@@ -23,5 +23,9 @@ public class MovieService {
     public List<Movie> findAll() {
         return movieRepository.findAll();
     }
+    
+    public Movie findById(Long movieId){
+        return movieRepository.findFirstById(movieId);
+    }
 
 }

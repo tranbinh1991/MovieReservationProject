@@ -5,7 +5,9 @@
  */
 package com.bh08.movieproject.controllers;
 
-import com.bh08.movieproject.services.RoomService;
+import com.bh08.movieproject.models.Movie;
+import com.bh08.movieproject.services.MovieService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,17 +17,19 @@ import org.springframework.web.bind.annotation.GetMapping;
  *
  * @author Binh
  */
+
 @Controller
-public class ReservationController {
-
+public class MainPageController {
+    
     @Autowired
-    private RoomService roomService;
-
-    @GetMapping("/reservationpage")
-    public String showReservationPgae(Model model) {
+    private MovieService movieService;
+    
+    
+    @GetMapping("/mainpage")
+    public String showMainPage(Model model) {
+        List<Movie> movieList = movieService.findAll();
+        model.addAttribute("movielist", movieList); 
         
-         model.addAttribute("numberColumn", roomService.getRoomColumnNumber(276L));
-         model.addAttribute("numberRow", roomService.getRoomRowNumber(276L));
-        return "reservationpage.html";
+        return "mainpage.html";
     }
 }

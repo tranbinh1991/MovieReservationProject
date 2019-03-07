@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+
+        <link rel="stylesheet" type="text/css" href="../asset/css/base.css">   
+        <link rel="stylesheet" type="text/css" href="../asset/css/index.css">     
+        <title>Movie page</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            p {
+                color: rgb(250, 212, 190);
+                text-align: center;
+            }
+
+            body{
+                background-color: rgb(4, 27, 26);
+                color: rgb(235, 198, 206);
+            }
+
+        </style>
+
+    </head>
+    <body>
+<!--        <h1 align = "center">Marvel Kapitány</h1>-->
+        <table width = "60%" align = "center">
+
+            
+<!--            <td><img src="marvel.jpg" alt="Marvel Kapitany" align="right" hspace="20"></td>-->
+<!--            <td valign="top">A Marvel Studios az 1990-es években játszódó filmje, a Marvel Kapitány egy teljesen új kaland a 
+                Marvel mozis univerzumának eddig nem ismert periódusából, amely Carol Danverst követi nyomon. 
+                Mikor egy két idegen faj közötti galaktikus háború eléri a Földet, Danvers néhány szövetségessel 
+                együtt az események forgatagában találja magát, s hamarosan a világegyetem egyik legerősebb hősévé 
+                válik.
+            </td>-->
+
+
+             <button type="button">Jegyfoglalás</button>
+
+<!--            <table border = "1" width = "60%" align = "center">
+                <tr>
+                    <td>Category: </td>       
+                    <td>Action, Sci-fi </td>
+                </tr>
+                <tr>
+                    <td>Director: </td>
+                    <td>Anna Boden, Ryan Fleck</td>
+                </tr>
+                <tr>
+                    <td>Actors: </td>
+                    <td> Brie Larson, Samuel L. Jackson, Ben Mendelsohn, Djimon Hounsou,
+                        Lee Pace, Lashana Lynch, Gemma Chan, Rune Temte, Algenis Perez Soto,
+                        Mckenna Grace, továbbá Annette Bening, valamint Clark Gregg és Jude Law</td>
+                </tr>
+                <tr>
+                    <td>Age limit: </td>
+                    <td>16</td>
+                </tr>
+
+
+            </table>-->
+
+            <button type="button">Vissza a Főoldalra</button>
+            
+            
+            <table>
+
+            <tbody>
+
+                <tr>
+                    <td><span th:text="${movie.title}"> Title </span></td>
+                    <td><img th:src="@{${movie.image}}" th:name="${movie.id}" /></td>
+
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

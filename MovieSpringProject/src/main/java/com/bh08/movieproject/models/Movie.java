@@ -35,7 +35,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-@ToString
+//@ToString
 public class Movie implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -65,8 +65,16 @@ public class Movie implements Serializable {
     
     private double rating;
     
+    @Column
+    private String image;
+    
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "movie", fetch = FetchType.EAGER)
     private List<Screening> screenings;
+
+    @Override
+    public String toString() {
+        return "Movie{" + "title=" + title + '}';
+    }
     
     
     
