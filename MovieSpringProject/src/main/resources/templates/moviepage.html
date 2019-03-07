@@ -26,16 +26,12 @@ and open the template in the editor.
     </head>
     <body th:object="${movie2}">
         <h1 align = "center">Mozi cime</h1>
-        <h1 th:text="*{title}"></h1>
+        <h1 align = "center" th:text="*{title}"></h1>
         <table width = "60%" align = "center">
 
             
-            <td><img src="marvel.jpg" alt="Marvel Kapitany" align="right" hspace="20"></td>
-            <td valign="top">A Marvel Studios az 1990-es években játszódó filmje, a Marvel Kapitány egy teljesen új kaland a 
-                Marvel mozis univerzumának eddig nem ismert periódusából, amely Carol Danverst követi nyomon. 
-                Mikor egy két idegen faj közötti galaktikus háború eléri a Földet, Danvers néhány szövetségessel 
-                együtt az események forgatagában találja magát, s hamarosan a világegyetem egyik legerősebb hősévé 
-                válik.
+            <td><img src="heavy.jpg" align="right" hspace="20"></td>
+            <td valign="top" th:text="*{description}" > 
             </td>
 
 
@@ -48,17 +44,15 @@ and open the template in the editor.
                 </tr>
                 <tr>
                     <td>Director: </td>
-                    <td>Anna Boden, Ryan Fleck</td>
+                    <td th:text="*{director.name}"> </td>
                 </tr>
                 <tr>
-                    <td>Actors: </td>
-                    <td> Brie Larson, Samuel L. Jackson, Ben Mendelsohn, Djimon Hounsou,
-                        Lee Pace, Lashana Lynch, Gemma Chan, Rune Temte, Algenis Perez Soto,
-                        Mckenna Grace, továbbá Annette Bening, valamint Clark Gregg és Jude Law</td>
+                    <td>Length: </td>
+                 <td th:text="*{movieLength}"> </td>
                 </tr>
                 <tr>
-                    <td>Age limit: </td>
-                    <td>16</td>
+                    <td>Rating: </td>
+                    <td th:text="*{rating}"> </td>
                 </tr>
 
 
