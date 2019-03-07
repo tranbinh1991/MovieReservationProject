@@ -55,6 +55,7 @@ and open the template in the editor.
                         <p th:errors="*{year}"></p>
                         <p th:errors="*{month}"></p>
                         <p th:errors="*{day}"></p>
+                        <div th:text="${wrongDateMessage}"></div>
                     </td>
                 </tr>
                 <tr>

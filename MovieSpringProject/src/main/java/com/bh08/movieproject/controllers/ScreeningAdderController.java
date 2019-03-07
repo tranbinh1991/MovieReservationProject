@@ -13,6 +13,7 @@ import com.bh08.movieproject.services.MovieService;
 import com.bh08.movieproject.services.RoomService;
 import com.bh08.movieproject.services.ScreeningService;
 import com.bh08.movieproject.viewmodels.ScreeningCreationFormData;
+import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.util.List;
 import javax.validation.Valid;
@@ -59,23 +60,36 @@ public class ScreeningAdderController {
             Screening screening = new Screening();
             Movie movie = movieService.findByTitle(screeningCreationFormData.getMovie()).get(0);
             screening.setMovie(movie);
-            
+
             Room room = roomService.findByRoomNumber(Integer.parseInt(screeningCreationFormData.getRoom())).get(0);
             screening.setRoom(room);
-            
+
             Language language = Language.valueOf(screeningCreationFormData.getLanguage());
             screening.setLanguage(language);
-            
-            LocalDateTime time = LocalDateTime.of(Integer.parseInt(screeningCreationFormData.getYear()), 
-                    Integer.parseInt(screeningCreationFormData.getMonth()), 
-                    Integer.parseInt(screeningCreationFormData.getDay()),
-                    Integer.parseInt(screeningCreationFormData.getHour()), 
-                    Integer.parseInt(screeningCreationFormData.getMinute()));
-            screening.setTime(time);
-            model.addAttribute("successMessage", "Sikeres mentés!");
-            screeningService.saveScreening(screening);
+
+            try {
+                LocalDateTime time = LocalDateTime.of(Integer.parseInt(screeningCreationFormData.getYear()),
+                        Integer.parseInt(screeningCreationFormData.getMonth()),
+                        Integer.parseInt(screeningCreationFormData.getDay()),
+                        Integer.parseInt(screeningCreationFormData.getHour()),
+                        Integer.parseInt(screeningCreationFormData.getMinute()));
+                screening.setTime(time);
+                model.addAttribute("successMessage", "Sikeres mentés!");
+                screeningService.saveScreening(screening);
+            } catch(DateTimeException e) {
+                bindingResult.rejectValue("day", "", "Hibás dátum!");
+                model.addAttribute("wrongDateMessage", "Hibás dátum!");
+            }
+
+//            LocalDateTime time = LocalDateTime.of(Integer.parseInt(screeningCreationFormData.getYear()),
+//                    Integer.parseInt(screeningCreationFormData.getMonth()),
+//                    Integer.parseInt(screeningCreationFormData.getDay()),
+//                    Integer.parseInt(screeningCreationFormData.getHour()),
+//                    Integer.parseInt(screeningCreationFormData.getMinute()));
+//            screening.setTime(time);
+//            model.addAttribute("successMessage", "Sikeres mentés!");
+//            screeningService.saveScreening(screening);
         }
-        //TODO: remove this:
         return showScreeningAdder(model);
     }
 }
