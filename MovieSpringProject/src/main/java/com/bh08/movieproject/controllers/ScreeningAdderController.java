@@ -77,7 +77,7 @@ public class ScreeningAdderController {
                 model.addAttribute("successMessage", "Sikeres mentés!");
                 screeningService.saveScreening(screening);
             } catch(DateTimeException e) {
-                bindingResult.rejectValue("day", "", "Hibás dátum!");
+                //bindingResult.rejectValue("day", "", "Hibás dátum!");
                 model.addAttribute("wrongDateMessage", "Hibás dátum!");
             }
 

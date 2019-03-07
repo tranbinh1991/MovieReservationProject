@@ -116,7 +116,7 @@ and open the template in the editor.
                         <p th:errors="*{actor6}"></p>
                     </td>
                 </tr>
-                
+
                 <tr>
                     <td>
                         Kategória:      
@@ -164,10 +164,32 @@ and open the template in the editor.
                     </td>
                     <td>
                         <textarea rows="5" cols="50" th:field="*{description}" id="description" maxlength="250"/><br/>
-<!--                        <input type="text" rows="5" th:field="*{description}" id="description" maxlength="250"/><br/>-->
+                        <!--                        <input type="text" rows="5" th:field="*{description}" id="description" maxlength="250"/><br/>-->
                     </td>
                     <td>
                         <p th:errors="*{description}"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Kép link: 
+                    </td>
+                    <td>
+                        <input type="text" th:field="*{imageLink}" id="imageLink"/><br/>
+                    </td>
+                    <td>
+                        <p th:errors="*{imageLink}"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Trailer link:      
+                    </td>
+                    <td>
+                        <input type="text" th:field="*{youTubeLink}" id="youTubeLink"/><br/>
+                    </td>
+                    <td>
+                        <p th:errors="*{youTubeLink}"></p>
                     </td>
                 </tr>
                 <tr>

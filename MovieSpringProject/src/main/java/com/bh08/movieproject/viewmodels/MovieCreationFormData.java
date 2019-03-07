@@ -37,6 +37,9 @@ public class MovieCreationFormData {
     private String movieCategory3;
     @NotEmpty(message = "Ez egy kötelező mező!")
     private String description;
+    
+    private String imageLink;    
+    private String youTubeLink;
     private String rating;
     
 }

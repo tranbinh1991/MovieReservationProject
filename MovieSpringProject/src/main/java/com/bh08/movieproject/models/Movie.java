@@ -65,6 +65,11 @@ public class Movie implements Serializable {
     
     private double rating;
     
+    @Column(nullable = false)
+    private String imageLink;
+    
+    private String youTubeLink;
+    
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "movie", fetch = FetchType.EAGER)
     private List<Screening> screenings;
     

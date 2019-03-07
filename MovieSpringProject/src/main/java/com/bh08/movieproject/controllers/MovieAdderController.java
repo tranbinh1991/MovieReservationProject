@@ -75,6 +75,12 @@ public class MovieAdderController {
 
             double rating = Double.parseDouble(movieCreationFormData.getRating());
             movie.setRating(rating);
+            
+            String imageLink = movieCreationFormData.getImageLink();
+            movie.setImageLink(imageLink);
+            
+            String youTubeLink = movieCreationFormData.getYouTubeLink();
+            movie.setYouTubeLink(youTubeLink);
 
             List<MovieCategory> categories = processCategories(movieCreationFormData, movie);
 
