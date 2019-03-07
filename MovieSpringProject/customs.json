@@ -4,8 +4,17 @@
         "th:text": {
             "context": "div"
         },
+        "th:if": {
+            "context": "tr"
+        },
+        "th:object": {
+            "context": "body"
+        },
         "th:action": {
             "context": "form"
+        },
+        "th:src": {
+            "context": "img"
         },
         "th:errors": {
             "context": "p"

@@ -25,12 +25,12 @@ and open the template in the editor.
 
     </head>
     <body th:object="${movie}">
-        <h1 align = "center">Mozi cime</h1>
+        
         <h1 align = "center" th:text="${movie.title}"></h1>
         <table width = "60%" align = "center">
 
             
-            <td><img th:src="@{${movie.image}}" th:name="${movie.id}"/></td>
+            <td><img th:src="@{${movie.imageLink}}" th:name="${movie.id}"/></td>
             <td valign="top" th:text="${movie.description}" > 
             </td>
 

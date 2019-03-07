@@ -86,7 +86,7 @@
                 </tr>
                 <tr th:each="movie : ${movielist}">
                     <td><span th:text="${movie.title}"> Title </span></td>
-                    <td><img th:src="@{${movie.image}}" th:name="${movie.id}" onclick="selectElement(event)"/></td>
+                    <td><img th:src="@{${movie.imageLink}}" th:name="${movie.id}" onclick="selectElement(event)"/></td>
 
                 </tr>
             </tbody>
