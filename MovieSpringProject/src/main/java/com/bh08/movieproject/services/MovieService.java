@@ -24,8 +24,13 @@ public class MovieService {
         return movieRepository.findAll();
     }
     
+
     public List<Movie> findByTitle(String title) {
         return movieRepository.findByTitle(title);
+    }
+
+    public Movie findById(Long movieId){
+        return movieRepository.findFirstById(movieId);
     }
 
 }

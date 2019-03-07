@@ -12,5 +12,11 @@ import com.bh08.movieproject.models.Movie;
 @Repository
 public interface MovieRepository extends JpaRepository<Movie, Long> {
 
+
     List<Movie> findByTitle(String title);
+
+    
+    public Movie findFirstById(Long movieId);
+	
+
 }

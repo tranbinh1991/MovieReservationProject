@@ -1,0 +1,95 @@
+
+<html>
+    <head>
+
+        <script>
+            function selectElement(e) {
+                var targ;
+                if (!e) {
+                    var e = window.event;
+                }
+                if (e.target) {
+                    targ = e.target;
+                } else if (e.srcElement) {
+                    targ = e.srcElement;
+                }
+                var tname;
+                tname = targ.name;
+                window.location = 'moviepage?id=' + tname;
+
+            }
+        </script>
+
+
+        <style>
+            img {
+                width: 150px;
+                height: 300px;
+            }
+
+            img:hover{
+                cursor: pointer;
+            }
+        </style>
+        <title>Nézünk, mint a moziban - Főoldal</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+
+        <div id="menu">
+            <table align="center">
+                <tr id="menuRow">
+                    <td><a href="mainpage.html">Főoldal</a></td>
+                    <!--                <form action="#" th:action="@{/registerCourse}" th:object="${course}"
+                        method="post" onsubmit="return validateForm();">
+                        <span id="errormesg" style="color: red"></span> <span
+                          style="font-weight: bold" th:text="${successMessage}"></span>
+                        
+                                <td>
+                                    <label th:text="#{msg.courseName}+': '"></label>
+                                </td>
+                                <td>
+                                    <select id="course" th:field="*{name}">
+                                        <option th:value="''" th:text="'Select'"></option>
+                                        <option th:value="'Mathematics'" th:text="'Mathematics'">Mathematics</option>
+                                        <option th:value="'History'" th:text="'History'">History</option>
+                                    </select></td>
+                        </form>-->
+                    <!--<td>
+                        <div class="dropdown">
+                            <button onclick="myFunction()" class="dropbtn">Dropdown</button>
+                            <div id="myDropdown" class="dropdown-content">
+                                <a href="#">Link 1</a>
+                                <a href="#">Link 2</a>
+                                <a href="#">Link 3</a>
+                            </div>
+                        </div>
+                    </td> -->
+                    <td><input type="button" value="Szűrés" /></td>
+                    <!--                <td><img src="../asset/img/magnifying-glass.png" alt="" width="25px" height="25px"></td>-->
+                    <td>Keresés: <input type="text" id="searchField" /></td>
+                    <td><input type="button" value="Keresés" /></td>
+                    <td>Email: <input type="email" id="email" /></td>
+                    <td>Jelszó: <input type="password" id="password"></td>
+                    <td><input type="button" value="Bejelentkezés" /></td>
+                    <td><a href="registration.html">Regisztráció</a></td>
+                </tr>
+            </table>
+        </div>
+
+        <table>
+
+            <tbody>
+                <tr th:if="${movielist.empty}">
+                    <td colspan="2"> No Movies Available </td>
+                </tr>
+                <tr th:each="movie : ${movielist}">
+                    <td><span th:text="${movie.title}"> Title </span></td>
+                    <td><img th:src="@{${movie.image}}" th:name="${movie.id}" onclick="selectElement(event)"/></td>
+
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

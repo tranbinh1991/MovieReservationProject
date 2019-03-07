@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+    
+        <title>Movie page</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            p {
+                color: rgb(250, 212, 190);
+                text-align: center;
+            }
+
+            body{
+                background-color: rgb(4, 27, 26);
+                color: rgb(235, 198, 206);
+            }
+
+        </style>
+
+    </head>
+    <body th:object="${movie}">
+        <h1 align = "center">Mozi cime</h1>
+        <h1 align = "center" th:text="${movie.title}"></h1>
+        <table width = "60%" align = "center">
+
+            
+            <td><img th:src="@{${movie.image}}" th:name="${movie.id}"/></td>
+            <td valign="top" th:text="${movie.description}" > 
+            </td>
+
+
+             <button type="button">Jegyfoglalás</button>
+
+            <table border = "1" width = "60%" align = "center">
+                <tr>
+                    <td>Category: </td>       
+                    <td>Action, Sci-fi </td>
+                </tr>
+                <tr>
+                    <td>Director: </td>
+                    <td th:text="${movie.director.name}"> </td>
+                </tr>
+                <tr>
+                    <td>Length: </td>
+                 <td th:text="${movie.movieLength}"> </td>
+                </tr>
+                <tr>
+                    <td>Rating: </td>
+                    <td th:text="${movie.rating}"> </td>
+                </tr>
+
+
+            </table>
+
+            <button type="button">Vissza a Főoldalra</button>
+    </body>
+</html>
+
