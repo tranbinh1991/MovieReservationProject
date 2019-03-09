@@ -6,8 +6,11 @@
 package com.bh08.movieproject.controllers;
 
 import com.bh08.movieproject.models.Movie;
+import com.bh08.movieproject.models.Screening;
 import com.bh08.movieproject.services.MovieService;
 import com.bh08.movieproject.services.RoomService;
+import com.bh08.movieproject.services.ScreeningService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,12 +28,16 @@ public class MoviePageController {
 
     @Autowired
     private MovieService movieService;
+    @Autowired
+    private ScreeningService screeningService;
 
     @RequestMapping(value = "/moviepage", method = RequestMethod.GET)
     public String showMoviePage(Model model, @RequestParam(value="id", required=false) Long movieId) {
         Movie movie = movieService.findById(movieId);
+        List<Screening> screeningList = screeningService.findByMovieOrderByTime(movie);
         
         model.addAttribute("movie", movie);
+        model.addAttribute("screeningList", screeningList);
 
         return "moviepage.html";
     }

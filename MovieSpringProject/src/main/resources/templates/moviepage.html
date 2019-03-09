@@ -54,6 +54,11 @@ and open the template in the editor.
                     <td>Rating: </td>
                     <td th:text="${movie.rating}"> </td>
                 </tr>
+                <tr th:each="screening : ${screeningList}">
+                   <td><span th:text="${screening.time}"> Title </span></td>
+                   <td><button type="button" th:name="${screening.id}" onclick="selectElement(event)">Ez kell nekem!</button> </td>
+
+               </tr>
 
 
             </table>

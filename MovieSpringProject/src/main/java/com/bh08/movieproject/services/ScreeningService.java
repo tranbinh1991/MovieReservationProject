@@ -6,6 +6,7 @@
 package com.bh08.movieproject.services;
 
 import com.bh08.movieproject.daos.ScreeningRepository;
+import com.bh08.movieproject.models.Movie;
 import com.bh08.movieproject.models.Room;
 import com.bh08.movieproject.models.Screening;
 import java.util.List;
@@ -32,5 +33,9 @@ public class ScreeningService {
     
     public List<Screening> findByRoom(Room room) {
         return screeningRepository.findByRoom(room);
+    }
+    
+    public List<Screening> findByMovieOrderByTime(Movie movie){
+        return screeningRepository.findByMovieOrderByTime(movie);
     }
 }

@@ -17,7 +17,7 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
     
     Movie findFirstById(Long movieId);
     
-    List<Movie> findByTitleIgnoreCaseContains(String title);    
+    List<Movie> findByTitleIgnoreCaseContainsOrderByTitle(String title);    
     
     //@Query(value = "select m from movie m order by m.title asc", nativeQuery = true)
     List<Movie> findAllByOrderByTitle();

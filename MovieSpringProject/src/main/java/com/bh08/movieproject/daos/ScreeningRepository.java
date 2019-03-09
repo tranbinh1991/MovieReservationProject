@@ -5,6 +5,7 @@
  */
 package com.bh08.movieproject.daos;
 
+import com.bh08.movieproject.models.Movie;
 import com.bh08.movieproject.models.Room;
 import com.bh08.movieproject.models.Screening;
 import java.util.List;
@@ -19,4 +20,6 @@ import org.springframework.stereotype.Repository;
 public interface ScreeningRepository extends JpaRepository<Screening, Long>  {
     
     List<Screening> findByRoom(Room room);
+    
+    List<Screening> findByMovieOrderByTime(Movie movie);
 }

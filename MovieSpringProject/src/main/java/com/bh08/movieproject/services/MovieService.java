@@ -33,7 +33,7 @@ public class MovieService {
     }
     
     public List<Movie> findByTitleIgnoreCaseContains(String title) {
-        return movieRepository.findByTitleIgnoreCaseContains(title);
+        return movieRepository.findByTitleIgnoreCaseContainsOrderByTitle(title);
     }
     
 //    public List<Movie> findByMovieCategory(MovieCategory movieCategory) {
