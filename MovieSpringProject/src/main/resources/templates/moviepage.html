@@ -7,7 +7,7 @@ and open the template in the editor.
 <html>
     <head>
     
-        <title>Movie page</title>
+        <title>Film adatlap</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <style>
@@ -30,30 +30,49 @@ and open the template in the editor.
         <table width = "60%" align = "center">
 
             
-            <td><img th:src="@{${movie.imageLink}}" th:name="${movie.id}"/></td>
-            <td valign="top" th:text="${movie.description}" > 
-            </td>
-
-
-             <button type="button">Jegyfoglalás</button>
-
+            <tr><td rowspan='2'><img th:src="@{${movie.imageLink}}" th:name="${movie.id}"/></td>
+            
+                <td valign="top" th:text="${movie.description}" ></td>
+            </tr>
+            <tr>
+                <td><iframe align="right" width="420" height="315" th:src="@{${movie.youTubeLink}}"  th:name="${movie.id}"/></td>
+                    </iframe></td></tr>
+           
+            
             <table border = "1" width = "60%" align = "center">
                 <tr>
-                    <td>Category: </td>       
-                    <td>Action, Sci-fi </td>
+                   <td>Kategória: </td>       
+                   <td th:each="movieCategory : ${movie.movieCategoryList}"th:text="${movieCategory.category}" ></td>
+<!--                    th:each="viewmyorder : ${viewmyorders}-->
                 </tr>
                 <tr>
-                    <td>Director: </td>
+                    <td>Rendező: </td>
                     <td th:text="${movie.director.name}"> </td>
                 </tr>
                 <tr>
-                    <td>Length: </td>
+                <td>Főszerepben: </td>
+                <td th:each="actor : ${movie.actorList}" th:text="${actor.name}"></td>
+                
+<!--                <div th:text="${#strings.listJoin(#messages.listMsg(messageKeyList), ',')}"></div>-->
+                
+<!--                <td th:text="${actor.name}"> </td>-->
+                </tr>
+                <tr>
+                    <td>Játékidő: </td>
                  <td th:text="${movie.movieLength}"> </td>
                 </tr>
                 <tr>
-                    <td>Rating: </td>
+                    <td>Értékelés: </td>
                     <td th:text="${movie.rating}"> </td>
                 </tr>
+
+                <tr th:each="screening : ${movie.screenings}">
+                   <td th:text="${screening.time}"></td>
+                   
+<!--                   <td th:text="${#dates.format(sprint.releaseDate, 'dd-MMM-yyyy')}"></td>-->
+                   <td><button type="button" th:name="${screening.id}" onclick="selectElement(event)">Ez kell nekem!</button> </td>
+
+               </tr>
 
 
             </table>
