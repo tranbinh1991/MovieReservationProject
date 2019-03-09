@@ -5,11 +5,18 @@
  */
 package com.bh08.movieproject.controllers;
 
+import com.bh08.movieproject.models.Movie;
+import com.bh08.movieproject.models.Screening;
 import com.bh08.movieproject.services.RoomService;
+import com.bh08.movieproject.services.ScreeningService;
+import java.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  *
@@ -19,13 +26,27 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class ReservationController {
 
     @Autowired
-    private RoomService roomService;
+    private ScreeningService screeningService;
 
-    @GetMapping("/reservationpage")
-    public String showReservationPgae(Model model) {
+    @RequestMapping(value = "/reservationpage", method = RequestMethod.GET)
+
+    public String showReservationPage(Model model, @RequestParam(value = "id", required = false) Long screeningId) {
+        Screening screening = screeningService.findById(screeningId);
+        int[] numbersColumnOfChair = new int[screening.getTicketList().size()];
+        int[] numbersRowOfChair = new int[screening.getTicketList().size()];
         
-         model.addAttribute("numberColumn", roomService.getRoomColumnNumber(276L));
-         model.addAttribute("numberRow", roomService.getRoomRowNumber(276L));
+        for (int i = 0; i < screening.getTicketList().size(); i++) {
+            numbersColumnOfChair[i]=screening.getTicketList().get(i).getChair().getColumnOfChair();
+            numbersRowOfChair[i]=screening.getTicketList().get(i).getChair().getRowOfChair()-64;
+        }
+
+        model.addAttribute("numbersColumnOfChair", numbersColumnOfChair);
+        model.addAttribute("numbersRowOfChair", numbersRowOfChair);
+        model.addAttribute("numberColumn", screening.getRoom().getColumnCount());
+        model.addAttribute("numberRow", screening.getRoom().getRowCount());
+
+        model.addAttribute("screening", screening);
+
         return "reservationpage.html";
     }
 }

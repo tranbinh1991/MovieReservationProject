@@ -15,5 +15,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface ScreeningRepository extends JpaRepository<Screening, Long>  {
-    
+    public Screening findFirstById(Long screeningId);
 }

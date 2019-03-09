@@ -27,4 +27,8 @@ public class ScreeningService {
     public boolean isScreeningOccupied(Screening screening) {
         return (screening.getTicketList().size() == (screening.getRoom().getColumnCount()*screening.getRoom().getRowCount()));
     }
+    
+        public Screening findById(Long screeningId){
+        return screeningRepository.findFirstById(screeningId);
+    }
 }

@@ -32,5 +32,13 @@ public class ChairService {
             }
         }
     }
+    
+    public  Chair findByRowOfChairAndColumnOfChairAndRoom(char rowOfChair, int columnOfChair, Room room){
+        return repository.findByRowOfChairAndColumnOfChairAndRoom(rowOfChair, columnOfChair, room);
+    }
+    
+            public Chair findById(Long chairId){
+        return repository.findFirstById(chairId);
+    }
 
 }

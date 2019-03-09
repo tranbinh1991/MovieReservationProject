@@ -6,6 +6,25 @@ and open the template in the editor.
 -->
 <html>
     <head>
+        
+        <script>
+            function selectElement(e) {
+                var targ;
+                if (!e) {
+                    var e = window.event;
+                }
+                if (e.target) {
+                    targ = e.target;
+                } else if (e.srcElement) {
+                    targ = e.srcElement;
+                }
+                var tname;
+                tname = targ.name;
+                window.location = 'reservationpage?id=' + tname;
+                
+
+            }
+        </script>
     
         <title>Movie page</title>
         <meta charset="UTF-8">
@@ -54,9 +73,26 @@ and open the template in the editor.
                     <td>Rating: </td>
                     <td th:text="${movie.rating}"> </td>
                 </tr>
+                
+
+                
 
 
             </table>
+             
+                     <table>
+
+            <tbody>
+                <tr th:if="${movie.screenings.empty}">
+                    <td colspan="2"> No Movies Available </td>
+                </tr>
+                <tr th:each="screening : ${movie.screenings}">
+                    <td><span th:text="${screening.id}"> Title </span></td>
+                    <td><button type="button" th:name="${screening.id}" onclick="selectElement(event)">Ez kell nekem!</button> </td>
+                    
+                </tr>
+            </tbody>
+        </table>
 
             <button type="button">Vissza a Főoldalra</button>
     </body>

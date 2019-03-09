@@ -32,7 +32,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-@ToString
+//ToString
 public class Room implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -46,6 +46,12 @@ public class Room implements Serializable {
     private int rowCount;
     
     private int columnCount;
+
+    @Override
+    public String toString() {
+        return "Room{" + "roomNumber=" + roomNumber + '}';
+    }
+    
     
     
 }

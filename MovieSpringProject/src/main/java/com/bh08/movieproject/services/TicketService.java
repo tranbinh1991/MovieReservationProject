@@ -20,7 +20,7 @@ public class TicketService {
     @Autowired
     private TicketRepository ticketRepository;
     
-    private Ticket saveTicket(Ticket ticket) {
+    public Ticket saveTicket(Ticket ticket) {
         return ticketRepository.saveAndFlush(ticket);
     }
 }

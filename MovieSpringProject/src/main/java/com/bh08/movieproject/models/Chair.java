@@ -31,7 +31,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-@ToString
+//@ToString
 public class Chair implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -48,6 +48,13 @@ public class Chair implements Serializable {
     @JoinColumn(name = "room_id", referencedColumnName = "id")
     @ManyToOne (cascade = CascadeType.PERSIST)
     private Room room;
+
+    @Override
+    public String toString() {
+        return "Chair{" + "rowOfChair=" + rowOfChair + ", columnOfChair=" + columnOfChair + '}';
+    }
+    
+    
 
     
     

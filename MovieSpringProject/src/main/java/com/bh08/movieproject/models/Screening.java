@@ -37,7 +37,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-@ToString
+//@ToString
 public class Screening implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -64,6 +64,13 @@ public class Screening implements Serializable {
     
     @Enumerated(EnumType.STRING)
     private Language language;
+
+    @Override
+    public String toString() {
+        return "Screening{" + "movie=" + movie + ", room=" + room + ", time=" + time + ", language=" + language + '}';
+    }
+    
+    
     
     
 }
