@@ -8,15 +8,17 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.bh08.movieproject.models.Movie;
+import com.bh08.movieproject.models.MovieCategory;
 
 @Repository
 public interface MovieRepository extends JpaRepository<Movie, Long> {
 
-
     List<Movie> findByTitle(String title);
-
     
-    public Movie findFirstById(Long movieId);
-	
-
+    Movie findFirstById(Long movieId);
+    
+    List<Movie> findByTitleIgnoreCaseContains(String title);    
+    
+    //@Query(value = "select m from movie m order by m.title asc", nativeQuery = true)
+    List<Movie> findAllByOrderByTitle();
 }

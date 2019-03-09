@@ -5,8 +5,10 @@
  */
 package com.bh08.movieproject.controllers;
 
+import com.bh08.movieproject.services.SessionService;
 import com.bh08.movieproject.services.UserService;
 import com.bh08.movieproject.viewmodels.LoginFormData;
+
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,6 +27,8 @@ public class LoginController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private SessionService sessionService;
 
     @RequestMapping(value = "login", method = RequestMethod.GET)
     public String login(Model model) {
@@ -38,9 +42,9 @@ public class LoginController {
         if (!bindingResult.hasErrors()) {
             if (!userService.findByEmail(loginFormData.getEmail()).isEmpty()) {
                 if(userService.findByEmail(loginFormData.getEmail()).get(0).getPassword().equals(loginFormData.getPassword())) {
+                    sessionService.setCurrentUserId(userService.findByEmail(loginFormData.getEmail()).get(0).getId());                    
                     return "successful_login.html";
-                }
-                
+                }                
             }
         }
         return "login.html";

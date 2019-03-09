@@ -73,6 +73,11 @@ public class ScreeningAdderController {
                         Integer.parseInt(screeningCreationFormData.getDay()),
                         Integer.parseInt(screeningCreationFormData.getHour()),
                         Integer.parseInt(screeningCreationFormData.getMinute()));
+                if (LocalDateTime.now().isAfter(time)) {
+                    throw new DateTimeException("");
+                }
+                
+                //TODO: ne lehessen egymással egyidőben ugyanott több vetítés
                 screening.setTime(time);
                 model.addAttribute("successMessage", "Sikeres mentés!");
                 screeningService.saveScreening(screening);
@@ -81,14 +86,6 @@ public class ScreeningAdderController {
                 model.addAttribute("wrongDateMessage", "Hibás dátum!");
             }
 
-//            LocalDateTime time = LocalDateTime.of(Integer.parseInt(screeningCreationFormData.getYear()),
-//                    Integer.parseInt(screeningCreationFormData.getMonth()),
-//                    Integer.parseInt(screeningCreationFormData.getDay()),
-//                    Integer.parseInt(screeningCreationFormData.getHour()),
-//                    Integer.parseInt(screeningCreationFormData.getMinute()));
-//            screening.setTime(time);
-//            model.addAttribute("successMessage", "Sikeres mentés!");
-//            screeningService.saveScreening(screening);
         }
         return showScreeningAdder(model);
     }

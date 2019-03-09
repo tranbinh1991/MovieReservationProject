@@ -41,13 +41,13 @@ public class RegistrationController {
 //    User createUser(@RequestBody User user) {
 //        return userService.saveUser(user);
 //    }
-    @RequestMapping(value = "register", method = RequestMethod.GET)
+    @RequestMapping(value = "registration", method = RequestMethod.GET)
     public String register(Model model) {
         model.addAttribute("registrationFormData", new RegistrationFormData());
-        return "register.html";
+        return "registration.html";
     }
 
-    @RequestMapping(value = "register", method = RequestMethod.POST)
+    @RequestMapping(value = "registration", method = RequestMethod.POST)
     public String submitRegistration(@ModelAttribute("registrationFormData") @Valid RegistrationFormData registrationFormData,
             BindingResult bindingResult, Model model) {
         if (!bindingResult.hasErrors()) {
@@ -67,7 +67,7 @@ public class RegistrationController {
                 bindingResult.rejectValue("email", "", "Ezzel az email-címmel már regisztráltak!");
             }
         }
-        return "register.html";
+        return "registration.html";
     }
 
     /*

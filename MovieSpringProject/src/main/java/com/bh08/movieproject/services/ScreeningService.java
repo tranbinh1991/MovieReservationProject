@@ -6,7 +6,9 @@
 package com.bh08.movieproject.services;
 
 import com.bh08.movieproject.daos.ScreeningRepository;
+import com.bh08.movieproject.models.Room;
 import com.bh08.movieproject.models.Screening;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,5 +28,9 @@ public class ScreeningService {
     
     public boolean isScreeningOccupied(Screening screening) {
         return (screening.getTicketList().size() == (screening.getRoom().getColumnCount()*screening.getRoom().getRowCount()));
+    }
+    
+    public List<Screening> findByRoom(Room room) {
+        return screeningRepository.findByRoom(room);
     }
 }

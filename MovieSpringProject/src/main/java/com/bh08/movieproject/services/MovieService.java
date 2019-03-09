@@ -5,10 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.bh08.movieproject.daos.ChairRepository;
 import com.bh08.movieproject.daos.MovieRepository;
 import com.bh08.movieproject.models.Movie;
-import com.bh08.movieproject.models.User;
+import com.bh08.movieproject.models.MovieCategory;
 
 @Service
 public class MovieService {
@@ -21,7 +20,7 @@ public class MovieService {
     }
     
     public List<Movie> findAll() {
-        return movieRepository.findAll();
+        return movieRepository.findAllByOrderByTitle();
     }
     
 
@@ -32,5 +31,13 @@ public class MovieService {
     public Movie findById(Long movieId){
         return movieRepository.findFirstById(movieId);
     }
+    
+    public List<Movie> findByTitleIgnoreCaseContains(String title) {
+        return movieRepository.findByTitleIgnoreCaseContains(title);
+    }
+    
+//    public List<Movie> findByMovieCategory(MovieCategory movieCategory) {
+//        return movieRepository.findByMovieCategory(movieCategory);
+//    }
 
 }
