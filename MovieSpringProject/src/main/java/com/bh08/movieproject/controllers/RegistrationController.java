@@ -33,13 +33,13 @@ public class RegistrationController {
 //    @RequestMapping(value = "register", method = RequestMethod.POST)
 //    public @ResponseBody
 //    User createUser(@RequestBody User user) {
-//        return userService.saveUser(user);
+//        return userService.saveUserWithPasswordEncryption(user);
 //
 //    }
 //    @RequestMapping(value = "registerUser", method = RequestMethod.POST)
 //    public @ResponseBody
 //    User createUser(@RequestBody User user) {
-//        return userService.saveUser(user);
+//        return userService.saveUserWithPasswordEncryption(user);
 //    }
     @RequestMapping(value = "registration", method = RequestMethod.GET)
     public String register(Model model) {
@@ -58,7 +58,7 @@ public class RegistrationController {
                     User user = new User();
                     user.setEmail(registrationFormData.getEmail());
                     user.setPassword(registrationFormData.getPassword());
-                    userService.saveUser(user);
+                    userService.saveUserWithPasswordEncryption(user);
                     return "successful_registration.html";
                 } else {
                     bindingResult.rejectValue("passwordAgain", "", "A két jelszónak meg kell egyeznie!");

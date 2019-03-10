@@ -12,6 +12,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 
 /**
  *
@@ -25,7 +26,13 @@ public class UserService {
     @Autowired
     private UserRepository repository;
 
-    public User saveUser(User user) {
+    public User saveUserWithPasswordEncryption(User user) {
+        String encryptedPassword = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
+        user.setPassword(encryptedPassword);
+        return repository.saveAndFlush(user);
+    }
+    
+    public User saveUserWithoutPasswordEncryption(User user) {        
         return repository.saveAndFlush(user);
     }
     

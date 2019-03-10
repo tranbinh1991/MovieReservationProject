@@ -23,8 +23,8 @@
 
         <style>
             img {
-                width: 150px;
-                height: 300px;
+                width: 300px;
+                height: 500px;
             }
 
             img:hover{
@@ -62,11 +62,11 @@
                     </td>
 
                     <td>
-                        <form>
+                        <form th:action="@{/login}" th:object="${loginFormData}" method="GET">
                             <table>
                                 <tr>
-                                    <td>Email: <input type="email" id="email" /></td>
-                                    <td>Jelszó: <input type="password" id="password"></td>
+                                    <td>Email: <input type="email" id="email" th:field="*{email}" /></td>
+                                    <td>Jelszó: <input type="password" id="password"  th:field="*{password}" /></td>
                                     <td><input type="button" value="Bejelentkezés" /></td>
 
                                 </tr>
@@ -77,20 +77,35 @@
                     <td><a href="/registration">Regisztráció</a></td>
 
                 </tr>
+                <tr>
+                    
+                </tr>
             </table>
         </div>
 
-        <table>
+        <table align="center">
 
             <tbody>
                 <tr th:if="${movielist.empty}">
                     <td colspan="2"> A megadott paraméterekkel nem található film. </td>
                 </tr>
-                <tr th:each="movie : ${movielist}">
+                <tr>
+                    <td th:each="movie : ${movielist}">
+                        <table>
+                                <tr>
+                                    <td><img th:src="@{${movie.imageLink}}" th:name="${movie.id}" onclick="selectElement(event)"/></td>
+                                </tr>
+                                <tr>
+                                    <td><a th:href="@{'/moviepage?id=' + ${movie.id}}" th:text="${movie.title}" align='center' /></td>
+                                </tr>
+                        </table>
+                    </td>
+                </tr>
+<!--                <tr th:each="movie : ${movielist}">
                     <td><span th:text="${movie.title}"> Title </span></td>
                     <td><img th:src="@{${movie.imageLink}}" th:name="${movie.id}" onclick="selectElement(event)"/></td>
 
-                </tr>
+                </tr>-->
             </tbody>
         </table>
     </body>

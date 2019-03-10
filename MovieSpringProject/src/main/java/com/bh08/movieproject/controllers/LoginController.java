@@ -11,6 +11,7 @@ import com.bh08.movieproject.viewmodels.LoginFormData;
 
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -41,10 +42,14 @@ public class LoginController {
             BindingResult bindingResult, Model model) {
         if (!bindingResult.hasErrors()) {
             if (!userService.findByEmail(loginFormData.getEmail()).isEmpty()) {
-                if(userService.findByEmail(loginFormData.getEmail()).get(0).getPassword().equals(loginFormData.getPassword())) {
+                if (BCrypt.checkpw(loginFormData.getPassword(), userService.findByEmail(loginFormData.getEmail()).get(0).getPassword())) {
                     sessionService.setCurrentUserId(userService.findByEmail(loginFormData.getEmail()).get(0).getId());                    
                     return "successful_login.html";
-                }                
+                } else {
+                    bindingResult.rejectValue("password", "", "Hibás jelszó!");
+                }
+            } else {
+                bindingResult.rejectValue("email", "", "Hibás email-cím!");
             }
         }
         return "login.html";
