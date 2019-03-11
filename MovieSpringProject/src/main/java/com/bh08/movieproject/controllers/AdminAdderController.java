@@ -30,6 +30,9 @@ public class AdminAdderController {
     
     @RequestMapping(value = "adminadder", method = RequestMethod.GET)
     public String showAdminAdderPage(Model model) {
+        if (sessionService.getCurrentUserId() == null || !userService.findById(sessionService.getCurrentUserId()).isCinemaAdmin()) {
+            return "adminerror.html";
+        }
         List<User> admins = userService.findByCinemaAdmin(true);
         if (!admins.isEmpty()) {
             admins.remove(userService.findById(sessionService.getCurrentUserId()));

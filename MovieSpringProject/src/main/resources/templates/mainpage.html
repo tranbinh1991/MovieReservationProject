@@ -61,20 +61,22 @@
                         </form>
                     </td>
 
-                    <td>
-                        <form th:action="@{/login}" th:object="${loginFormData}" method="GET">
+                    <td th:if="${currentUserId}==null">
+                        <form th:action="@{/login}" th:object="${loginFormData}" method="POST">
                             <table>
                                 <tr>
                                     <td>Email: <input type="email" id="email" th:field="*{email}" /></td>
                                     <td>Jelszó: <input type="password" id="password"  th:field="*{password}" /></td>
-                                    <td><input type="button" value="Bejelentkezés" /></td>
-
+                                    <td><input type="submit" value="Bejelentkezés" /></td>
+                                    <p th:errors="*{email}"></p>
+                                    <p th:errors="*{password}"></p>
                                 </tr>
                             </table>
                         </form>
                     </td>
 
-                    <td><a href="/registration">Regisztráció</a></td>
+                    <td th:if="${currentUserId}==null"><a href="/registration">Regisztráció</a></td>
+                    <td th:unless="${currentUserId}==null"><a href="/mainpage/logout">Kijelentkezés</a></td>
 
                 </tr>
                 <tr>

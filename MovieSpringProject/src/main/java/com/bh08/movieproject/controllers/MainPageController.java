@@ -10,6 +10,8 @@ import com.bh08.movieproject.models.Movie;
 import com.bh08.movieproject.models.MovieCategory;
 import com.bh08.movieproject.services.MovieCategoryService;
 import com.bh08.movieproject.services.MovieService;
+import com.bh08.movieproject.services.SessionService;
+import com.bh08.movieproject.services.UserService;
 import com.bh08.movieproject.viewmodels.LoginFormData;
 import com.bh08.movieproject.viewmodels.MovieCreationFormData;
 import com.bh08.movieproject.viewmodels.SearchByMovieCategoryFormData;
@@ -35,6 +37,10 @@ public class MainPageController {
     private MovieService movieService;
     @Autowired
     private MovieCategoryService movieCategoryService;
+    @Autowired
+    private SessionService sessionService;
+    @Autowired
+    private UserService userService;
 
     @GetMapping("/mainpage")
     public String showMainPage(Model model) {
@@ -48,6 +54,11 @@ public class MainPageController {
         model.addAttribute("movieCategories", movieCategories);
         
         model.addAttribute("loginFormData", new LoginFormData());
+        model.addAttribute("currentUserId", sessionService.getCurrentUserId());
+//        if (sessionService.getCurrentUserId() != null) {
+//            model.addAttribute("currentUserEmail", userService.findById(sessionService.getCurrentUserId()).getEmail());
+//        }
+        
 
         return "mainpage.html";
     }

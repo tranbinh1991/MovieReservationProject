@@ -6,6 +6,8 @@
 package com.bh08.movieproject.controllers;
 
 import com.bh08.movieproject.services.MovieCategoryService;
+import com.bh08.movieproject.services.SessionService;
+import com.bh08.movieproject.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,11 +24,17 @@ public class AdminPageController {
     
     @Autowired
     private MovieCategoryService movieCategoryService;
+    @Autowired
+    private SessionService sessionService;
+    @Autowired
+    private UserService userService;
     
     
     @RequestMapping(value = "adminpage", method = RequestMethod.GET)
     public String showAdminPage() {
-        
+        if (sessionService.getCurrentUserId() == null || !userService.findById(sessionService.getCurrentUserId()).isCinemaAdmin()) {
+            return "adminerror.html";
+        }
         return "adminpage.html";
     }
     

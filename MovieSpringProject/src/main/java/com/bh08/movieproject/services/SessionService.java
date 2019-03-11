@@ -13,6 +13,9 @@ import lombok.Setter;
 @Scope(value="session", proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class SessionService {
 	
-    private Long currentUserId;
-	
+    private Long currentUserId; 
+    
+//    public boolean isUserAnAdmin() {
+//        return !(this.getCurrentUserId() == null || !userService.findById(this.getCurrentUserId()).isCinemaAdmin());
+//    }
 }

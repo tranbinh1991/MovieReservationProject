@@ -56,6 +56,8 @@ public class Ticket implements Serializable {
     
     private boolean student;
 
-    
+    public BigDecimal getPrice() {
+        return (this.student ? BigDecimal.valueOf(1200): BigDecimal.valueOf(1550));
+    }
     
 }

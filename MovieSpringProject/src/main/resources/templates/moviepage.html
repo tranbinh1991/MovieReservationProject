@@ -64,7 +64,9 @@ and open the template in the editor.
             </table>
 
             <button type="button">Vissza a Főoldalra</button>
-            <img src="http://api.qrserver.com/v1/create-qr-code/?color=000000&amp;bgcolor=FFFFFF&amp;data=BEGIN%3AVEVENT%0ASUMMARY%3APi+%C3%89lete.+TicketId%3D001%0ADTSTART%3A20190322T180000Z%0ADTEND%3A20190323T200000Z%0AEND%3AVEVENT&amp;qzone=1&amp;margin=0&amp;size=400x400&amp;ecc=L" alt="qr code" />
+<!--            <img src="http://api.qrserver.com/v1/create-qr-code/?color=000000&amp;bgcolor=FFFFFF&amp;data=BEGIN%3AVEVENT%0ASUMMARY%3APi+%C3%89lete.+TicketId%3D001%0ADTSTART%3A20190322T180000Z%0ADTEND%3A20190323T200000Z%0AEND%3AVEVENT&amp;qzone=1&amp;margin=0&amp;size=400x400&amp;ecc=L" alt="qr code" />-->
+<!--            <img src="http://api.qrserver.com/v1/create-qr-code/?color=FFFFFF&amp;bgcolor=000000&amp;data=BEGIN%3AVEVENT%0ASUMMARY%3AC%C3%ADm%3A+A+keresztapa.+Terem%3A+8%2C+Sz%C3%A9k%3A+A1%2C+Ticket+ID%3A+168%0ADTSTART%3A20190426T011400Z%0ADTEND%3A20190426T031400Z%0AEND%3AVEVENT&amp;qzone=1&amp;margin=0&amp;size=400x400&amp;ecc=L" alt="qr code" />-->
+<!--            <img th:src="'http://api.qrserver.com/v1/create-qr-code/?color=FFFFFF&amp;bgcolor=000000&amp;data=' + ${ticket.screening.movie.title} + '%0ATerem%3A+' + ${ticket.chair.room.roomNumber} + '%0ASz%C3%A9k%3A+' + ${ticket.chair.rowOfChair} + ${ticket.chair.columnOfChair} + '%0ATicket+ID%3A+' + ${ticket.id} + '%0AKezd%C3%A9s%3A+' + ${ticket.screening.time} + '&amp;qzone=1&amp;margin=0&amp;size=400x400&amp;ecc=L'" alt="qr code" />-->
     </body>
 </html>
 
