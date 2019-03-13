@@ -6,78 +6,151 @@ and open the template in the editor.
 -->
 <html>
     <head>
-    
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" 
+              integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <title>Film adatlap</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <style>
-            p {
-                color: rgb(250, 212, 190);
-                text-align: center;
-            }
+
+
+
 
             body{
                 background-color: rgb(4, 27, 26);
-                color: rgb(235, 198, 206);
+                font-family: 'Raleway',sans-serif; 
+                font-size: 24px;
+                font-weight: 500; 
+                line-height: 32px; 
+                margin: 0 0 24px;
+                text-align: center;
+                color: #ff9933;
             }
+
+            table, td, th {  
+                /*border: 1px solid #ddd;*/
+                text-align: left;
+
+                h1 {
+                    font-family: 'Amatic SC', cursive;
+                    font-weight: 700;
+                    line-height: 46px;
+                    font-size: 80px;
+                    padding: 20 px;
+                }
+            }
+
+            table {
+                border-collapse: collapse;
+                width: 90%;
+            }
+
+            th, td {
+                padding: 10px;
+            }
+
 
         </style>
 
     </head>
-    <body th:object="${movie}">
-        
-        <h1 align = "center" th:text="${movie.title}"></h1>
-        <table width = "60%" align = "center">
 
-            
-            <tr><td rowspan='2'><img th:src="@{${movie.imageLink}}" th:name="${movie.id}"/></td>
-            
-                <td valign="top" th:text="${movie.description}" ></td>
-            </tr>
-            <tr>
-                <td><iframe align="right" width="420" height="315" th:src="@{${movie.youTubeLink}}"  th:name="${movie.id}"/></td>
-                    </iframe></td></tr>
-           
-            
-            <table border = "1" width = "60%" align = "center">
-                <tr>
-                   <td>Kategória: </td>       
-                   <td th:each="movieCategory : ${movie.movieCategoryList}"th:text="${movieCategory.category}" ></td>
-<!--                    th:each="viewmyorder : ${viewmyorders}-->
-                </tr>
-                <tr>
-                    <td>Rendező: </td>
-                    <td th:text="${movie.director.name}"> </td>
-                </tr>
-                <tr>
-                <td>Főszerepben: </td>
-                <td th:each="actor : ${movie.actorList}" th:text="${actor.name}"></td>
-                
-<!--                <div th:text="${#strings.listJoin(#messages.listMsg(messageKeyList), ',')}"></div>-->
-                
-<!--                <td th:text="${actor.name}"> </td>-->
-                </tr>
-                <tr>
-                    <td>Játékidő: </td>
-                 <td th:text="${movie.movieLength}"> </td>
-                </tr>
-                <tr>
-                    <td>Értékelés: </td>
-                    <td th:text="${movie.rating}"> </td>
-                </tr>
+    <nav class="navbar navbar-expand-sm bg-danger navbar-dark">
+        <ul class="navbar-nav">
 
-                <tr th:each="screening : ${movie.screenings}">
-                   <td th:text="${screening.time}"></td>
-                   
-<!--                   <td th:text="${#dates.format(sprint.releaseDate, 'dd-MMM-yyyy')}"></td>-->
-                   <td><button type="button" th:name="${screening.id}" onclick="selectElement(event)">Ez kell nekem!</button> </td>
+            <a class="navbar-brand" href="#">Nézünk mint a moziban
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6n9NvtbN_4KTwJLYyoTgBIs5iRVlXr9stG5iKWKbjlggyfj0u" alt="logo" style="width:40px;">
+            </a>
 
-               </tr>
+            <li class="nav-item">
+                <a class="nav-link" href="mainpage">Főoldal</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Mozi adatlap</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="register">Regisztráció</a>
+            </li>
+
+            <form class="navbar-form navbar-left" action="/action_page.php">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Search">
+
+                    <button type="submit" class="btn btn-info">Keresés</button>
+                </div>
+            </form>
 
 
-            </table>
+        </ul>
+    </nav>
 
-            <button type="button">Vissza a Főoldalra</button>
-    </body>
+    <table border = "2" width = "65%" align = "center" class="table table-dark">
+        <body th:object="${movie}">
+
+
+
+
+        <tr> <h1 align = "center" th:text="${movie.title}"></h1></tr>
+
+
+
+    <tr><td rowspan='6'><img th:src="@{${movie.imageLink}}" th:name="${movie.id}"/></td>
+
+        <td valign="top" th:text="${movie.description}" ></td>
+    </tr>
+    <tr>
+        <td>Kategória: </td>       
+        <td th:each="movieCategory : ${movie.movieCategoryList}"th:text="${movieCategory.category.hungarianName}" ></td>
+        <!--                    th:each="viewmyorder : ${viewmyorders}-->
+    </tr>
+    <tr>
+        <td>Rendező: </td>
+        <td th:text="${movie.director.name}"> </td>
+    </tr>
+    <tr>
+        <td>Főszerepben: </td>
+        <td th:each="actor : ${movie.actorList}" th:text="${actor.name}"></td>
+
+        <!--                <div th:text="${#strings.listJoin(#messages.listMsg(messageKeyList), ',')}"></div>-->
+
+        <!--                <td th:text="${actor.name}"> </td>-->
+    </tr>
+    <tr>
+        <td>Játékidő: </td>
+        <td th:text="${movie.movieLength}"> </td>
+    </tr>
+
+
+
+    <tr>
+        <td>Értékelés: </td>
+        <td th:text="${movie.rating}"> </td>
+    </tr>
+</table>
+
+
+<br><br>
+
+<iframe align="left" width="420" height="315" th:src="@{${movie.youTubeLink}}"  th:name="${movie.id}"/></td>
+</iframe>
+
+<table width = "50%" align = "left" border="0">
+    <td>Vetítési időpontok:</td>
+
+    <br>
+    <tr th:each="screening : ${movie.screenings}">
+        <!--                   <td th:text="${screening.time}"></td>-->
+        <td th:text="${#temporals.format(screening.time , 'yyyy-MM-dd HH:mm')}"></td>
+
+        <!--                   <td th:text="${#dates.format(sprint.releaseDate, 'dd-MMM-yyyy')}"></td>-->
+        <td><button type="button" class="btn btn-danger" th:name="${screening.id}" onclick="selectElement(event)">Foglalás</button> 
+        </td>
+
+    </tr>
+
+
+</table>
+
+</body>
 </html>
 
