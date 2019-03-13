@@ -43,7 +43,7 @@ public class LoginController {
         if (!bindingResult.hasErrors()) {
             if (!userService.findByEmail(loginFormData.getEmail()).isEmpty()) {
                 if (BCrypt.checkpw(loginFormData.getPassword(), userService.findByEmail(loginFormData.getEmail()).get(0).getPassword())) {
-                    sessionService.setCurrentUserId(userService.findByEmail(loginFormData.getEmail()).get(0).getId());                    
+                    sessionService.setUserId(userService.findByEmail(loginFormData.getEmail()).get(0).getId());                    
                     return "successful_login.html";
                 } else {
                     bindingResult.rejectValue("password", "", "Hibás jelszó!");

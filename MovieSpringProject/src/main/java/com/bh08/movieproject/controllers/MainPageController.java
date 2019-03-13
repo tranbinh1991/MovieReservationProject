@@ -52,13 +52,15 @@ public class MainPageController {
 
         List<MovieCategory> movieCategories = movieCategoryService.findAll();
         model.addAttribute("movieCategories", movieCategories);
-        
+
         model.addAttribute("loginFormData", new LoginFormData());
-        model.addAttribute("currentUserId", sessionService.getCurrentUserId());
-//        if (sessionService.getCurrentUserId() != null) {
-//            model.addAttribute("currentUserEmail", userService.findById(sessionService.getCurrentUserId()).getEmail());
-//        }
-        
+        model.addAttribute("userId", sessionService.getUserId());
+        boolean currentUserAdminRight;
+        if (sessionService.getUserId() != null) {
+            currentUserAdminRight = userService.findById(sessionService.getUserId()).isCinemaAdmin();
+            model.addAttribute("currentUserAdminRight", currentUserAdminRight);
+            model.addAttribute("currentUserEmail", userService.findById(sessionService.getUserId()).getEmail());
+        }
 
         return "mainpage.html";
     }
@@ -69,25 +71,33 @@ public class MainPageController {
         if (!bindingResult.hasErrors()) {
             if (searchFormData.getSearchValue() != null) {
                 List<Movie> filteredMovieList
-                        = movieService.findByTitleIgnoreCaseContains(searchFormData.getSearchValue());                
+                        = movieService.findByTitleIgnoreCaseContains(searchFormData.getSearchValue());
                 model.addAttribute("movielist", filteredMovieList);
                 model.addAttribute("searchFormData", new SearchFormData());
                 model.addAttribute("searchByMovieCategoryFormData", new SearchByMovieCategoryFormData());
 
                 List<MovieCategory> movieCategories = movieCategoryService.findAll();
                 model.addAttribute("movieCategories", movieCategories);
+                model.addAttribute("loginFormData", new LoginFormData());
+                model.addAttribute("userId", sessionService.getUserId());
+                boolean currentUserAdminRight;
+                if (sessionService.getUserId() != null) {
+                    currentUserAdminRight = userService.findById(sessionService.getUserId()).isCinemaAdmin();
+                    model.addAttribute("currentUserAdminRight", currentUserAdminRight);
+                    model.addAttribute("currentUserEmail", userService.findById(sessionService.getUserId()).getEmail());
+                }
             }
         }
         return "mainpage.html";
     }
-    
+
     @GetMapping("/searchByCategory")
-    public String search(Model model, 
+    public String search(Model model,
             @Valid @ModelAttribute("searchFormData") SearchByMovieCategoryFormData searchByMovieCategoryFormData, BindingResult bindingResult) {
         if (!bindingResult.hasErrors()) {
             if (!("".equals(searchByMovieCategoryFormData.getMovCategory()))) {
                 MovieCategory movieCategory = movieCategoryService.
-                findByCategory(Category.valueOf(searchByMovieCategoryFormData.getMovCategory())).get(0);
+                        findByCategory(Category.valueOf(searchByMovieCategoryFormData.getMovCategory())).get(0);
                 List<Movie> movieList = movieService.findAll();
                 List<Movie> filteredMovieList = new ArrayList<>();
                 for (Movie movie : movieList) {
@@ -95,17 +105,25 @@ public class MainPageController {
                         filteredMovieList.add(movie);
                     }
                 }
-                
+
                 model.addAttribute("movielist", filteredMovieList);
                 model.addAttribute("searchFormData", new SearchFormData());
                 model.addAttribute("searchByMovieCategoryFormData", new SearchByMovieCategoryFormData());
 
                 List<MovieCategory> movieCategories = movieCategoryService.findAll();
                 model.addAttribute("movieCategories", movieCategories);
+                model.addAttribute("loginFormData", new LoginFormData());
+                model.addAttribute("userId", sessionService.getUserId());
+                boolean currentUserAdminRight;
+                if (sessionService.getUserId() != null) {
+                    currentUserAdminRight = userService.findById(sessionService.getUserId()).isCinemaAdmin();
+                    model.addAttribute("currentUserAdminRight", currentUserAdminRight);
+                    model.addAttribute("currentUserEmail", userService.findById(sessionService.getUserId()).getEmail());
+                }
                 return "mainpage.html";
             }
         }
-        
+
         return showMainPage(model);
     }
 }

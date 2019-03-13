@@ -58,6 +58,9 @@ public class RegistrationController {
                     User user = new User();
                     user.setEmail(registrationFormData.getEmail());
                     user.setPassword(registrationFormData.getPassword());
+                    if (userService.findAll().isEmpty()) {
+                        user.setCinemaAdmin(true);
+                    }
                     userService.saveUserWithPasswordEncryption(user);
                     return "successful_registration.html";
                 } else {

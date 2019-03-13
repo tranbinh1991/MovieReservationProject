@@ -32,7 +32,7 @@ public class AdminPageController {
     
     @RequestMapping(value = "adminpage", method = RequestMethod.GET)
     public String showAdminPage() {
-        if (sessionService.getCurrentUserId() == null || !userService.findById(sessionService.getCurrentUserId()).isCinemaAdmin()) {
+        if (sessionService.getUserId() == null || !userService.findById(sessionService.getUserId()).isCinemaAdmin()) {
             return "adminerror.html";
         }
         return "adminpage.html";

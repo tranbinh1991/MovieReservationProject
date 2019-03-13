@@ -10,6 +10,8 @@ import com.bh08.movieproject.models.Screening;
 import com.bh08.movieproject.services.MovieService;
 import com.bh08.movieproject.services.RoomService;
 import com.bh08.movieproject.services.ScreeningService;
+import java.time.LocalDateTime;
+import java.util.Iterator;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,7 +37,13 @@ public class MoviePageController {
     public String showMoviePage(Model model, @RequestParam(value="id", required=false) Long movieId) {
         Movie movie = movieService.findById(movieId);
         List<Screening> screeningList = screeningService.findByMovieOrderByTime(movie);
-        
+        Iterator<Screening> screeningIterator = screeningList.iterator();
+        while (screeningIterator.hasNext()) {
+            Screening s = screeningIterator.next();
+            if (s.getTime().isBefore(LocalDateTime.now())) {
+                screeningIterator.remove();
+            }
+        }
         model.addAttribute("movie", movie);
         model.addAttribute("screeningList", screeningList);
 

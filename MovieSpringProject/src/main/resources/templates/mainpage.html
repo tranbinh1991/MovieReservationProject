@@ -61,7 +61,7 @@
                         </form>
                     </td>
 
-                    <td th:if="${currentUserId}==null">
+                    <td th:if="${userId}==null">
                         <form th:action="@{/login}" th:object="${loginFormData}" method="POST">
                             <table>
                                 <tr>
@@ -75,8 +75,10 @@
                         </form>
                     </td>
 
-                    <td th:if="${currentUserId}==null"><a href="/registration">Regisztráció</a></td>
-                    <td th:unless="${currentUserId}==null"><a href="/mainpage/logout">Kijelentkezés</a></td>
+                    <td th:if="${userId}==null"><a href="/registration">Regisztráció</a></td>
+                    <td th:unless="${userId}==null" th:text="'Be vagy jelentkezve, mint ' + ${currentUserEmail} + '.'" />
+                    <td th:if="${currentUserAdminRight}"><a href="/adminpage">Admin felület</a></td>
+                    <td th:unless="${userId}==null"><a href="/mainpage/logout">Kijelentkezés</a></td>
 
                 </tr>
                 <tr>

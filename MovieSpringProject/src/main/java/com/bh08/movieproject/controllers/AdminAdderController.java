@@ -30,12 +30,12 @@ public class AdminAdderController {
     
     @RequestMapping(value = "adminadder", method = RequestMethod.GET)
     public String showAdminAdderPage(Model model) {
-        if (sessionService.getCurrentUserId() == null || !userService.findById(sessionService.getCurrentUserId()).isCinemaAdmin()) {
+        if (sessionService.getUserId() == null || !userService.findById(sessionService.getUserId()).isCinemaAdmin()) {
             return "adminerror.html";
         }
         List<User> admins = userService.findByCinemaAdmin(true);
         if (!admins.isEmpty()) {
-            admins.remove(userService.findById(sessionService.getCurrentUserId()));
+            admins.remove(userService.findById(sessionService.getUserId()));
         }
         
         List<User> customers = userService.findByCinemaAdmin(false);
@@ -46,6 +46,9 @@ public class AdminAdderController {
     
     @RequestMapping(value = "adminadder/{user.id}")
     public String changeStatus(Model model, @PathVariable("user.id") Long id) {
+        if (sessionService.getUserId() == null || !userService.findById(sessionService.getUserId()).isCinemaAdmin()) {
+            return "adminerror.html";
+        }
         User user = userService.findById(id);
         user.setCinemaAdmin(!user.isCinemaAdmin());
         userService.saveUserWithoutPasswordEncryption(user);

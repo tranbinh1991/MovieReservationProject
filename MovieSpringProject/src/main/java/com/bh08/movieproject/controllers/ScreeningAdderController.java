@@ -12,6 +12,8 @@ import com.bh08.movieproject.models.Screening;
 import com.bh08.movieproject.services.MovieService;
 import com.bh08.movieproject.services.RoomService;
 import com.bh08.movieproject.services.ScreeningService;
+import com.bh08.movieproject.services.SessionService;
+import com.bh08.movieproject.services.UserService;
 import com.bh08.movieproject.viewmodels.ScreeningCreationFormData;
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
@@ -40,9 +42,18 @@ public class ScreeningAdderController {
 
     @Autowired
     private RoomService roomService;
+    
+    @Autowired
+    private SessionService sessionService;
+    
+    @Autowired
+    private UserService userService;
 
     @RequestMapping(value = "screeningadder", method = RequestMethod.GET)
     public String showScreeningAdder(Model model) {
+        if (sessionService.getUserId() == null || !userService.findById(sessionService.getUserId()).isCinemaAdmin()) {
+            return "adminerror.html";
+        }
         Language[] languages = Language.values();
         List<Movie> movies = movieService.findAll();
         List<Room> rooms = roomService.findAll();
