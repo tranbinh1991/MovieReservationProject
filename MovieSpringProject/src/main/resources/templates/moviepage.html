@@ -81,19 +81,7 @@ and open the template in the editor.
                 </tr>
             </table>
 
-            <table>
-
-                <tbody>
-                    <tr th:if="${movie.screenings.empty}">
-                        <td colspan="2"> No Movies Available </td>
-                    </tr>
-                    <tr th:each="screening : ${movie.screenings}">
-                        <td><span th:text="${screening.id}"> Title </span></td>
-                        <td><button type="button" th:name="${screening.id}" onclick="selectElement(event)">Ez kell nekem!</button> </td>
-
-                    </tr>
-                </tbody>
-            </table>
+            
 
             <button type="button">Vissza a Főoldalra</button>
             <!--            <img src="http://api.qrserver.com/v1/create-qr-code/?color=000000&amp;bgcolor=FFFFFF&amp;data=BEGIN%3AVEVENT%0ASUMMARY%3APi+%C3%89lete.+TicketId%3D001%0ADTSTART%3A20190322T180000Z%0ADTEND%3A20190323T200000Z%0AEND%3AVEVENT&amp;qzone=1&amp;margin=0&amp;size=400x400&amp;ecc=L" alt="qr code" />-->

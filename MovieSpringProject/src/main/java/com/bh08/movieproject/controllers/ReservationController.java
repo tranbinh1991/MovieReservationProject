@@ -9,6 +9,8 @@ import com.bh08.movieproject.models.Movie;
 import com.bh08.movieproject.models.Screening;
 import com.bh08.movieproject.services.RoomService;
 import com.bh08.movieproject.services.ScreeningService;
+import com.bh08.movieproject.services.SessionService;
+import com.bh08.movieproject.viewmodels.LoginFormData;
 import java.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,17 +29,23 @@ public class ReservationController {
 
     @Autowired
     private ScreeningService screeningService;
+    @Autowired
+    private SessionService sessionService;
 
     @RequestMapping(value = "/reservationpage", method = RequestMethod.GET)
 
     public String showReservationPage(Model model, @RequestParam(value = "id", required = false) Long screeningId) {
+        if (null == sessionService.getUserId()) {
+            model.addAttribute("loginFormData", new LoginFormData());
+            return "login.html";
+        }
         Screening screening = screeningService.findById(screeningId);
         int[] numbersColumnOfChair = new int[screening.getTicketList().size()];
         int[] numbersRowOfChair = new int[screening.getTicketList().size()];
-        
+
         for (int i = 0; i < screening.getTicketList().size(); i++) {
-            numbersColumnOfChair[i]=screening.getTicketList().get(i).getChair().getColumnOfChair();
-            numbersRowOfChair[i]=screening.getTicketList().get(i).getChair().getRowOfChair()-64;
+            numbersColumnOfChair[i] = screening.getTicketList().get(i).getChair().getColumnOfChair();
+            numbersRowOfChair[i] = screening.getTicketList().get(i).getChair().getRowOfChair() - 64;
         }
 
         model.addAttribute("numbersColumnOfChair", numbersColumnOfChair);

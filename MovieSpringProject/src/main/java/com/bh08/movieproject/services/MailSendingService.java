@@ -77,7 +77,7 @@ public class MailSendingService {
         multipart.addBodyPart(messageBodyPart);
         MimeBodyPart attachPart = new MimeBodyPart();
 
-        attachPart.attachFile("C:\\Users\\Binh\\Documents\\NezunkMintAMoziban\\MovieSpringProject\\src\\main\\resources\\static\\tickets\\"+finalFileName);
+        attachPart.attachFile("C:\\Workspace\\MovieProject\\MovieSpringProject\\src\\main\\resources\\static\\tickets\\"+finalFileName);
         multipart.addBodyPart(attachPart);
         msg.setContent(multipart);
         Transport.send(msg);

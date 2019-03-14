@@ -46,7 +46,7 @@ public class PdfGenaratorUtil {
         String fileName = "tickets";
         try {
             final File outputFile = File.createTempFile(fileName, ".pdf",
-                    new File("C:\\Users\\Binh\\Documents\\NezunkMintAMoziban\\MovieSpringProject\\src\\main\\resources\\static\\tickets"));
+                    new File("C:\\Workspace\\MovieProject\\MovieSpringProject\\src\\main\\resources\\static\\tickets"));
             os = new FileOutputStream(outputFile);
             
             

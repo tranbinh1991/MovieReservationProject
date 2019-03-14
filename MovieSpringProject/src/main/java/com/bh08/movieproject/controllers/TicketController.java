@@ -17,7 +17,7 @@ import com.bh08.movieproject.services.ScreeningService;
 import com.bh08.movieproject.services.SessionService;
 import com.bh08.movieproject.services.TicketService;
 import com.bh08.movieproject.services.UserService;
-import com.bh08.movieproject.viewmodels.RoomCreationFormData;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,10 +64,11 @@ public class TicketController {
         for (int i = 0; i < (array.length-1); i++) {
             String[] splittedNumbers = array[i+1].split("\\-");
             
+            
             Ticket ticket = new Ticket();
             SeatReservationDto reservationDto = new SeatReservationDto();
-            ticket.setUser(userService.findById(494L));
-            sessionService.setUserId(494L);
+            
+            ticket.setUser(userService.findById(sessionService.getUserId()));            
             
             int  numberOfRow = Integer.parseInt(splittedNumbers[0])+1;
             char actualCharOfChair = (char)(64+numberOfRow);
