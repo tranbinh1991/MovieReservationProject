@@ -8,6 +8,8 @@ package com.bh08.movieproject.controllers;
 import com.bh08.movieproject.models.Room;
 import com.bh08.movieproject.services.ChairService;
 import com.bh08.movieproject.services.RoomService;
+import com.bh08.movieproject.services.SessionService;
+import com.bh08.movieproject.services.UserService;
 import com.bh08.movieproject.viewmodels.RoomCreationFormData;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,12 +32,18 @@ public class RoomCreationController {
 
     @Autowired
     private RoomService roomService;
-    
+    @Autowired
+    private SessionService sessionService;
     @Autowired
     private ChairService chairService;
+    @Autowired
+    private UserService userService;
     
     @RequestMapping(value = "roomcreation", method = RequestMethod.GET)
     public String createRoom(Model model) {
+        if (sessionService.getUserId() == null || !userService.findById(sessionService.getUserId()).isCinemaAdmin()) {
+            return "adminerror.html";
+        }
         model.addAttribute("roomCreationFormData", new RoomCreationFormData());
         return "roomcreation.html";
     }

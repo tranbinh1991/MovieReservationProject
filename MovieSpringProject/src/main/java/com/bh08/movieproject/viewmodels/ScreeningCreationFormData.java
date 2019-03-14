@@ -5,6 +5,7 @@
  */
 package com.bh08.movieproject.viewmodels;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,15 +20,15 @@ public class ScreeningCreationFormData {
     
     private String movie;
     private String room;
-    @NotEmpty(message = "Ez a mező nem lehet üres!")
+    @NotBlank(message = "Ez egy kötelező mező!")
     private String year;
-    @NotEmpty(message = "Ez a mező nem lehet üres!")
+    @NotBlank(message = "Ez egy kötelező mező!")
     private String month;
-    @NotEmpty(message = "Ez a mező nem lehet üres!")
+    @NotBlank(message = "Ez egy kötelező mező!")
     private String day;
-    @NotEmpty(message = "Ez a mező nem lehet üres!")
+    @NotBlank(message = "Ez egy kötelező mező!")
     private String hour;
-    @NotEmpty(message = "Ez a mező nem lehet üres!")
+    @NotBlank(message = "Ez egy kötelező mező!")
     private String minute;
     private String language;
 }

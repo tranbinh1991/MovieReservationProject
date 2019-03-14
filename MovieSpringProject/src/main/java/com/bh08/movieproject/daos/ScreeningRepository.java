@@ -5,7 +5,10 @@
  */
 package com.bh08.movieproject.daos;
 
+import com.bh08.movieproject.models.Movie;
+import com.bh08.movieproject.models.Room;
 import com.bh08.movieproject.models.Screening;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -15,5 +18,11 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface ScreeningRepository extends JpaRepository<Screening, Long>  {
-    public Screening findFirstById(Long screeningId);
+
+    Screening findFirstById(Long screeningId);
+    
+    List<Screening> findByRoom(Room room);
+    
+    List<Screening> findByMovieOrderByTime(Movie movie);
+
 }

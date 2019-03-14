@@ -12,6 +12,8 @@ import com.bh08.movieproject.models.Screening;
 import com.bh08.movieproject.services.MovieService;
 import com.bh08.movieproject.services.RoomService;
 import com.bh08.movieproject.services.ScreeningService;
+import com.bh08.movieproject.services.SessionService;
+import com.bh08.movieproject.services.UserService;
 import com.bh08.movieproject.viewmodels.ScreeningCreationFormData;
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
@@ -40,9 +42,18 @@ public class ScreeningAdderController {
 
     @Autowired
     private RoomService roomService;
+    
+    @Autowired
+    private SessionService sessionService;
+    
+    @Autowired
+    private UserService userService;
 
     @RequestMapping(value = "screeningadder", method = RequestMethod.GET)
     public String showScreeningAdder(Model model) {
+        if (sessionService.getUserId() == null || !userService.findById(sessionService.getUserId()).isCinemaAdmin()) {
+            return "adminerror.html";
+        }
         Language[] languages = Language.values();
         List<Movie> movies = movieService.findAll();
         List<Room> rooms = roomService.findAll();
@@ -73,6 +84,11 @@ public class ScreeningAdderController {
                         Integer.parseInt(screeningCreationFormData.getDay()),
                         Integer.parseInt(screeningCreationFormData.getHour()),
                         Integer.parseInt(screeningCreationFormData.getMinute()));
+                if (LocalDateTime.now().isAfter(time)) {
+                    throw new DateTimeException("");
+                }
+                
+                //TODO: ne lehessen egymással egyidőben ugyanott több vetítés
                 screening.setTime(time);
                 model.addAttribute("successMessage", "Sikeres mentés!");
                 screeningService.saveScreening(screening);
@@ -81,14 +97,6 @@ public class ScreeningAdderController {
                 model.addAttribute("wrongDateMessage", "Hibás dátum!");
             }
 
-//            LocalDateTime time = LocalDateTime.of(Integer.parseInt(screeningCreationFormData.getYear()),
-//                    Integer.parseInt(screeningCreationFormData.getMonth()),
-//                    Integer.parseInt(screeningCreationFormData.getDay()),
-//                    Integer.parseInt(screeningCreationFormData.getHour()),
-//                    Integer.parseInt(screeningCreationFormData.getMinute()));
-//            screening.setTime(time);
-//            model.addAttribute("successMessage", "Sikeres mentés!");
-//            screeningService.saveScreening(screening);
         }
         return showScreeningAdder(model);
     }

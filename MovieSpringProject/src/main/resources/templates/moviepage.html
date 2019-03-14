@@ -6,7 +6,7 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        
+
         <script>
             function selectElement(e) {
                 var targ;
@@ -21,11 +21,11 @@ and open the template in the editor.
                 var tname;
                 tname = targ.name;
                 window.location = 'reservationpage?id=' + tname;
-                
+
 
             }
         </script>
-    
+
         <title>Movie page</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -44,17 +44,17 @@ and open the template in the editor.
 
     </head>
     <body th:object="${movie}">
-        
+
         <h1 align = "center" th:text="${movie.title}"></h1>
         <table width = "60%" align = "center">
 
-            
+
             <td><img th:src="@{${movie.imageLink}}" th:name="${movie.id}"/></td>
             <td valign="top" th:text="${movie.description}" > 
             </td>
 
 
-             <button type="button">Jegyfoglalás</button>
+            <button type="button">Jegyfoglalás</button>
 
             <table border = "1" width = "60%" align = "center">
                 <tr>
@@ -67,34 +67,38 @@ and open the template in the editor.
                 </tr>
                 <tr>
                     <td>Length: </td>
-                 <td th:text="${movie.movieLength}"> </td>
+                    <td th:text="${movie.movieLength}"> </td>
                 </tr>
                 <tr>
                     <td>Rating: </td>
                     <td th:text="${movie.rating}"> </td>
                 </tr>
-                
 
-                
-
-
-            </table>
-             
-                     <table>
-
-            <tbody>
-                <tr th:if="${movie.screenings.empty}">
-                    <td colspan="2"> No Movies Available </td>
-                </tr>
-                <tr th:each="screening : ${movie.screenings}">
-                    <td><span th:text="${screening.id}"> Title </span></td>
+                <tr th:each="screening : ${screeningList}">
+                    <td><span th:text="${screening.time}"> Title </span></td>
                     <td><button type="button" th:name="${screening.id}" onclick="selectElement(event)">Ez kell nekem!</button> </td>
-                    
+
                 </tr>
-            </tbody>
-        </table>
+            </table>
+
+            <table>
+
+                <tbody>
+                    <tr th:if="${movie.screenings.empty}">
+                        <td colspan="2"> No Movies Available </td>
+                    </tr>
+                    <tr th:each="screening : ${movie.screenings}">
+                        <td><span th:text="${screening.id}"> Title </span></td>
+                        <td><button type="button" th:name="${screening.id}" onclick="selectElement(event)">Ez kell nekem!</button> </td>
+
+                    </tr>
+                </tbody>
+            </table>
 
             <button type="button">Vissza a Főoldalra</button>
+            <!--            <img src="http://api.qrserver.com/v1/create-qr-code/?color=000000&amp;bgcolor=FFFFFF&amp;data=BEGIN%3AVEVENT%0ASUMMARY%3APi+%C3%89lete.+TicketId%3D001%0ADTSTART%3A20190322T180000Z%0ADTEND%3A20190323T200000Z%0AEND%3AVEVENT&amp;qzone=1&amp;margin=0&amp;size=400x400&amp;ecc=L" alt="qr code" />-->
+            <!--            <img src="http://api.qrserver.com/v1/create-qr-code/?color=FFFFFF&amp;bgcolor=000000&amp;data=BEGIN%3AVEVENT%0ASUMMARY%3AC%C3%ADm%3A+A+keresztapa.+Terem%3A+8%2C+Sz%C3%A9k%3A+A1%2C+Ticket+ID%3A+168%0ADTSTART%3A20190426T011400Z%0ADTEND%3A20190426T031400Z%0AEND%3AVEVENT&amp;qzone=1&amp;margin=0&amp;size=400x400&amp;ecc=L" alt="qr code" />-->
+            <!--            <img th:src="'http://api.qrserver.com/v1/create-qr-code/?color=FFFFFF&amp;bgcolor=000000&amp;data=' + ${ticket.screening.movie.title} + '%0ATerem%3A+' + ${ticket.chair.room.roomNumber} + '%0ASz%C3%A9k%3A+' + ${ticket.chair.rowOfChair} + ${ticket.chair.columnOfChair} + '%0ATicket+ID%3A+' + ${ticket.id} + '%0AKezd%C3%A9s%3A+' + ${ticket.screening.time} + '&amp;qzone=1&amp;margin=0&amp;size=400x400&amp;ecc=L'" alt="qr code" />-->
     </body>
 </html>
 

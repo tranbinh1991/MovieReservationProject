@@ -35,7 +35,8 @@ and open the template in the editor.
                     </td>
                     <td>
                         <select th:field="*{room}" id="room">
-                            <option th:each="room: ${rooms}" th:label="${room.roomNumber}" th:value="${room.roomNumber}" />
+                            <option th:each="room: ${rooms}" th:label="${room.roomNumber} + ' (' + ${room.rowCount} + 'x' + ${room.columnCount} + ')'"
+                                    th:value="${room.roomNumber}" />
                         </select>
                     </td>
                     <td>

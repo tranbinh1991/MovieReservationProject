@@ -23,15 +23,15 @@
 
         <style>
             img {
-                width: 150px;
-                height: 300px;
+                width: 300px;
+                height: 500px;
             }
 
             img:hover{
                 cursor: pointer;
             }
         </style>
-        <title>Nézünk, mint a moziban - Főoldal</title>
+        <title>Főoldal - Nézünk, mint a moziban</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
@@ -40,55 +40,76 @@
         <div id="menu">
             <table align="center">
                 <tr id="menuRow">
-                    <td><a href="mainpage.html">Főoldal</a></td>
-                    <!--                <form action="#" th:action="@{/registerCourse}" th:object="${course}"
-                        method="post" onsubmit="return validateForm();">
-                        <span id="errormesg" style="color: red"></span> <span
-                          style="font-weight: bold" th:text="${successMessage}"></span>
-                        
-                                <td>
-                                    <label th:text="#{msg.courseName}+': '"></label>
-                                </td>
-                                <td>
-                                    <select id="course" th:field="*{name}">
-                                        <option th:value="''" th:text="'Select'"></option>
-                                        <option th:value="'Mathematics'" th:text="'Mathematics'">Mathematics</option>
-                                        <option th:value="'History'" th:text="'History'">History</option>
-                                    </select></td>
-                        </form>-->
-                    <!--<td>
-                        <div class="dropdown">
-                            <button onclick="myFunction()" class="dropbtn">Dropdown</button>
-                            <div id="myDropdown" class="dropdown-content">
-                                <a href="#">Link 1</a>
-                                <a href="#">Link 2</a>
-                                <a href="#">Link 3</a>
-                            </div>
-                        </div>
-                    </td> -->
-                    <td><input type="button" value="Szűrés" /></td>
-                    <!--                <td><img src="../asset/img/magnifying-glass.png" alt="" width="25px" height="25px"></td>-->
-                    <td>Keresés: <input type="text" id="searchField" /></td>
-                    <td><input type="button" value="Keresés" /></td>
-                    <td>Email: <input type="email" id="email" /></td>
-                    <td>Jelszó: <input type="password" id="password"></td>
-                    <td><input type="button" value="Bejelentkezés" /></td>
-                    <td><a href="registration.html">Regisztráció</a></td>
+                    <td><a href="/mainpage">Főoldal</a></td>
+
+                    <td>
+                        <form th:action="@{/searchByCategory}" th:object="${searchByMovieCategoryFormData}" method="GET">
+                            Szűrés: <select th:field="*{movCategory}" id="movCategory" style="width: 100px">
+                                <option th:value="''" th:text="''"></option>                                
+                                <option th:each="movieCategory: ${movieCategories}" th:text="${movieCategory.category.hungarianName}" th:value="${movieCategory.category}" />
+                            </select>
+                            <input type="submit" value="Szűrés" />
+                        </form>
+                    </td>
+
+
+
+                    <td>
+                        <form th:action="@{/search}" th:object="${searchFormData}" method="GET">
+                            Keresés: <input type="text" id="searchField" th:field="*{searchValue}" />
+                            <input type="submit" value="Keresés" />
+                        </form>
+                    </td>
+
+                    <td th:if="${userId}==null">
+                        <form th:action="@{/login}" th:object="${loginFormData}" method="POST">
+                            <table>
+                                <tr>
+                                    <td>Email: <input type="email" id="email" th:field="*{email}" /></td>
+                                    <td>Jelszó: <input type="password" id="password"  th:field="*{password}" /></td>
+                                    <td><input type="submit" value="Bejelentkezés" /></td>
+                                    <p th:errors="*{email}"></p>
+                                    <p th:errors="*{password}"></p>
+                                </tr>
+                            </table>
+                        </form>
+                    </td>
+
+                    <td th:if="${userId}==null"><a href="/registration">Regisztráció</a></td>
+                    <td th:unless="${userId}==null" th:text="'Be vagy jelentkezve, mint ' + ${currentUserEmail} + '.'" />
+                    <td th:if="${currentUserAdminRight}"><a href="/adminpage">Admin felület</a></td>
+                    <td th:unless="${userId}==null"><a href="/mainpage/logout">Kijelentkezés</a></td>
+
+                </tr>
+                <tr>
+                    
                 </tr>
             </table>
         </div>
 
-        <table>
+        <table align="center">
 
             <tbody>
                 <tr th:if="${movielist.empty}">
-                    <td colspan="2"> No Movies Available </td>
+                    <td colspan="2"> A megadott paraméterekkel nem található film. </td>
                 </tr>
-                <tr th:each="movie : ${movielist}">
+                <tr>
+                    <td th:each="movie : ${movielist}">
+                        <table>
+                                <tr>
+                                    <td><img th:src="@{${movie.imageLink}}" th:name="${movie.id}" onclick="selectElement(event)"/></td>
+                                </tr>
+                                <tr>
+                                    <td><a th:href="@{'/moviepage?id=' + ${movie.id}}" th:text="${movie.title}" align='center' /></td>
+                                </tr>
+                        </table>
+                    </td>
+                </tr>
+<!--                <tr th:each="movie : ${movielist}">
                     <td><span th:text="${movie.title}"> Title </span></td>
                     <td><img th:src="@{${movie.imageLink}}" th:name="${movie.id}" onclick="selectElement(event)"/></td>
 
-                </tr>
+                </tr>-->
             </tbody>
         </table>
     </body>

@@ -14,10 +14,11 @@ import com.bh08.movieproject.services.ActorService;
 import com.bh08.movieproject.services.DirectorService;
 import com.bh08.movieproject.services.MovieCategoryService;
 import com.bh08.movieproject.services.MovieService;
+import com.bh08.movieproject.services.SessionService;
+import com.bh08.movieproject.services.UserService;
 import com.bh08.movieproject.viewmodels.MovieCreationFormData;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -42,9 +43,16 @@ public class MovieAdderController {
     private DirectorService directorService;
     @Autowired
     private ActorService actorService;
+    @Autowired
+    private SessionService sessionService;
+    @Autowired
+    private UserService userService;
 
     @RequestMapping(value = "movieadder", method = RequestMethod.GET)
     public String showMovieAdderPage(Model model) {
+        if (sessionService.getUserId() == null || !userService.findById(sessionService.getUserId()).isCinemaAdmin()) {
+            return "adminerror.html";
+        }
         List<MovieCategory> movieCategories = movieCategoryService.findAll();
         model.addAttribute("movieCategories", movieCategories);
         model.addAttribute("movieCreationFormData", new MovieCreationFormData());

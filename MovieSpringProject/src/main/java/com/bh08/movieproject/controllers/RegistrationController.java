@@ -33,21 +33,21 @@ public class RegistrationController {
 //    @RequestMapping(value = "register", method = RequestMethod.POST)
 //    public @ResponseBody
 //    User createUser(@RequestBody User user) {
-//        return userService.saveUser(user);
+//        return userService.saveUserWithPasswordEncryption(user);
 //
 //    }
 //    @RequestMapping(value = "registerUser", method = RequestMethod.POST)
 //    public @ResponseBody
 //    User createUser(@RequestBody User user) {
-//        return userService.saveUser(user);
+//        return userService.saveUserWithPasswordEncryption(user);
 //    }
-    @RequestMapping(value = "register", method = RequestMethod.GET)
+    @RequestMapping(value = "registration", method = RequestMethod.GET)
     public String register(Model model) {
         model.addAttribute("registrationFormData", new RegistrationFormData());
-        return "register.html";
+        return "registration.html";
     }
 
-    @RequestMapping(value = "register", method = RequestMethod.POST)
+    @RequestMapping(value = "registration", method = RequestMethod.POST)
     public String submitRegistration(@ModelAttribute("registrationFormData") @Valid RegistrationFormData registrationFormData,
             BindingResult bindingResult, Model model) {
         if (!bindingResult.hasErrors()) {
@@ -58,7 +58,10 @@ public class RegistrationController {
                     User user = new User();
                     user.setEmail(registrationFormData.getEmail());
                     user.setPassword(registrationFormData.getPassword());
-                    userService.saveUser(user);
+                    if (userService.findAll().isEmpty()) {
+                        user.setCinemaAdmin(true);
+                    }
+                    userService.saveUserWithPasswordEncryption(user);
                     return "successful_registration.html";
                 } else {
                     bindingResult.rejectValue("passwordAgain", "", "A két jelszónak meg kell egyeznie!");
@@ -67,7 +70,7 @@ public class RegistrationController {
                 bindingResult.rejectValue("email", "", "Ezzel az email-címmel már regisztráltak!");
             }
         }
-        return "register.html";
+        return "registration.html";
     }
 
     /*

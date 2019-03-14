@@ -6,7 +6,7 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>Login</title>
+        <title>Login - Nézünk, mint a moziban</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
@@ -26,13 +26,12 @@ and open the template in the editor.
                     <td><input type="email" th:field="*{email}" id="loginemail" placeholder="valami@valami.valami" /></td>
                     <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
                     <td><label for="password">Jelszó: </label></td>
-                    <td><input type="text" th:field="*{password}" id="loginpassword" placeholder="Jelszó" /></td>
+                    <td><input type="password" th:field="*{password}" id="loginpassword" placeholder="Jelszó" /></td>
                     <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
-                    <td><input type="submit" value="Bejelentkezek" /></td>
-                <!--    <td><input type="submit" value="Regisztrálok"></td> -->
-                <!-- <td><input type="reset" value="Mezők törlése" /></td> -->
+                    <td><input type="submit" value="Bejelentkezek" /></td>                
                 </tr>
-            </table>
+            </table> <br />
+            <a href="/mainpage">Vissza a főoldalra</a> <br/>
 
         </form>
 

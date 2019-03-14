@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -27,7 +28,5 @@ import org.springframework.web.context.annotation.SessionScope;
 public class SessionService {
     
     private List<SeatReservationDto> seatReservationDtos= new ArrayList<>();
-    private Long userId;
-    
-    
+    private Long userId; 
 }

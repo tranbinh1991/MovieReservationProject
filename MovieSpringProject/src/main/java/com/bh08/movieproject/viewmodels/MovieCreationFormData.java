@@ -5,6 +5,7 @@
  */
 package com.bh08.movieproject.viewmodels;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,11 +20,11 @@ import lombok.ToString;
 @ToString
 public class MovieCreationFormData {
     
-    @NotEmpty(message = "Ez egy kötelező mező!")
+    @NotBlank(message = "Ez egy kötelező mező!")
     private String title;
-    @NotEmpty(message = "Ez egy kötelező mező!")
+    @NotBlank(message = "Ez egy kötelező mező!")
     private String movieLength;
-    
+    @NotBlank(message = "Ez egy kötelező mező!")
     private String director;
     private String actor1;
     private String actor2;
@@ -35,9 +36,9 @@ public class MovieCreationFormData {
     private String movieCategory1;
     private String movieCategory2;
     private String movieCategory3;
-    @NotEmpty(message = "Ez egy kötelező mező!")
+    @NotBlank(message = "Ez egy kötelező mező!")
     private String description;
-    
+    @NotBlank(message = "Ez egy kötelező mező!")
     private String imageLink;    
     private String youTubeLink;
     private String rating;

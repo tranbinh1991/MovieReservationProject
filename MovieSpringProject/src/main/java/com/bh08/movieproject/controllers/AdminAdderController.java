@@ -7,6 +7,7 @@ package com.bh08.movieproject.controllers;
 
 import com.bh08.movieproject.models.User;
 import com.bh08.movieproject.services.UserService;
+import com.bh08.movieproject.services.SessionService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,10 +25,19 @@ public class AdminAdderController {
         
     @Autowired
     private UserService userService;
+    @Autowired
+    private SessionService sessionService;
     
     @RequestMapping(value = "adminadder", method = RequestMethod.GET)
     public String showAdminAdderPage(Model model) {
+        if (sessionService.getUserId() == null || !userService.findById(sessionService.getUserId()).isCinemaAdmin()) {
+            return "adminerror.html";
+        }
         List<User> admins = userService.findByCinemaAdmin(true);
+        if (!admins.isEmpty()) {
+            admins.remove(userService.findById(sessionService.getUserId()));
+        }
+        
         List<User> customers = userService.findByCinemaAdmin(false);
         model.addAttribute("admins", admins);
         model.addAttribute("customers", customers);
@@ -36,9 +46,12 @@ public class AdminAdderController {
     
     @RequestMapping(value = "adminadder/{user.id}")
     public String changeStatus(Model model, @PathVariable("user.id") Long id) {
+        if (sessionService.getUserId() == null || !userService.findById(sessionService.getUserId()).isCinemaAdmin()) {
+            return "adminerror.html";
+        }
         User user = userService.findById(id);
         user.setCinemaAdmin(!user.isCinemaAdmin());
-        userService.saveUser(user);
+        userService.saveUserWithoutPasswordEncryption(user);
         return showAdminAdderPage(model);
     }
 }

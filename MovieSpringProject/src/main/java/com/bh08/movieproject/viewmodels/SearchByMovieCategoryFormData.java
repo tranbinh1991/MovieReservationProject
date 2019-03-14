@@ -5,8 +5,6 @@
  */
 package com.bh08.movieproject.viewmodels;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,12 +14,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class RoomCreationFormData {
+public class SearchByMovieCategoryFormData {
     
-    @NotBlank
-    private String roomNumber;
-    @NotBlank
-    private String rowCount;
-    @NotBlank
-    private String columnCount;
+    private String movCategory;
 }
