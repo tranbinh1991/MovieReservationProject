@@ -27,66 +27,111 @@ and open the template in the editor.
         </script>
 
         <title>Movie page</title>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" 
+              integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <title>Film adatlap</title>
+        
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <style>
-            p {
-                color: rgb(250, 212, 190);
-                text-align: center;
-            }
-
-            body{
-                background-color: rgb(4, 27, 26);
-                color: rgb(235, 198, 206);
-            }
-
-        </style>
-
+        
+        <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+        
     </head>
-    <body th:object="${movie}">
 
-        <h1 align = "center" th:text="${movie.title}"></h1>
-        <table width = "60%" align = "center">
+    <nav class="navbar navbar-expand-sm bg-danger navbar-dark">
+        <ul class="navbar-nav">
+
+            <a class="navbar-brand" href="#">Nézünk mint a moziban
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6n9NvtbN_4KTwJLYyoTgBIs5iRVlXr9stG5iKWKbjlggyfj0u" alt="logo" style="width:40px;">
+            </a>
+
+            <li class="nav-item">
+                <a class="nav-link" href="mainpage">Főoldal</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Mozi adatlap</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="register">Regisztráció</a>
+            </li>
+
+            <form class="navbar-form navbar-left" action="/action_page.php">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Search">
+
+                    <button type="submit" class="btn btn-info">Keresés</button>
+                </div>
+            </form>
 
 
-            <td><img th:src="@{${movie.imageLink}}" th:name="${movie.id}"/></td>
-            <td valign="top" th:text="${movie.description}" > 
-            </td>
+        </ul>
+    </nav>
+
+    <table border = "2" width = "65%" align = "center" class="table table-dark">
+        <body th:object="${movie}">
+
+        <tr> <h1 align = "center" th:text="${movie.title}"></h1></tr>
 
 
-            <button type="button">Jegyfoglalás</button>
 
-            <table border = "1" width = "60%" align = "center">
-                <tr>
-                    <td>Category: </td>       
-                    <td>Action, Sci-fi </td>
-                </tr>
-                <tr>
-                    <td>Director: </td>
-                    <td th:text="${movie.director.name}"> </td>
-                </tr>
-                <tr>
-                    <td>Length: </td>
-                    <td th:text="${movie.movieLength}"> </td>
-                </tr>
-                <tr>
-                    <td>Rating: </td>
-                    <td th:text="${movie.rating}"> </td>
-                </tr>
+    <tr><td rowspan='6'><img th:src="@{${movie.imageLink}}" th:name="${movie.id}"/></td>
 
-                <tr th:each="screening : ${screeningList}">
-                    <td><span th:text="${screening.time}"> Title </span></td>
-                    <td><button type="button" th:name="${screening.id}" onclick="selectElement(event)">Ez kell nekem!</button> </td>
+        <td valign="top" th:text="${movie.description}" ></td>
+    </tr>
+    <tr>
+        <td>Kategória: </td>       
+        <td th:each="movieCategory : ${movie.movieCategoryList}"th:text="${movieCategory.category.hungarianName}" ></td>
+        <!--                    th:each="viewmyorder : ${viewmyorders}-->
+    </tr>
+    <tr>
+        <td>Rendező: </td>
+        <td th:text="${movie.director.name}"> </td>
+    </tr>
+    <tr>
+        <td>Főszerepben: </td>
+        <td th:each="actor : ${movie.actorList}" th:text="${actor.name}"></td>
 
-                </tr>
-            </table>
+        <!--                <div th:text="${#strings.listJoin(#messages.listMsg(messageKeyList), ',')}"></div>-->
 
-            
+        <!--                <td th:text="${actor.name}"> </td>-->
+    </tr>
+    <tr>
+        <td>Játékidő: </td>
+        <td th:text="${movie.movieLength}"> </td>
+    </tr>
 
-            <button type="button">Vissza a Főoldalra</button>
-            <!--            <img src="http://api.qrserver.com/v1/create-qr-code/?color=000000&amp;bgcolor=FFFFFF&amp;data=BEGIN%3AVEVENT%0ASUMMARY%3APi+%C3%89lete.+TicketId%3D001%0ADTSTART%3A20190322T180000Z%0ADTEND%3A20190323T200000Z%0AEND%3AVEVENT&amp;qzone=1&amp;margin=0&amp;size=400x400&amp;ecc=L" alt="qr code" />-->
-            <!--            <img src="http://api.qrserver.com/v1/create-qr-code/?color=FFFFFF&amp;bgcolor=000000&amp;data=BEGIN%3AVEVENT%0ASUMMARY%3AC%C3%ADm%3A+A+keresztapa.+Terem%3A+8%2C+Sz%C3%A9k%3A+A1%2C+Ticket+ID%3A+168%0ADTSTART%3A20190426T011400Z%0ADTEND%3A20190426T031400Z%0AEND%3AVEVENT&amp;qzone=1&amp;margin=0&amp;size=400x400&amp;ecc=L" alt="qr code" />-->
-            <!--            <img th:src="'http://api.qrserver.com/v1/create-qr-code/?color=FFFFFF&amp;bgcolor=000000&amp;data=' + ${ticket.screening.movie.title} + '%0ATerem%3A+' + ${ticket.chair.room.roomNumber} + '%0ASz%C3%A9k%3A+' + ${ticket.chair.rowOfChair} + ${ticket.chair.columnOfChair} + '%0ATicket+ID%3A+' + ${ticket.id} + '%0AKezd%C3%A9s%3A+' + ${ticket.screening.time} + '&amp;qzone=1&amp;margin=0&amp;size=400x400&amp;ecc=L'" alt="qr code" />-->
-    </body>
+
+
+    <tr>
+        <td>Értékelés: </td>
+        <td th:text="${movie.rating}"> </td>
+    </tr>
+</table>
+
+
+<br><br>
+
+<iframe align="left" width="420" height="315" th:src="@{${movie.youTubeLink}}"  th:name="${movie.id}"/></td>
+</iframe>
+
+<table width = "50%" align = "left" border="0">
+    <td>Vetítési időpontok:</td>
+
+    <br>
+    <tr th:each="screening : ${screeningList}">
+        <!--                   <td th:text="${screening.time}"></td>-->
+        <td th:text="${#temporals.format(screening.time , 'yyyy-MM-dd HH:mm')}"></td>
+
+        <!--                   <td th:text="${#dates.format(sprint.releaseDate, 'dd-MMM-yyyy')}"></td>-->
+        <td><button type="button" class="btn btn-danger" th:name="${screening.id}" onclick="selectElement(event)">Foglalás</button> 
+        </td>
+
+    </tr>
+
+
+</table>
+
+</body>
 </html>
 
