@@ -150,7 +150,7 @@ public class MovieAdderController {
         
         if (!("".equals(movieCreationFormData.getMovieCategory3()))) {
             MovieCategory movieCategory3 = movieCategoryService.
-                    findByCategory(Category.valueOf(movieCreationFormData.getMovieCategory2())).get(0);
+                    findByCategory(Category.valueOf(movieCreationFormData.getMovieCategory3())).get(0);
             List<Movie> movieList = movieCategory3.getMovieList();
             movieList.add(movie);
             movieCategory3.setMovieList(movieList);
