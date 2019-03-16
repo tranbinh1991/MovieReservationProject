@@ -45,7 +45,8 @@ public class MainPageController {
     @GetMapping("/mainpage")
     public String showMainPage(Model model) {
         sessionService.getSeatReservationDtos().clear();
-        List<Movie> movieList = movieService.findAll();
+        List<Movie> movieList = movieService.findMoviesWithFutureScreenings();
+        
         model.addAttribute("movielist", movieList);
 
         model.addAttribute("searchFormData", new SearchFormData());
@@ -93,13 +94,13 @@ public class MainPageController {
     }
 
     @GetMapping("/searchByCategory")
-    public String search(Model model,
+    public String searchByCategory(Model model,
             @Valid @ModelAttribute("searchFormData") SearchByMovieCategoryFormData searchByMovieCategoryFormData, BindingResult bindingResult) {
         if (!bindingResult.hasErrors()) {
             if (!("".equals(searchByMovieCategoryFormData.getMovCategory()))) {
                 MovieCategory movieCategory = movieCategoryService.
                         findByCategory(Category.valueOf(searchByMovieCategoryFormData.getMovCategory())).get(0);
-                List<Movie> movieList = movieService.findAll();
+                List<Movie> movieList = movieService.findMoviesWithFutureScreenings();
                 List<Movie> filteredMovieList = new ArrayList<>();
                 for (Movie movie : movieList) {
                     if (movie.getMovieCategoryList().contains(movieCategory)) {
@@ -114,10 +115,9 @@ public class MainPageController {
                 List<MovieCategory> movieCategories = movieCategoryService.findAll();
                 model.addAttribute("movieCategories", movieCategories);
                 model.addAttribute("loginFormData", new LoginFormData());
-                model.addAttribute("userId", sessionService.getUserId());
-                boolean currentUserAdminRight;
+                model.addAttribute("userId", sessionService.getUserId());                
                 if (sessionService.getUserId() != null) {
-                    currentUserAdminRight = userService.findById(sessionService.getUserId()).isCinemaAdmin();
+                    boolean currentUserAdminRight = userService.findById(sessionService.getUserId()).isCinemaAdmin();
                     model.addAttribute("currentUserAdminRight", currentUserAdminRight);
                     model.addAttribute("currentUserEmail", userService.findById(sessionService.getUserId()).getEmail());
                 }

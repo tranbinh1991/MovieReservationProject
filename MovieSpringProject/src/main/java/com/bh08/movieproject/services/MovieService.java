@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 import com.bh08.movieproject.daos.MovieRepository;
 import com.bh08.movieproject.models.Movie;
 import com.bh08.movieproject.models.MovieCategory;
+import com.bh08.movieproject.models.Screening;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 @Service
 public class MovieService {
@@ -33,11 +36,36 @@ public class MovieService {
     }
     
     public List<Movie> findByTitleIgnoreCaseContains(String title) {
-        return movieRepository.findByTitleIgnoreCaseContainsOrderByTitle(title);
+        List<Movie> completeMovieList = movieRepository.findByTitleIgnoreCaseContainsOrderByTitle(title);
+        return filterByAvailableScreenings(completeMovieList);
     }
     
-//    public List<Movie> findByMovieCategory(MovieCategory movieCategory) {
-//        return movieRepository.findByMovieCategory(movieCategory);
-//    }
+    public List<Movie> findMoviesWithFutureScreenings() {
+        List<Movie> completeMovieList = movieRepository.findAllByOrderByTitle();
+        return filterByAvailableScreenings(completeMovieList);
+    }
+
+    private List<Movie> filterByAvailableScreenings(List<Movie> completeMovieList) {
+        List<Movie> filteredMovieList = new ArrayList<>();
+        for (Movie movie : completeMovieList) {
+            if (doesMovieHaveFutureScreenings(movie)) {
+                filteredMovieList.add(movie);
+            }
+        }
+        return filteredMovieList;
+    }
+    
+    public boolean doesMovieHaveFutureScreenings(Movie movie) {
+        List<Screening> screeningList = movie.getScreenings();
+        if (screeningList.isEmpty()) {
+            return false;
+        }
+        for (Screening screening : screeningList) {
+            if (screening.getTime().isAfter(LocalDateTime.now()) && !screening.isOccupied()) {
+                return true;
+            }
+        }
+        return false;
+    }
 
 }

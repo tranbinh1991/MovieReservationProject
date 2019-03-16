@@ -24,11 +24,15 @@ and open the template in the editor.
                 <tr>
                     <td><label for="email">E-mail cím: </label></td>
                     <td><input type="email" th:field="*{email}" id="loginemail" placeholder="valami@valami.valami" /></td>
-                    <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+<!--                    <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>-->
                     <td><label for="password">Jelszó: </label></td>
                     <td><input type="password" th:field="*{password}" id="loginpassword" placeholder="Jelszó" /></td>
-                    <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+<!--                    <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>-->
                     <td><input type="submit" value="Bejelentkezek" /></td>                
+                </tr>
+                <tr>
+                    <td /><td><span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span></td>
+                    <td /><td><span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span></td>
                 </tr>
             </table> <br />
             <a href="/mainpage">Vissza a főoldalra</a> <br/>
