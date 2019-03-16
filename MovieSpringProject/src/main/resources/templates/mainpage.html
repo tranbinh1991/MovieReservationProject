@@ -43,7 +43,7 @@
                     <td><a href="/mainpage">Főoldal</a></td>
 
                     <td>
-                        <form th:action="@{/searchByCategory}" th:object="${searchByMovieCategoryFormData}" method="GET">
+                        <form th:action="@{/mainpage}" th:object="${searchByMovieCategoryFormData}" method="GET">
                             Szűrés: <select th:field="*{movCategory}" id="movCategory" style="width: 100px">
                                 <option th:value="''" th:text="''"></option>                                
                                 <option th:each="movieCategory: ${movieCategories}" th:text="${movieCategory.category.hungarianName}" th:value="${movieCategory.category}" />
@@ -55,7 +55,7 @@
 
 
                     <td>
-                        <form th:action="@{/search}" th:object="${searchFormData}" method="GET">
+                        <form th:action="@{/mainpage}" th:object="${searchFormData}" method="GET">
                             Keresés: <input type="text" id="searchField" th:field="*{searchValue}" />
                             <input type="submit" value="Keresés" />
                         </form>

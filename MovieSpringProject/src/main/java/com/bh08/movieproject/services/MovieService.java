@@ -55,7 +55,7 @@ public class MovieService {
         return filteredMovieList;
     }
     
-    public boolean doesMovieHaveFutureScreenings(Movie movie) {
+    private boolean doesMovieHaveFutureScreenings(Movie movie) {
         List<Screening> screeningList = movie.getScreenings();
         if (screeningList.isEmpty()) {
             return false;
