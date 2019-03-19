@@ -33,6 +33,9 @@ public class LoginController {
 
     @RequestMapping(value = "login", method = RequestMethod.GET)
     public String login(Model model) {
+        if (sessionService.getUserId() != null) {
+            return "successful_login.html";
+        }
         model.addAttribute("loginFormData", new LoginFormData());
         return "login.html";
     }

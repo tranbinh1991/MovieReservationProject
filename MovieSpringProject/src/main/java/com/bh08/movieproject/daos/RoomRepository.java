@@ -18,4 +18,5 @@ import org.springframework.stereotype.Repository;
 public interface RoomRepository extends JpaRepository<Room, Long>  {
     
     List<Room> findByRoomNumber(int roomNumber);
+    List<Room> findAllByOrderByRoomNumber();
 }

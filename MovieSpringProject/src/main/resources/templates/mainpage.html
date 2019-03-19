@@ -31,6 +31,10 @@
                 cursor: pointer;
             }
         </style>
+        
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" 
+              integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
         <title>Főoldal - Nézünk, mint a moziban</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -44,11 +48,19 @@
 
                     <td>
                         <form th:action="@{/mainpage}" th:object="${searchByMovieCategoryFormData}" method="GET">
-                            Szűrés: <select th:field="*{movCategory}" id="movCategory" style="width: 100px">
+                        <table>
+                            <tr>
+                                <td>
+                                    Szűrés:<select th:field="*{movCategory}" id="movCategory" style="width: 100px">
                                 <option th:value="''" th:text="''"></option>                                
                                 <option th:each="movieCategory: ${movieCategories}" th:text="${movieCategory.category.hungarianName}" th:value="${movieCategory.category}" />
                             </select>
-                            <input type="submit" value="Szűrés" />
+                                </td>
+                                <td>
+                                    <input type="submit" value="Szűrés" />
+                                </td>
+                            </tr>
+                        </table>                           
                         </form>
                     </td>
 
@@ -56,8 +68,16 @@
 
                     <td>
                         <form th:action="@{/mainpage}" th:object="${searchFormData}" method="GET">
-                            Keresés: <input type="text" id="searchField" th:field="*{searchValue}" />
-                            <input type="submit" value="Keresés" />
+                            <table>
+                                <tr>
+                                    <td>
+                                        Keresés: <input type="text" id="searchField" th:field="*{searchValue}" />
+                                    </td>
+                                    <td>
+                                        <input type="submit" value="Keresés" />
+                                    </td>
+                                </tr>
+                            </table>                           
                         </form>
                     </td>
 
@@ -93,7 +113,7 @@
                 <tr th:if="${movielist.empty}">
                     <td colspan="2"> A megadott paraméterekkel nem található film. </td>
                 </tr>
-                
+
                 <tr>
                     <td th:each="movie : ${movielist}">
                         <table>

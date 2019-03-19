@@ -8,7 +8,6 @@ package com.bh08.movieproject.services;
 import com.bh08.movieproject.daos.RoomRepository;
 import com.bh08.movieproject.models.Room;
 import java.util.List;
-import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,7 +30,7 @@ public class RoomService {
     }
     
     public List<Room> findAll() {
-        return roomRepository.findAll();
+        return roomRepository.findAllByOrderByRoomNumber();
     }
     
     public int getRoomColumnNumber(Long id){
