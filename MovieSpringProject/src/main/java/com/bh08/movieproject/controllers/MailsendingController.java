@@ -20,6 +20,7 @@ import com.bh08.movieproject.services.TicketService;
 import com.bh08.movieproject.services.UserService;
 import com.bh08.movieproject.util.PdfGenaratorUtil;
 import com.bh08.movieproject.viewmodels.RoomCreationFormData;
+import com.bh08.movieproject.viewmodels.TicketCreationFormData;
 import java.io.IOException;
 
 import java.util.ArrayList;
@@ -70,25 +71,41 @@ public class MailsendingController {
    
     
     @RequestMapping(value = "successfulticketbooking", method = RequestMethod.POST)
-    public String addNewTickets(Model model) {
+    public String addNewTickets(@ModelAttribute("ticketCreationFormData") @Valid TicketCreationFormData ticketCreationFormData,
+            BindingResult bindingResult, Model model) {
+        
+        System.out.println(ticketCreationFormData.getTicketTypes());
+        String[] chosenTicketTypes = ticketCreationFormData.getTicketTypes().split("\\,");
         
         String finalFilename;
+        
+        
         
         List<Ticket> ticketList = new ArrayList<>();
         
        
             for (int i = 0; i < sessionService.getSeatReservationDtos().size(); i++) {
                 Ticket ticket = new Ticket();
+                
                 ticket.setChair(chairService.findById(sessionService.getSeatReservationDtos().get(i).getChairId()));
                 ticket.setScreening(screeningService.findById(sessionService.getSeatReservationDtos().get(i).getScreeningId()));
                 ticket.setUser(userService.findById(sessionService.getUserId()));
+                if(chosenTicketTypes[i].equals("student")){
+                    ticket.setStudent(true);
+                }else
+                    ticket.setStudent(false);
                 
+                ticket.setTicketPrice();
                 ticketService.saveTicket(ticket);
                 ticketList.add(ticket);
             }
             
+            String QRtitle = ticketList.get(0).getScreening().getMovie().getTitle().replaceAll(" ", "+");
+            
             Map<Object, Object> data = new HashMap<>();
             data.put("tickets", ticketList);
+            data.put("qrtitle", QRtitle);
+            
             try {
                finalFilename = util.createPdf("listoftickets", data);
                mailSendingService.sendmail(userService.findById(sessionService.getUserId()), finalFilename);

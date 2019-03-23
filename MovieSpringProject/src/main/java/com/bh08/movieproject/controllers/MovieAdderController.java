@@ -74,7 +74,7 @@ public class MovieAdderController {
 
             String title = movieCreationFormData.getTitle();
             movie.setTitle(title);
-
+            
             int movieLength = Integer.parseInt(movieCreationFormData.getMovieLength());
             movie.setMovieLength(movieLength);
 

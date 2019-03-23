@@ -6,47 +6,61 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>TODO supply a title</title>
+        <title>Confirmation page</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" 
+              integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+        <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
     </head>
     <body>
+
         <div>A jegyfoglalásod</div>
-        
-        <table>
+        <br />
+        <br />
+
+        <table border="1">
 
             <tbody>
-                    <div>A vetítés</div>
-                    <td><span th:text="${screening}"> TicketID </span></td>
-                   
 
-                </tr>
+                <tr> <td colspan="2"> Film címe </td> <td colspan="3"> Terem száma </td> <td colspan="4"> Vetítési időpont </td> <td colspan="5"> Nyelv </td> </tr>
+                <tr><td colspan="2" <span  th:text="${screening.movie.title}"> Cím </span>> </td> <td colspan="3" <span  th:text="${screening.room.roomNumber}"> Terem </span>> </td> <td colspan="4" <span  th:text="${#temporals.format(screening.time , 'yyyy-MM-dd HH:mm')}"> Idő </span>> </td> <td colspan="5" <span  th:text="${screening.language.hungarianName}"> Nyelv </span>> </td> </tr>
             </tbody>
         </table>
-        
-        <table>
-            <td colspan="2"> Foglalt székek </td>
 
-            <tbody>
-                <tr th:if="${ticketsCreationDto.ticketList.empty}">
-                    <td colspan="2"> no ticket list </td>
-                </tr>
-                <tr th:each="ticket : ${ticketsCreationDto.ticketList}">
-                    
-                    <td><span th:text="${ticket.chair}"> Chair </span></td>
+        <br />
+        <br />
+        <br />
 
+        <form th:action="@{/successfulticketbooking}" th:object="${ticketCreationFormData}" method="POST">
+
+            <table>
+                <td colspan="2"> Foglalt székek </td> <td colspan="3"> Kérlek válassz jegytípust! </td>
+                <tr th:each="ticket,iter : ${ticketsCreationDto.ticketList}">
+
+                    <td colspan="2" <span  th:text="${ticket.chair.rowOfChair}+${ticket.chair.columnOfChair}"> Chair </span>>  </td>
+
+                    <td colspan="3">   <select th:field="*{ticketTypes}">
+                            <option th:label="'Normál:'+' '+'1550Ft'" th:value="normal"></option>
+                            <option th:label="'Diák:'+' '+'1200Ft'" th:value="student"></option>
+                        </select>
+                    </td>
+
+
+
+                    <td>
+                        <p th:errors="*{ticketTypes}"></p>
+                    </td>
                 </tr>
-            </tbody>
-        </table>
-        
-        
-       
-        <form th:action="@{/successfulticketbooking}" th:object="${ticketsCreationDto}" method="POST">
-            <button type="submit"  value="Megerősítem" id="click">Submit</button>
+
+            </table>
+            <br />
+            <button type="submit"  value="Megerősítem" id="click">Megerősítem</button>
         </form>
-                  
- 
+        <br />
+        <input onclick='javascript:window.history.back()' value='Vissza' type='button' />
 
-         <button id="click">Mégse</button>
     </body>
 </html>

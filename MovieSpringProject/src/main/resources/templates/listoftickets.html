@@ -81,11 +81,12 @@
                 content: none;
             }
             strong, b {
-                font-weight: bold;
+                font-weight: normal;
             }
             table {
                 border-collapse: collapse;
                 border-spacing: 0;
+
             }
             img {
                 border: 0;
@@ -94,7 +95,7 @@
             h1 {
                 font-family: 'Amarante', Tahoma, sans-serif;
                 font-weight: bold;
-                font-size: 3.6em;
+
                 line-height: 1.7em;
                 margin-bottom: 10px;
                 text-align: center;
@@ -102,7 +103,7 @@
             /** page structure **/
             #wrapper {
                 display: block;
-                width: 586px;
+                width: 700px;
                 background: #e2ecec;
                 margin: 0 auto;
                 padding: 10px 17px;
@@ -142,7 +143,7 @@
             }
             #keywords tbody tr td {
                 text-align: center;
-                
+
             }
             #keywords tbody tr td.lalign {
                 text-align: left;
@@ -150,8 +151,10 @@
         </style>
     </head>
     <body>
+
         <div id="wrapper">
-            <table id="keywords" cellspacing="0" cellpadding="0">
+            
+            <table id="keywords" cellspacing="0" cellpadding="0" width="100">
 
                 <thead >
                     <tr>
@@ -159,22 +162,21 @@
                         <th>Kezdés</th>
                         <th>Terem</th>
                         <th>Szék</th>
+                        <th>Ár</th>
                         <th>QR Kód</th>
 
                     </tr>
                 </thead>
                 <tbody>
                     <tr class="lalign" th:each="ticket : ${tickets}">
-                        <td th:text="${ticket.screening.movie.title}">Id</td>
-                        <td th:text="${ticket.screening.time}">Id</td>
-                        <td th:text="${ticket.screening.room.roomNumber}">Id</td>
-                        <td th:text="${ticket.chair.rowOfChair}+${ticket.chair.columnOfChair}">Chair</td>
+                        <td th:text="${ticket.screening.movie.title}">Film</td>
+                        <td th:text="${ticket.screening.time}">Kezdés</td>
+                        <td th:text="${ticket.screening.room.roomNumber}">Terem</td>
+                        <td th:text="${ticket.chair.rowOfChair}+${ticket.chair.columnOfChair}">Szék</td>
+                        <td th:text="${ticket.price}+'Ft'">Ár</td>
+                        <td><img th:src="${'http://api.qrserver.com/v1/create-qr-code/?color=FFFFFF&amp;bgcolor=000000&amp;data=' + qrtitle + '%0ATicket+ID%3A+' + ticket.id + '%0AKezd%C3%A9s%3A+' + ticket.screening.time+ '%0ATerem%3A+' + ticket.chair.room.roomNumber+'%0A%C3%81r%3A+'+ticket.price+'+Ft'+ '%0ASz%C3%A9k%3A+'+ ticket.chair.rowOfChair + ticket.chair.columnOfChair + '&amp;qzone=1&amp;margin=0&amp;size=150x150&amp;ecc=L'}" alt="qr code" /></td>
 
-<td><img th:src="${'http://api.qrserver.com/v1/create-qr-code/?color=FFFFFF&amp;bgcolor=000000&amp;data=' + 'FILMCIM' + '%0ATerem%3A+' + ticket.chair.room.roomNumber + '%0ASz%C3%A9k%3A+' + ticket.chair.rowOfChair + ticket.chair.columnOfChair + '%0ATicket+ID%3A+' + ticket.id + '%0AKezd%C3%A9s%3A+' + ticket.screening.time + '&amp;qzone=1&amp;margin=0&amp;size=150x150&amp;ecc=L'}" alt="qr code" /></td>
-<!--                <img th:src="'http://api.qrserver.com/v1/create-qr-code/?color=000000&amp;bgcolor=FFFFFF&amp;data=ezt+Zoli+megoldja+okosba&amp;qzone=1&amp;margin=0&amp;size=150x150&amp;ecc=L'" alt="qr code" />-->
-<!--                                                        <td th:text="${'http://api.qrserver.com/v1/create-qr-code/?color=FFFFFF&amp;bgcolor=000000&amp;data=' + ticket.screening.movie.title + '%0ATerem%3A+' + ticket.chair.room.roomNumber + '%0ASz%C3%A9k%3A+' + ticket.chair.rowOfChair + ticket.chair.columnOfChair + '%0ATicket+ID%3A+' + ticket.id + '%0AKezd%C3%A9s%3A+' + ticket.screening.time + '&amp;qzone=1&amp;margin=0&amp;size=400x400&amp;ecc=L'}"></td>-->
-    
-            </tr>
+                    </tr>
                 </tbody>
             </table>
 
