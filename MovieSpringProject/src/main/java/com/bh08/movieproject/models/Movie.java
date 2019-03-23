@@ -77,7 +77,7 @@ public class Movie implements Serializable {
 
     @Override
     public String toString() {
-        return "Movie{" + "title=" + title + '}';
+        return "Jegyfoglalás a(z) " + title + " című filmre.";
     }
     
     

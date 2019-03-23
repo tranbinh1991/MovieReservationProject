@@ -7,6 +7,8 @@ package com.bh08.movieproject.models;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import static java.time.temporal.TemporalQueries.localDate;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -56,6 +58,7 @@ public class Screening implements Serializable {
     
     @Column(nullable = false)
     private LocalDateTime time;
+   
     
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "screening", fetch = FetchType.EAGER)
     private List<Ticket> ticketList;
