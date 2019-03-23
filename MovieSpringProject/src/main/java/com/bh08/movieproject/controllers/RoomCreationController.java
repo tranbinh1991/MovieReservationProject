@@ -59,7 +59,7 @@ public class RoomCreationController {
                 room.setColumnCount(Integer.parseInt(roomCreationFormData.getColumnCount()));
                 room.setRowCount(Integer.parseInt(roomCreationFormData.getRowCount()));
                 roomService.saveRoom(room);
-                chairService.saveChairsToRoom(room);
+                chairService.generateChairsForRoom(room);
                 model.addAttribute("successMessage", "Sikeres mentés!");
                 return createRoom(model);
             } else {

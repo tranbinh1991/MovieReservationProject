@@ -109,7 +109,7 @@ public class MailsendingController {
         }
         try {
             finalFilename = util.createPdf("listoftickets", data);
-            mailSendingService.sendmail(userService.findById(sessionService.getUserId()), finalFilename);
+            mailSendingService.sendMail(userService.findById(sessionService.getUserId()), finalFilename);
         } catch (Exception ex) {
             Logger.getLogger(MailsendingController.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -20,6 +20,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 /**
@@ -28,8 +29,11 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class MailSendingService {
+    
+    @Value("${bhcinema.mail.attachmentpath}đ")
+    private String attachmentPath;
 
-    public void sendmail(User user, String finalFileName) throws AddressException, MessagingException, IOException {
+    public void sendMail(User recipient, String attachmentFileName) throws AddressException, MessagingException, IOException {
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
@@ -45,9 +49,9 @@ public class MailSendingService {
         Message msg = new MimeMessage(session);
         msg.setFrom(new InternetAddress("nezunkmintamoziban@gmail.com", false));
 
-        msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(user.getEmail()));
+        msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipient.getEmail()));
         msg.setSubject("Nézünkmintamoziban jegyfoglaló visszaigazolás");
-        msg.setContent("Kedves" + user.getEmail() + "<br/>"+ "<br/>"
+        msg.setContent("Kedves" + recipient.getEmail() + "<br/>"+ "<br/>"
                 
                 +"Köszönjük, hogy használtad szolgáltatásainkat!" + "<br/>"
                 +"A csatolmányban találod az általad lefoglalt jegyek részleteit" + "<br/>" + "<br/>"
@@ -56,7 +60,24 @@ public class MailSendingService {
                 , "text/html");
         msg.setSentDate(new Date());
         
-        StringBuffer emailMessage = new StringBuffer(user.getEmail());
+        StringBuffer emailMessage = createMessageBody(recipient);
+
+        MimeBodyPart messageBodyPart = new MimeBodyPart();
+        messageBodyPart.setContent("Kedves "+emailMessage, "text/html");
+
+        Multipart multipart = new MimeMultipart();
+        multipart.addBodyPart(messageBodyPart);
+        MimeBodyPart attachPart = new MimeBodyPart();
+
+        attachPart.attachFile(attachmentPath+attachmentFileName);
+        multipart.addBodyPart(attachPart);
+        msg.setContent(multipart);
+        Transport.send(msg);
+
+    }
+
+    private StringBuffer createMessageBody(User recipient) {
+        StringBuffer emailMessage = new StringBuffer(recipient.getEmail());
         emailMessage.append("<br/>");
         emailMessage.append("<br/>");
         emailMessage.append("Köszönjük, hogy használtad szolgáltatásainkat!");
@@ -69,18 +90,6 @@ public class MailSendingService {
         emailMessage.append("<br/>");
         emailMessage.append("<br/>");
         emailMessage.append("A nézünkmintamoziban csapata");
-
-        MimeBodyPart messageBodyPart = new MimeBodyPart();
-        messageBodyPart.setContent("Kedves "+emailMessage, "text/html");
-
-        Multipart multipart = new MimeMultipart();
-        multipart.addBodyPart(messageBodyPart);
-        MimeBodyPart attachPart = new MimeBodyPart();
-
-        attachPart.attachFile("C:\\Workspace\\MovieProject\\MovieSpringProject\\src\\main\\resources\\static\\tickets\\"+finalFileName);
-        multipart.addBodyPart(attachPart);
-        msg.setContent(multipart);
-        Transport.send(msg);
-
+        return emailMessage;
     }
 }

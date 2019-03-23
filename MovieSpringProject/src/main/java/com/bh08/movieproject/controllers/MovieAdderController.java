@@ -64,13 +64,8 @@ public class MovieAdderController {
             @Valid @ModelAttribute("movieCreationFormData") MovieCreationFormData movieCreationFormData, BindingResult bindingResult) {
         if (!bindingResult.hasErrors()) {
             Movie movie = new Movie();
-            Director director;
-            if (directorService.findByName(movieCreationFormData.getDirector()).isEmpty()) {
-                director = new Director();
-                director.setName(movieCreationFormData.getDirector());
-            } else {
-                director = directorService.findByName(movieCreationFormData.getDirector()).get(0);
-            }
+            
+            Director director = getDirectorObject(movieCreationFormData);
 
             String title = movieCreationFormData.getTitle();
             movie.setTitle(title);
@@ -103,22 +98,33 @@ public class MovieAdderController {
         return showMovieAdderPage(model);
     }
 
+    private Director getDirectorObject(MovieCreationFormData movieCreationFormData) {
+        Director director;
+        if (directorService.findByName(movieCreationFormData.getDirector()).isEmpty()) {
+            director = new Director();
+            director.setName(movieCreationFormData.getDirector());
+        } else {
+            director = directorService.findByName(movieCreationFormData.getDirector()).get(0);
+        }
+        return director;
+    }
+
     private List<Actor> processActors(MovieCreationFormData movieCreationFormData, Movie movie) {
         List<Actor> actorList = new ArrayList<>();
         String[] actorData = {movieCreationFormData.getActor1(), movieCreationFormData.getActor2(),
             movieCreationFormData.getActor3(), movieCreationFormData.getActor4(),
             movieCreationFormData.getActor5(), movieCreationFormData.getActor6()};
-        for (int i = 0; i < actorData.length; i++) {
-            if (!actorData[i].isEmpty()) {
-                if (actorService.isActorPresentInDatabase(actorData[i])) {
-                    Actor actor = actorService.findByName(actorData[i]).get(0);
+        for (String actorData1 : actorData) {
+            if (!actorData1.isEmpty()) {
+                if (actorService.isActorPresentInDatabase(actorData1)) {
+                    Actor actor = actorService.findByName(actorData1).get(0);
                     List<Movie> movieList = actor.getMovieList();
                     movieList.add(movie);
                     actor.setMovieList(movieList);
                     actorList.add(actor);
                 } else {
                     Actor actor = new Actor();
-                    actor.setName(actorData[i]);
+                    actor.setName(actorData1);
                     actorList.add(actor);
                     List<Movie> movieList = new ArrayList<>();
                     movieList.add(movie);

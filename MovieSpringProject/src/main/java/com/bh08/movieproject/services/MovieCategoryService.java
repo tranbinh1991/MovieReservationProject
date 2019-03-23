@@ -6,10 +6,10 @@
 package com.bh08.movieproject.services;
 
 import com.bh08.movieproject.daos.MovieCategoryRepository;
-import com.bh08.movieproject.daos.UserRepository;
-import com.bh08.movieproject.models.MovieCategory;
 import com.bh08.movieproject.models.Category;
+import com.bh08.movieproject.models.MovieCategory;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +22,11 @@ public class MovieCategoryService {
 
     @Autowired
     private MovieCategoryRepository movieCategoryRepository;
+    
+    @PostConstruct
+    private void initCategories() {
+        // TODO: generate categories on application start
+    }
 
     public MovieCategory saveMovieCategory(MovieCategory movieCategory) {
         return movieCategoryRepository.saveAndFlush(movieCategory);

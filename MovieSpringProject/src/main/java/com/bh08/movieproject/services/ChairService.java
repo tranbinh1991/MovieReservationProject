@@ -19,7 +19,7 @@ public class ChairService {
         return repository.saveAndFlush(chair);
     }
 
-    public void saveChairsToRoom(Room room) {
+    public void generateChairsForRoom(Room room) {
         for (int i = 1; i <= room.getColumnCount(); i++) {
             for (int j = 1; j <= room.getRowCount(); j++) {
                 Chair chair = new Chair();

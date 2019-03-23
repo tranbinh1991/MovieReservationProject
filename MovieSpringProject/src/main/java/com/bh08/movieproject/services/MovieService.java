@@ -1,16 +1,13 @@
 package com.bh08.movieproject.services;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.bh08.movieproject.daos.MovieRepository;
 import com.bh08.movieproject.models.Movie;
-import com.bh08.movieproject.models.MovieCategory;
 import com.bh08.movieproject.models.Screening;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service
 public class MovieService {
@@ -56,16 +53,16 @@ public class MovieService {
     }
     
     private boolean doesMovieHaveFutureScreenings(Movie movie) {
+
         List<Screening> screeningList = movie.getScreenings();
         if (screeningList.isEmpty()) {
             return false;
         }
-        for (Screening screening : screeningList) {
-            if (screening.getTime().isAfter(LocalDateTime.now()) && !screening.isOccupied()) {
-                return true;
-            }
-        }
-        return false;
+        return screeningList.stream().anyMatch(
+                (screening) -> (screening.getTime().isAfter(LocalDateTime.now())
+                        && 
+                !screening.isOccupied())
+        );
     }
 
 }
