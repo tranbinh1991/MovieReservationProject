@@ -167,6 +167,8 @@
                     <tr class="lalign" th:each="ticket : ${tickets}">
                         <td th:text="${ticket.screening.movie.title}">Id</td>
                         <td th:text="${ticket.screening.time}">Id</td>
+                        
+                        
                         <td th:text="${ticket.screening.room.roomNumber}">Id</td>
                         <td th:text="${ticket.chair.rowOfChair}+${ticket.chair.columnOfChair}">Chair</td>
 
