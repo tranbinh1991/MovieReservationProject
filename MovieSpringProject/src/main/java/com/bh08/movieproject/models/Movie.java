@@ -49,7 +49,6 @@ public class Movie implements Serializable {
     @Column(nullable = false)
     private int movieLength;
     
-    //@Column(nullable = false)
     @JoinColumn(name = "director_id")
     @ManyToOne (cascade = CascadeType.PERSIST)
     private Director director;

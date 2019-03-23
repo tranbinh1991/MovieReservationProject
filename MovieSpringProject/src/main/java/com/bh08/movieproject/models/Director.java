@@ -45,7 +45,5 @@ public class Director implements Serializable {
     
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "director", fetch = FetchType.EAGER)
     private List<Movie> movieList;
-
-   
     
 }
