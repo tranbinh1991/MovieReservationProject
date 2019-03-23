@@ -169,12 +169,14 @@
                 </thead>
                 <tbody>
                     <tr class="lalign" th:each="ticket : ${tickets}">
+
                         <td th:text="${ticket.screening.movie.title}">Film</td>
                         <td th:text="${ticket.screening.time}">Kezdés</td>
                         <td th:text="${ticket.screening.room.roomNumber}">Terem</td>
                         <td th:text="${ticket.chair.rowOfChair}+${ticket.chair.columnOfChair}">Szék</td>
                         <td th:text="${ticket.price}+'Ft'">Ár</td>
                         <td><img th:src="${'http://api.qrserver.com/v1/create-qr-code/?color=FFFFFF&amp;bgcolor=000000&amp;data=' + qrtitle + '%0ATicket+ID%3A+' + ticket.id + '%0AKezd%C3%A9s%3A+' + ticket.screening.time+ '%0ATerem%3A+' + ticket.chair.room.roomNumber+'%0A%C3%81r%3A+'+ticket.price+'+Ft'+ '%0ASz%C3%A9k%3A+'+ ticket.chair.rowOfChair + ticket.chair.columnOfChair + '&amp;qzone=1&amp;margin=0&amp;size=150x150&amp;ecc=L'}" alt="qr code" /></td>
+
 
                     </tr>
                 </tbody>
