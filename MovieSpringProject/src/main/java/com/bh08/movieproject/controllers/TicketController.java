@@ -61,6 +61,7 @@ public class TicketController {
         sessionService.getSeatReservationDtos().clear();
         String[] array = ticketBookingId.split("\\,");
         Screening screening= screeningService.findById(Long.parseLong(array[0]));
+        
         TicketsCreationDto ticketsCreationDto = new TicketsCreationDto();
         for (int i = 0; i < (array.length-1); i++) {
             String[] splittedNumbers = array[i+1].split("\\-");

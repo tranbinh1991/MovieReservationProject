@@ -37,6 +37,13 @@ and open the template in the editor.
         
         <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
         
+        <style>
+            .movieImage {
+                width: 600px;
+                height: 1000px;
+            }
+        </style>
+        
     </head>
 
     <nav class="navbar navbar-expand-sm bg-danger navbar-dark">
@@ -75,7 +82,7 @@ and open the template in the editor.
 
 
 
-    <tr><td rowspan='6'><img th:src="@{${movie.imageLink}}" th:name="${movie.id}"/></td>
+    <tr><td rowspan='6'><img class="movieImage" th:src="@{${movie.imageLink}}" th:name="${movie.id}"/></td>
 
         <td valign="top" th:text="${movie.description}" ></td>
     </tr>

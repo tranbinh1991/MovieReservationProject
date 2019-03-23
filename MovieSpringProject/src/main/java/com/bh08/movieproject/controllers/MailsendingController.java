@@ -50,7 +50,7 @@ public class MailsendingController {
     
     @Autowired
     private MailSendingService mailSendingService;
-
+    
     @Autowired
     private TicketService ticketService;
     
@@ -68,7 +68,6 @@ public class MailsendingController {
     
     @Autowired
     private PdfGenaratorUtil util;
-   
     
     @RequestMapping(value = "successfulticketbooking", method = RequestMethod.POST)
     public String addNewTickets(@ModelAttribute("ticketCreationFormData") @Valid TicketCreationFormData ticketCreationFormData,
@@ -79,43 +78,43 @@ public class MailsendingController {
         
         String finalFilename;
         
-        
-        
         List<Ticket> ticketList = new ArrayList<>();
         
-       
-            for (int i = 0; i < sessionService.getSeatReservationDtos().size(); i++) {
-                Ticket ticket = new Ticket();
-                
-                ticket.setChair(chairService.findById(sessionService.getSeatReservationDtos().get(i).getChairId()));
-                ticket.setScreening(screeningService.findById(sessionService.getSeatReservationDtos().get(i).getScreeningId()));
-                ticket.setUser(userService.findById(sessionService.getUserId()));
-                if(chosenTicketTypes[i].equals("student")){
-                    ticket.setStudent(true);
-                }else
-                    ticket.setStudent(false);
-                
-                ticket.setTicketPrice();
-                ticketService.saveTicket(ticket);
-                ticketList.add(ticket);
+        for (int i = 0; i < sessionService.getSeatReservationDtos().size(); i++) {
+            Ticket ticket = new Ticket();
+            
+            ticket.setChair(chairService.findById(sessionService.getSeatReservationDtos().get(i).getChairId()));
+            ticket.setScreening(screeningService.findById(sessionService.getSeatReservationDtos().get(i).getScreeningId()));
+            ticket.setUser(userService.findById(sessionService.getUserId()));
+            if (chosenTicketTypes[i].equals("student")) {
+                ticket.setStudent(true);
+            } else {
+                ticket.setStudent(false);
             }
             
-            String QRtitle = ticketList.get(0).getScreening().getMovie().getTitle().replaceAll(" ", "+");
-            
-            Map<Object, Object> data = new HashMap<>();
-            data.put("tickets", ticketList);
-            data.put("qrtitle", QRtitle);
-            
-            try {
-               finalFilename = util.createPdf("listoftickets", data);
-               mailSendingService.sendmail(userService.findById(sessionService.getUserId()), finalFilename);
-            } catch (Exception ex) {
-                Logger.getLogger(MailsendingController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-      
+            ticket.setTicketPrice();
+            ticketService.saveTicket(ticket);
+            ticketList.add(ticket);
+        }
+        
+        String QRtitle = ticketList.get(0).getScreening().getMovie().getTitle().replaceAll(" ", "+");
+        
+        Map<Object, Object> data = new HashMap<>();
+        data.put("tickets", ticketList);
+        data.put("qrtitle", QRtitle);
+        Screening screening = ticketList.get(0).getScreening();
+        if (screeningService.isScreeningOccupied(ticketList.get(0).getScreening(), ticketList.size())) {            
+            screening.setOccupied(true);
+            screeningService.saveScreening(screening);
+        }
+        try {
+            finalFilename = util.createPdf("listoftickets", data);
+            mailSendingService.sendmail(userService.findById(sessionService.getUserId()), finalFilename);
+        } catch (Exception ex) {
+            Logger.getLogger(MailsendingController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         return "successfulticketbooking.html";
     }
-    
     
 }

@@ -42,4 +42,8 @@ public class ScreeningService {
     public List<Screening> findByMovieOrderByTime(Movie movie) {
         return screeningRepository.findByMovieOrderByTime(movie);
     }
+    
+    public boolean isScreeningOccupied(Screening screening, int numberOfNewTickets) {
+        return (screening.getTicketList().size() + numberOfNewTickets == (screening.getRoom().getColumnCount() * screening.getRoom().getRowCount()));
+    } 
 }
