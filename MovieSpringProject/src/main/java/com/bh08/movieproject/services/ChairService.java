@@ -25,17 +25,17 @@ public class ChairService {
                 Chair chair = new Chair();
                 chair.setRoom(room);
                 chair.setColumnOfChair(i);
-                chair.setRowOfChair((char)(64+j));
+                chair.setRowOfChair((char) (64 + j));
                 saveChair(chair);
             }
         }
     }
-    
-    public  Chair findByRowOfChairAndColumnOfChairAndRoom(char rowOfChair, int columnOfChair, Room room){
+
+    public Chair findByRowOfChairAndColumnOfChairAndRoom(char rowOfChair, int columnOfChair, Room room) {
         return repository.findByRowOfChairAndColumnOfChairAndRoom(rowOfChair, columnOfChair, room);
     }
-    
-            public Chair findById(Long chairId){
+
+    public Chair findById(Long chairId) {
         return repository.findFirstById(chairId);
     }
 
