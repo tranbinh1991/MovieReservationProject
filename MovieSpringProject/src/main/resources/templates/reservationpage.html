@@ -109,13 +109,17 @@
                     <button id="click">Submit</button>
 
                     <script type="text/javascript" th:inline="javascript">
-                        var numberColumn = [[${numberColumn}
+                        var numberColumn = [[${numberColumn
+                        }
                         ]];
-                                var numberRow = [[${numberRow}
+                                var numberRow = [[${numberRow
+                                }
                                 ]];
-                                var numbersColumnOfChair = [[${numbersColumnOfChair}
+                                var numbersColumnOfChair = [[${numbersColumnOfChair
+                                }
                                 ]];
-                                var numbersRowOfChair = [[${numbersRowOfChair}
+                                var numbersRowOfChair = [[${numbersRowOfChair
+                                }
                                 ]];
 
                         $(function () {
@@ -166,16 +170,16 @@
 
                             var Seats = [];
 
-                            for (var i = 0, max = numberColumn; i < max; i++) {
+                            for (var i = 0, max = numberRow; i < max; i++) {
                                 Seats.push([]);
 
                             }
 
-                            Seats[0][numberRow - 1] = 0;
+                            Seats[0][numberColumn - 1] = 0;
 
                             for (var i = 0, max = numbersColumnOfChair.length; i < max; i++) {
-                                var column = numbersRowOfChair[i]-1;
-                                var row = numbersColumnOfChair[i]-1;
+                                var column = numbersRowOfChair[i] - 1;
+                                var row = numbersColumnOfChair[i] - 1;
                                 Seats[column][row] = 2;
 
                             }
@@ -191,10 +195,10 @@
                             $('.' + settings.seatCss).on('click', function () {
 
                                 if ($(this).hasClass(settings.selectedSeatCss)) {
-                                    alert('This seat is already reserved');
+                                    alert('Ez a szék már foglalt');
                                 } else if ($(this).hasClass(settings.unavaliableSeatCss))
                                 {
-                                    alert('Sorry!!!This is unavailable Seats');
+                                    alert('Elnézést kérünk. Jelenleg ez a szék nem választható');
                                 } else
                                 {
                                     if ($(this).hasClass(settings.selectingSeatCss))
@@ -217,7 +221,7 @@
                                         var SeatNo = $(this).closest("li").attr("title");
                                         // console.log(traverse.closest("a"));
                                         //var SeatNo=$(this).closest("a").attr("title");
-                                        $('<div class="sitting" title="' + SeatNo + '">SeatNoasd:>' + SeatNo + '</div>').appendTo('#order_place');
+//                                        $('<div class="sitting" title="' + SeatNo + '">SeatNoasd:>' + SeatNo + '</div>').appendTo('#order_place');
 
 
                                     }
@@ -225,18 +229,20 @@
 
                             });
                             $("#click").click(function () {
-                                var realvalues = [];
-                                $('li.selectingSeat').each(function (i) {
-                                    realvalues[i] = $(this).attr("href");
-                                });
-                                //realvalues = realvalues.join('>');
-                                //location.href ="http://localhost:8080/mymovie/SeatBook.action?cseatsWanted="+realvalues;
-
-                                window.location = 'ticketpage?id=' + + [[${screening.id}
-                                ]] + "," + realvalues;
-                                //window.history.pushState({push: this.push}, '', '/ticketpage?id='+ [[${screening.id}]]+"," + realvalues);
-                                
+                            var realvalues = [];
+                                    $('li.selectingSeat').each(function (i) {
+                            realvalues[i] = $(this).attr("href");
                             });
+                                    if (realvalues.length == 0){
+                            alert("Kérlek válassz ki legalább egy széket!")
+
+                            } else{
+                            window.location = 'ticketpage?id=' + + [[${screening.id}
+                            ]] + "," + realvalues;
+                            }
+
+                            }
+                            );
 
 
 

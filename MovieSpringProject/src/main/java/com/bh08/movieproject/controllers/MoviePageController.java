@@ -47,10 +47,19 @@ public class MoviePageController {
         Movie movie = movieService.findById(movieId);
         List<Screening> screeningList = screeningService.findByMovieOrderByTime(movie);
         Iterator<Screening> screeningIterator = screeningList.iterator();
+        Iterator<Screening> screeningIterator2 = screeningList.iterator();
         while (screeningIterator.hasNext()) {
             Screening s = screeningIterator.next();
             if (s.getTime().isBefore(LocalDateTime.now())) {
                 screeningIterator.remove();
+                
+            }
+
+        }
+        while (screeningIterator2.hasNext()) {
+            Screening s = screeningIterator2.next();    
+            if ((s.getRoom().getColumnCount()*s.getRoom().getRowCount())==s.getTicketList().size()){
+                screeningIterator2.remove();
             }
         }
         model.addAttribute("movie", movie);

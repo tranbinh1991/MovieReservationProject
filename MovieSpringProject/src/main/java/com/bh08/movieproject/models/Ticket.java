@@ -40,24 +40,31 @@ public class Ticket implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
-    
+
     private BigDecimal price;
     //@Column(nullable = false)
     @JoinColumn(name = "screening_id", referencedColumnName = "id")
-    @ManyToOne (cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private Screening screening;
-    
+
     @JoinColumn(name = "user_id", referencedColumnName = "id")
-    @ManyToOne (cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private User user;
-    
-    @OneToOne (cascade = {CascadeType.ALL})
+
+    @OneToOne(cascade = {CascadeType.ALL})
     private Chair chair;
-    
+
     private boolean student;
 
-    public BigDecimal getPrice() {
-        return (this.student ? BigDecimal.valueOf(1200): BigDecimal.valueOf(1550));
+//    public BigDecimal getPrice() {
+//        return (this.student ? BigDecimal.valueOf(1200): BigDecimal.valueOf(1550));
+//    }
+    public void setTicketPrice() {
+        if (this.isStudent() == true) {
+            this.setPrice(BigDecimal.valueOf(1200));
+        } else {
+            this.setPrice(BigDecimal.valueOf(1550));
+        }
     }
-    
+
 }

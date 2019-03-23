@@ -17,6 +17,7 @@ import com.bh08.movieproject.services.ScreeningService;
 import com.bh08.movieproject.services.SessionService;
 import com.bh08.movieproject.services.TicketService;
 import com.bh08.movieproject.services.UserService;
+import com.bh08.movieproject.viewmodels.TicketCreationFormData;
 
 
 import java.util.ArrayList;
@@ -57,7 +58,7 @@ public class TicketController {
 
     @RequestMapping(value = "/ticketpage", method = RequestMethod.GET)
     public String showReservationPage(Model model, @RequestParam(value = "id", required = false) String ticketBookingId) {
-        
+        sessionService.getSeatReservationDtos().clear();
         String[] array = ticketBookingId.split("\\,");
         Screening screening= screeningService.findById(Long.parseLong(array[0]));
         TicketsCreationDto ticketsCreationDto = new TicketsCreationDto();
@@ -78,11 +79,6 @@ public class TicketController {
             reservationDto.setChairId(chairService.findByRowOfChairAndColumnOfChairAndRoom(actualCharOfChair, actualNumberOfChair, screening.getRoom()).getId());
             ticket.setScreening(screening);
             reservationDto.setScreeningId(screening.getId());
-            
-            
-           
-            //ticketService.saveTicket(ticket);
-//            System.out.println(ticket);
             ticketsCreationDto.addTicket(ticket);
             sessionService.getSeatReservationDtos().add(reservationDto);
  
@@ -90,28 +86,9 @@ public class TicketController {
 
         model.addAttribute("ticketsCreationDto", ticketsCreationDto);
         model.addAttribute("screening", screening);
+        model.addAttribute("ticketCreationFormData", new TicketCreationFormData());
         
 
         return "ticketpage.html";
     }
-    
-    @RequestMapping(value = "ticketpage", method = RequestMethod.POST)
-    public String addNewTickets(@ModelAttribute("ticketsCreationDto") @Valid TicketsCreationDto ticketsCreationDto,
-            BindingResult bindingResult, Model model) {
-        
-        for (int i = 0; i < sessionService.getSeatReservationDtos().size(); i++) {
-            Ticket ticket = new Ticket();
-            ticket.setChair(chairService.findById(sessionService.getSeatReservationDtos().get(i).getChairId()));
-            ticket.setScreening(screeningService.findById(sessionService.getSeatReservationDtos().get(i).getScreeningId()));
-            ticket.setUser(userService.findById(sessionService.getUserId()));
-            ticketService.saveTicket(ticket);
-        }
-        
-        
-        
-
-        return "successfulticketbooking.html";
-    }
-    
-    
 }
