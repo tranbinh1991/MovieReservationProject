@@ -115,15 +115,19 @@
                 </tr>
 
                 <tr>
-                    <td th:each="movie : ${movielist}">
-                        <table>
-                            <tr>
-                                <td><img th:src="@{${movie.imageLink}}" th:name="${movie.id}" onclick="selectElement(event)"/></td>
-                            </tr>
-                            <tr>
-                                <td><a th:href="@{'/moviepage?id=' + ${movie.id}}" th:text="${movie.title}" align='center' /></td>
-                            </tr>
-                        </table>
+                    <td>
+                        <th:block th:each="movie, row : ${movielist}">
+                            <!-- TODO: move style to a CSS file -->
+                            <table style="display: inline-block; width: 300px">
+                                <tr>
+                                    <td><img th:src="@{${movie.imageLink}}" th:name="${movie.id}" onclick="selectElement(event)"/></td>
+                                </tr>
+                                <tr>
+                                    <td><a th:href="@{'/moviepage?id=' + ${movie.id}}" th:text="${movie.title}" align='center' /></td>
+                                </tr>
+                            </table>
+                            <br th:if="${row.index} % 3 == 2"/>
+                        </th:block>
                     </td>
                 </tr>
 
