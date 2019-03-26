@@ -8,14 +8,12 @@ package com.bh08.movieproject.controllers;
 import com.bh08.movieproject.models.Movie;
 import com.bh08.movieproject.models.Screening;
 import com.bh08.movieproject.services.MovieService;
-
-import com.bh08.movieproject.services.SessionService;
-
 import com.bh08.movieproject.services.ScreeningService;
+import com.bh08.movieproject.services.SessionService;
+import com.bh08.movieproject.services.UserService;
 import java.time.LocalDateTime;
 import java.util.Iterator;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,7 +30,9 @@ public class MoviePageController {
 
     @Autowired
     private MovieService movieService;
-
+    
+    @Autowired
+    private UserService userService;
     
     @Autowired
     private SessionService sessionService;
@@ -43,7 +43,6 @@ public class MoviePageController {
 
     @RequestMapping(value = "/moviepage", method = RequestMethod.GET)
     public String showMoviePage(Model model, @RequestParam(value="id", required=false) Long movieId) {
-        sessionService.getSeatReservationDtos().clear();
         Movie movie = movieService.findById(movieId);
         List<Screening> screeningList = screeningService.findByMovieOrderByTime(movie);
         Iterator<Screening> screeningIterator = screeningList.iterator();
@@ -54,7 +53,7 @@ public class MoviePageController {
                 screeningIterator.remove();                
             }
         }
-        
+        model.addAttribute("userId", sessionService.getUserId());
         model.addAttribute("movie", movie);
         model.addAttribute("screeningList", screeningList);
 

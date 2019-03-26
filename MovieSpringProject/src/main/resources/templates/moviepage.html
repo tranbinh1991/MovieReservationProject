@@ -31,49 +31,40 @@ and open the template in the editor.
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" 
               integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <title>Film adatlap</title>
-        
+
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
+
         <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
-        
+
         <style>
             .movieImage {
                 width: 600px;
                 height: 1000px;
             }
         </style>
-        
+
     </head>
 
-    <nav class="navbar navbar-expand-sm bg-danger navbar-dark">
-        <ul class="navbar-nav">
-
-            <a class="navbar-brand" href="#">Nézünk, mint a moziban
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6n9NvtbN_4KTwJLYyoTgBIs5iRVlXr9stG5iKWKbjlggyfj0u" alt="logo" style="width:40px;">
-            </a>
-
-            <li class="nav-item">
-                <a class="nav-link" href="mainpage">Főoldal</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Mozi adatlap</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="register">Regisztráció</a>
-            </li>
-
-            <form class="navbar-form navbar-left" action="/action_page.php">
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Search">
-
-                    <button type="submit" class="btn btn-info">Keresés</button>
-                </div>
-            </form>
-
-
-        </ul>
-    </nav>
+        <nav class="navbar navbar-expand-sm bg-danger navbar-dark">
+            <ul class="navbar-nav">
+    
+                <a class="navbar-brand" href="mainpage">Nézünk, mint a moziban
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6n9NvtbN_4KTwJLYyoTgBIs5iRVlXr9stG5iKWKbjlggyfj0u" alt="logo" style="width:40px;">
+                </a>    
+                
+                <li class="nav-item"  th:if="${userId}==null">
+                    <a class="nav-link" href="registration">Regisztráció</a>
+                </li>
+    
+                <li class="nav-item"  th:if="${userId}==null">
+                    <a class="nav-link" href="login">Belépés</a>
+                </li>
+    
+    
+            </ul>
+        </nav>
+     
 
     <table border = "2" width = "65%" align = "center" class="table table-dark">
         <body th:object="${movie}">

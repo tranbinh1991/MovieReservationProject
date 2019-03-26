@@ -30,7 +30,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class MailSendingService {
     
-    @Value("${bhcinema.mail.attachmentpath}đ")
+    @Value("${bhcinema.mail.attachmentpath}")
     private String attachmentPath;
 
     public void sendMail(User recipient, String attachmentFileName) throws AddressException, MessagingException, IOException {

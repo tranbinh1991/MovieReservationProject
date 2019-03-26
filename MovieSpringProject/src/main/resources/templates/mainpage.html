@@ -22,7 +22,7 @@
         </script>
 
         <style>
-            img {
+            .mainpagemovieimage {
                 width: 300px;
                 height: 500px;
             }
@@ -120,7 +120,7 @@
                             <!-- TODO: move style to a CSS file -->
                             <table style="display: inline-block; width: 300px">
                                 <tr>
-                                    <td><img th:src="@{${movie.imageLink}}" th:name="${movie.id}" onclick="selectElement(event)"/></td>
+                                    <td><img th:src="@{${movie.imageLink}}" th:name="${movie.id}" class="mainpagemovieimage" onclick="selectElement(event)"/></td>
                                 </tr>
                                 <tr>
                                     <td><a th:href="@{'/moviepage?id=' + ${movie.id}}" th:text="${movie.title}" align='center' /></td>

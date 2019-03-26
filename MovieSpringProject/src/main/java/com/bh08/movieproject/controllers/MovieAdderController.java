@@ -114,17 +114,17 @@ public class MovieAdderController {
         String[] actorData = {movieCreationFormData.getActor1(), movieCreationFormData.getActor2(),
             movieCreationFormData.getActor3(), movieCreationFormData.getActor4(),
             movieCreationFormData.getActor5(), movieCreationFormData.getActor6()};
-        for (String actorData1 : actorData) {
-            if (!actorData1.isEmpty()) {
-                if (actorService.isActorPresentInDatabase(actorData1)) {
-                    Actor actor = actorService.findByName(actorData1).get(0);
+        for (String actorName : actorData) {
+            if (!actorName.isEmpty()) {
+                if (actorService.isActorPresentInDatabase(actorName)) {
+                    Actor actor = actorService.findByName(actorName).get(0);
                     List<Movie> movieList = actor.getMovieList();
                     movieList.add(movie);
                     actor.setMovieList(movieList);
                     actorList.add(actor);
                 } else {
                     Actor actor = new Actor();
-                    actor.setName(actorData1);
+                    actor.setName(actorName);
                     actorList.add(actor);
                     List<Movie> movieList = new ArrayList<>();
                     movieList.add(movie);
